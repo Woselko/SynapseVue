@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseWPF>true</UseWPF>
+        <UseWindowsForms>true</UseWindowsForms>
+        <EnableWindowsTargeting>true</EnableWindowsTargeting>
+        <RootNamespace>SynapseVue.Client.Windows</RootNamespace>
+        <StartupObject>SynapseVue.Client.Windows.Program</StartupObject>
+        <ApplicationIcon>wwwroot\favicon.ico</ApplicationIcon>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Using Include="SynapseVue.Client.Core.Components.Layout" />
+        <Using Include="SynapseVue.Client.Core.Services.Contracts" />
+        <Using Include="SynapseVue.Client.Core.Services" />
+        <Watch Remove="*.scss" />
+        
+        <PackageReference Include="Bit.CodeAnalyzers" Version="8.8.1" PrivateAssets="all" />
+        <PackageReference Include="Bit.SourceGenerators" Version="8.8.1" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.EventLog" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.EventSource" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2420.47" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="8.0.20" />
+        <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2420.47" />
+        <PackageReference Include="Velopack" Version="0.0.359" />
+                <Content Include="..\SynapseVue.Client.Maui\wwwroot\index.html" Link="wwwroot\index.html">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Remove="compilerconfig.json" />
+        <None Include="compilerconfig.json" />
+        <Content Include=".config\dotnet-tools.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\SynapseVue.Client.Core\SynapseVue.Client.Core.csproj" />
+    </ItemGroup>
+
+    <Target Name="BeforeBuildTasks" BeforeTargets="BeforeBuild">
+        <Exec Condition="!Exists('node_modules/.bin/sass')" Command="npm install sass@1.72.0 --no-save --prefix $(MSBuildProjectDirectory)" StandardOutputImportance="high" StandardErrorImportance="high" />
+        <Exec Command="node_modules/.bin/sass .:. --style compressed --load-path=. --update" StandardOutputImportance="high" StandardErrorImportance="high" LogStandardErrorAsError="true" />
+    </Target>
+
+</Project>
