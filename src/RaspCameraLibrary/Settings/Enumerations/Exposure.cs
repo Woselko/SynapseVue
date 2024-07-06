@@ -1,7 +1,7 @@
-using RaspCameraLibrary.Helpers;
+using SynapseVue.RaspCameraLibrary.Helpers;
 using System.Text.Json.Serialization;
 
-namespace RaspCameraLibrary.Settings.Enumerations;
+namespace SynapseVue.RaspCameraLibrary.Settings.Enumerations;
 
 /// <summary>
 /// Changing the exposure profile should not affect the overall exposure of an image, but the sport mode will tend to prefer shorter exposure times and larger gains to achieve the same net result.

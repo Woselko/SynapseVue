@@ -1,7 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace RaspCameraLibrary.Helpers;
+namespace SynapseVue.RaspCameraLibrary.Helpers;
 
 /// <summary>
 /// Enumeration JsonConverter Helper.

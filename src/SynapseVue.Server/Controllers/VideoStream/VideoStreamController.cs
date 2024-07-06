@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SynapseVue.Client.Core.Controllers.VideoStream;
 using SynapseVue.Shared.Dtos.Categories;
+using SynapseVue.RaspCameraLibrary;
+using System.Diagnostics;
 
 namespace SynapseVue.Server.Controllers.VideoStream;
 
@@ -8,9 +10,5 @@ namespace SynapseVue.Server.Controllers.VideoStream;
 [ApiController, AllowAnonymous]
 public partial class VideoStreamController : AppControllerBase, IVideoStreamController
 {
-    [HttpGet]
-    public async Task<int> GetVideoStream(CancellationToken cancellationToken)
-    {
-        return 13;
-    }
+    
 }

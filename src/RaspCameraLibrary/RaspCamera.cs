@@ -1,7 +1,7 @@
-﻿using RaspCameraLibrary.Helpers;
+﻿using SynapseVue.RaspCameraLibrary.Helpers;
 using System.Diagnostics;
 
-namespace RaspCameraLibrary;
+namespace SynapseVue.RaspCameraLibrary;
 
 /// <summary>
 /// RaspCamera base class for binaries

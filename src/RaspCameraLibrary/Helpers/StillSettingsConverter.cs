@@ -1,10 +1,10 @@
-using RaspCameraLibrary.Settings;
-using RaspCameraLibrary.Settings.Encodings;
+using SynapseVue.RaspCameraLibrary.Settings;
+using SynapseVue.RaspCameraLibrary.Settings.Encodings;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace RaspCameraLibrary.Helpers;
+namespace SynapseVue.RaspCameraLibrary.Helpers;
 
 /// <summary>
 /// StillSettings JsonConverter Helper.

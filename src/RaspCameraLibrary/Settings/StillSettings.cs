@@ -1,10 +1,10 @@
-using RaspCameraLibrary.Helpers;
-using RaspCameraLibrary.Settings.Encodings;
-using RaspCameraLibrary.Settings.Enumerations;
-using RaspCameraLibrary.Settings.Types;
+using SynapseVue.RaspCameraLibrary.Helpers;
+using SynapseVue.RaspCameraLibrary.Settings.Encodings;
+using SynapseVue.RaspCameraLibrary.Settings.Enumerations;
+using SynapseVue.RaspCameraLibrary.Settings.Types;
 using System.Text.Json.Serialization;
 
-namespace RaspCameraLibrary.Settings;
+namespace SynapseVue.RaspCameraLibrary.Settings;
 
 /// <summary>
 /// Parameters for libcamera-still

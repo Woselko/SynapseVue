@@ -1,7 +1,7 @@
-using RaspCameraLibrary.Helpers;
+using SynapseVue.RaspCameraLibrary.Helpers;
 using System.Text.Json.Serialization;
 
-namespace RaspCameraLibrary.Settings.Enumerations;
+namespace SynapseVue.RaspCameraLibrary.Settings.Enumerations;
 
 /// <summary>
 /// Sets the metering mode of the AEC/AGC algorithm

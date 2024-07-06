@@ -560,4 +560,7 @@ Please confirm your email by clicking on the link.</value>
     <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+    <data name="Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
 </root>

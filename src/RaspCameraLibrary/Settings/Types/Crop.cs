@@ -1,6 +1,6 @@
-using RaspCameraLibrary.Helpers;
+using SynapseVue.RaspCameraLibrary.Helpers;
 
-namespace RaspCameraLibrary.Settings.Types;
+namespace SynapseVue.RaspCameraLibrary.Settings.Types;
 
 /// <summary>
 /// Crop

@@ -576,4 +576,7 @@
     <data name="NotFoundText" xml:space="preserve">
     <value>Il n'y a rien ici.</value>
   </data>
+    <data name="Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
 </root>

@@ -1,10 +1,10 @@
-using RaspCameraLibrary.Settings;
-using RaspCameraLibrary.Settings.Codecs;
+using SynapseVue.RaspCameraLibrary.Settings;
+using SynapseVue.RaspCameraLibrary.Settings.Codecs;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace RaspCameraLibrary.Helpers;
+namespace SynapseVue.RaspCameraLibrary.Helpers;
 
 /// <summary>
 /// VideoSettings JsonConverter Helper.

@@ -1,4 +1,4 @@
-namespace RaspCameraLibrary.Helpers;
+namespace SynapseVue.RaspCameraLibrary.Helpers;
 
 /// <summary>
 /// An attribute to mark a property as an argument to add in start info.

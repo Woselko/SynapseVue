@@ -1,12 +1,12 @@
-using RaspCameraLibrary.Helpers;
+using SynapseVue.RaspCameraLibrary.Helpers;
 using System.Text.Json.Serialization;
 
-namespace RaspCameraLibrary.Settings.Enumerations;
+namespace SynapseVue.RaspCameraLibrary.Settings.Enumerations;
 
 /// <summary>
 /// Specifies the autofocus mode to use
 /// </summary>
-using RaspCameraLibrary.Helpers; // Add this line
+using SynapseVue.RaspCameraLibrary.Helpers; // Add this line
 
 [JsonConverter(typeof(RaspCameraLibrary.Helpers.EnumerationConverter<AutofocusMode, string>))]
 public class AutofocusMode(string Value, string? Description = null) : RaspCameraLibrary.Helpers.Enumeration<string>(Value, Description)

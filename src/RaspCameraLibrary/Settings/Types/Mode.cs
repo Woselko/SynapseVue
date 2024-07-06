@@ -1,7 +1,7 @@
-using RaspCameraLibrary.Helpers;
-using RaspCameraLibrary.Settings.Enumerations;
+using SynapseVue.RaspCameraLibrary.Helpers;
+using SynapseVue.RaspCameraLibrary.Settings.Enumerations;
 
-namespace RaspCameraLibrary.Settings.Types;
+namespace SynapseVue.RaspCameraLibrary.Settings.Types;
 
 /// <summary>
 /// Camera mode

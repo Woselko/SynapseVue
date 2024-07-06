@@ -1,4 +1,4 @@
-namespace RaspCameraLibrary.Settings.Types;
+namespace SynapseVue.RaspCameraLibrary.Settings.Types;
 
 /// <summary>
 /// Camera connected

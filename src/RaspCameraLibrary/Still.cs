@@ -1,8 +1,8 @@
-using RaspCameraLibrary.Settings;
-using RaspCameraLibrary.Settings.Types;
+using SynapseVue.RaspCameraLibrary.Settings;
+using SynapseVue.RaspCameraLibrary.Settings.Types;
 using System.Diagnostics;
 
-namespace RaspCameraLibrary;
+namespace SynapseVue.RaspCameraLibrary;
 
 /// <summary>
 /// libcamera-still Wrapper

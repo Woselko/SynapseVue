@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace RaspCameraLibrary.Helpers;
+namespace SynapseVue.RaspCameraLibrary.Helpers;
 
 /// <summary>
 /// Class to automatically generate arguments for start info.

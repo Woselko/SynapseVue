@@ -1,8 +1,8 @@
 ﻿// using System.Diagnostics;
-// using RaspCameraLibrary.Settings;
-// using RaspCameraLibrary.Settings.Enumerations;
-// using RaspCameraLibrary.Settings.Codecs;
-// using RaspCameraLibrary.Settings.Types;
-// using RaspCameraLibrary;
+// using SynapseVue.RaspCameraLibrary.Settings;
+// using SynapseVue.RaspCameraLibrary.Settings.Enumerations;
+// using SynapseVue.RaspCameraLibrary.Settings.Codecs;
+// using SynapseVue.RaspCameraLibrary.Settings.Types;
+// using SynapseVue.RaspCameraLibrary;
 
 // Console.WriteLine("RaspCamera");

@@ -1,8 +1,8 @@
-using RaspCameraLibrary.Settings.Types;
+using SynapseVue.RaspCameraLibrary.Settings.Types;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace RaspCameraLibrary;
+namespace SynapseVue.RaspCameraLibrary;
 
 /// <summary>
 /// libcamera-hello Wrapper

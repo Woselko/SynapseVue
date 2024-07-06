@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace RaspCameraLibrary.Helpers;
+namespace SynapseVue.RaspCameraLibrary.Helpers;
 
 /// <summary>
 /// Custom enumeration.

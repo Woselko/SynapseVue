@@ -30,6 +30,12 @@ public partial class NavMenu
             },
             new()
             {
+                Text = Localizer[nameof(AppStrings.Video)],
+                IconName = BitIconName.Video,
+                Url = "/videostream",
+            },
+            new()
+            {
                 Text = Localizer[nameof(AppStrings.ProductCategory)],
                 IconName = BitIconName.Product,
                 IsExpanded = true,

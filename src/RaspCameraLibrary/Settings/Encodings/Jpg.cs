@@ -1,8 +1,8 @@
-using RaspCameraLibrary.Helpers;
-using RaspCameraLibrary.Settings.Enumerations;
+using SynapseVue.RaspCameraLibrary.Helpers;
+using SynapseVue.RaspCameraLibrary.Settings.Enumerations;
 using System.Text.Json.Serialization;
 
-namespace RaspCameraLibrary.Settings.Encodings;
+namespace SynapseVue.RaspCameraLibrary.Settings.Encodings;
 
 /// <summary>
 /// Jpg Still Settings.

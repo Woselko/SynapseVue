@@ -1,4 +1,4 @@
-﻿namespace RaspCameraLibrary.Helpers;
+﻿namespace SynapseVue.RaspCameraLibrary.Helpers;
 
 /// <summary>
 /// A class to indicate that the class can be converted to string.

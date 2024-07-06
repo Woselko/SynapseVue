@@ -1,10 +1,10 @@
-using RaspCameraLibrary.Helpers;
-using RaspCameraLibrary.Settings.Codecs;
-using RaspCameraLibrary.Settings.Enumerations;
-using RaspCameraLibrary.Settings.Types;
+using SynapseVue.RaspCameraLibrary.Helpers;
+using SynapseVue.RaspCameraLibrary.Settings.Codecs;
+using SynapseVue.RaspCameraLibrary.Settings.Enumerations;
+using SynapseVue.RaspCameraLibrary.Settings.Types;
 using System.Text.Json.Serialization;
 
-namespace RaspCameraLibrary.Settings;
+namespace SynapseVue.RaspCameraLibrary.Settings;
 
 /// <summary>
 /// Parameters for libcamera-vid
