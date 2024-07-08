@@ -1,6 +1,83 @@
 ﻿@page "/videostream"
 @inherits AppComponentBase
+@inject HttpClient Http
 
-<h3>Video Stream</h3>
+<h2>Video Stream Viewer</h2>
+<div>
+    <button @onclick="StartStream" disabled="@isStreaming">Start</button>
+    <button @onclick="StopStream" disabled="@(!isStreaming)">Stop</button>
+</div>
+<div>
+    <img id="videoFrame" src="@videoSrc" alt="Video Frame" />
+</div>
 
+@code {
+    private static bool isStreaming = false;
+    private static string videoSrc = string.Empty;
+    private Task streamTask;
+    private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
+    private async Task StartStream()
+    {
+        isStreaming = true;
+        //streamTask = FetchVideoStream();
+        videoSrc = "http://localhost:6030/api/videostream/get"; // Ustaw URL endpointa strumieniowania  
+        StateHasChanged();
+    }
+
+    private async Task StopStream()
+    {
+        isStreaming = false;
+        cancellationTokenSource.Cancel();
+        await Http.GetAsync("http://localhost:6030/api/videostream/stop"); // Ustaw URL endpointa zatrzymania strumieniowania
+        videoSrc = string.Empty;
+        StateHasChanged();
+    }
+
+    private async Task FetchVideoStream()
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:6030/api/videostream/get");
+        request.Headers.Add("Accept", "multipart/x-mixed-replace; boundary=--frame");
+
+        try
+        {
+            using var response = await Http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationTokenSource.Token);
+
+            response.EnsureSuccessStatusCode();
+
+            var stream = await response.Content.ReadAsStreamAsync(cancellationTokenSource.Token);
+            var buffer = new byte[1024 * 512]; // Adjust buffer size as needed
+
+            while (isStreaming && !cancellationTokenSource.Token.IsCancellationRequested)
+            {
+                var imageBuffer = new List<byte>();
+                var bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length, cancellationTokenSource.Token);
+                if (bytesRead == 0)
+                {
+                    break;
+                }
+
+                imageBuffer.AddRange(buffer.Take(bytesRead));
+                //var imageStart = imageBuffer.IndexOf((byte)0xFF);
+                //var imageEnd = imageBuffer.IndexOf((byte)0xD9, imageStart) + 1;
+
+                //if (imageStart != -1 && imageEnd != -1 && imageEnd > imageStart)
+                //{
+                    //var imageData = imageBuffer.Skip(imageStart).Take(imageEnd - imageStart).ToArray();
+                    //var imageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(imageData);
+                    //videoSrc = imageUrl;
+                    StateHasChanged();
+                    //imageBuffer = imageBuffer.Skip(imageEnd).ToList();
+                //}
+            }
+        }
+        catch (TaskCanceledException)
+        {
+            // Handle task cancellation
+        }
+        catch (Exception ex)
+        {
+            System.Console.WriteLine($"Error fetching video stream: {ex.Message}");
+        }
+    }
+}

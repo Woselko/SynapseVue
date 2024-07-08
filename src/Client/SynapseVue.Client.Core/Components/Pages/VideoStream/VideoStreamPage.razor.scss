@@ -15,3 +15,9 @@
     gap: rem2(24px);
     flex-flow: row wrap;
 }
+
+#videoFrame {
+    display: block;
+    -webkit-user-select: none;
+    margin: auto;
+}
