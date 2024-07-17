@@ -8,6 +8,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
 using SynapseVue.RaspCameraLibrary.Settings.Enumerations;
 using SynapseVue.RaspCameraLibrary.Settings.Codecs;
+using SynapseVue.RaspCameraLibrary.Settings.Types;
+using Newtonsoft.Json;
 
 namespace SynapseVue.Server.Controllers.VideoStream;
 
@@ -31,7 +33,9 @@ public partial class VideoStreamController : AppControllerBase, IVideoStreamCont
     [HttpGet(Name = "GetVideo")]
     public async Task Get()
     {
-        //List<Camera>? Cameras = RaspCameraLibrary.Video.ListCameras().Result;
+        List<Camera>? Cameras = RaspCameraLibrary.Video.ListCameras().Result;
+
+        Console.WriteLine(JsonConvert.SerializeObject(Cameras, Formatting.Indented));
         //var modes = Cameras.FirstOrDefault(c => c.Id == 0).Modes;
         //var mode = Cameras.FirstOrDefault(c => c.Id == 0).Modes[3];
 
@@ -42,10 +46,12 @@ public partial class VideoStreamController : AppControllerBase, IVideoStreamCont
             Camera = 0,
             Width = 1280,
             Height = 720,
+            // Width = 320,
+            // Height = 240,
             Timeout = 0,
             Flush = true,
-            HFlip = true,
-            VFlip = true,
+            HFlip = false,
+            VFlip = false,
             Framerate = 10,
             //Mode= mode,
             WhiteBalance = WhiteBalance.Incandescent,
