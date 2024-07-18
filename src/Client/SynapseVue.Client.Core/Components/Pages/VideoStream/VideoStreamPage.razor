@@ -3,13 +3,29 @@
 @inject HttpClient Http
 
 <h2>Video Stream Viewer</h2>
-<div>
+@* <div>
     <button @onclick="StartStream" disabled="@isStreaming">Start</button>
     <button @onclick="StopStream" disabled="@(!isStreaming)">Stop</button>
-</div>
+</div> *@
+
 <div>
-    <img id="videoFrame" src="@videoSrc" alt="Video Frame" />
+    <button @onclick="StopStream" >Stop</button>
 </div>
+    <canvas id="player" style="background: #000;">
+      Your browser sucks.
+    </canvas>
+  <script src="mjpeg.js"></script>
+  <script>
+    //"https://gist.github.com/codebrainz/eeeeead894e8bdff059b/revisions"
+    // var player = new MJPEG.Player("player", "http://localhost:6030/api/videostream/get");
+    var player = new MJPEG.Player("player", "http://10.0.2.2:6030/api/videostream/get");
+    player.start();
+  </script>
+@* <div>
+    <img id="videoFrame" src="@videoSrc" alt="Video Frame" />
+    <BitImage Src="@videoSrc" alt="BitImage Frame"> </BitImage>
+</div> *@
+
 
 @code {
     private static bool isStreaming = false;
@@ -19,17 +35,21 @@
 
     private async Task StartStream()
     {
-        isStreaming = true;
+        isStreaming = true; 
         //streamTask = FetchVideoStream();
-        videoSrc = "http://localhost:6030/api/videostream/get"; // Ustaw URL endpointa strumieniowania  
+        //await Http.GetAsync("http://localhost:6030/api/videostream/get"); // Ustaw URL endpointa zatrzymania strumieniowania
+        //videoSrc = "http://localhost:6030/api/videostream/get"; // Ustaw URL endpointa strumieniowania  
+        //await Http.GetAsync("http://10.0.2.2:6030/api/videostream/get"); // Ustaw URL endpointa zatrzymania strumieniowania
+        //videoSrc = "http://10.0.2.2:6030/api/videostream/get";
         StateHasChanged();
     }
 
     private async Task StopStream()
     {
         isStreaming = false;
-        cancellationTokenSource.Cancel();
-        await Http.GetAsync("http://localhost:6030/api/videostream/stop"); // Ustaw URL endpointa zatrzymania strumieniowania
+        //cancellationTokenSource.Cancel();
+        //await Http.GetAsync("http://localhost:6030/api/videostream/stop"); // Ustaw URL endpointa zatrzymania strumieniowania
+        //await Http.GetAsync("http://10.0.2.2:6030/api/videostream/stop"); // Ustaw URL endpointa zatrzymania strumieniowania
         videoSrc = string.Empty;
         StateHasChanged();
     }

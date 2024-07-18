@@ -13,6 +13,7 @@
 
         <Content Remove="compilerconfig.json" />
         <None Include="compilerconfig.json" />
+        <None Include="wwwroot\scripts\mjpeg.js" />
         <Content Remove="appsettings*.json" />
         <EmbeddedResource Include="appsettings*.json" />
 

@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿//using Microsoft.AspNetCore.Mvc;
 using SynapseVue.Client.Core.Controllers.VideoStream;
-using SynapseVue.Shared.Dtos.Categories;
-using SynapseVue.RaspCameraLibrary;
-using SynapseVue.RaspCameraLibrary.Helpers;
 using SynapseVue.RaspCameraLibrary.Settings;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
@@ -20,14 +17,14 @@ public partial class VideoStreamController : AppControllerBase, IVideoStreamCont
     private static CancellationTokenSource? cancellationTokenSource { get; set; }
 
     [HttpGet(Name = "StopVideo")]
-    public async Task<IActionResult> Stop()
+    public async Task<bool> Stop()
     {
         if(cancellationTokenSource != null)
         {
             cancellationTokenSource.Cancel();
-            return Ok();
+            return true;
         }
-        return BadRequest();
+        return false;
     }
 
     [HttpGet(Name = "GetVideo")]

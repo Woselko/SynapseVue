@@ -6,4 +6,8 @@ namespace SynapseVue.Client.Core.Components.Pages.VideoStream;
 [Authorize]
 public partial class VideoStreamPage
 {
+    protected override async Task OnInitAsync()
+    {
+        await base.OnInitAsync();
+    }
 }

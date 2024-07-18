@@ -110,28 +110,31 @@ public static partial class MauiProgram
                 }
             }
 #elif ANDROID
-                webView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+            webView.SetBackgroundColor(Android.Graphics.Color.Transparent);
 
-                webView.OverScrollMode = Android.Views.OverScrollMode.Never;
+            webView.OverScrollMode = Android.Views.OverScrollMode.Never;
 
-                webView.HapticFeedbackEnabled = false;
+            webView.HapticFeedbackEnabled = false;
 
-                Android.Webkit.WebSettings settings = webView.Settings;
+            Android.Webkit.WebSettings settings = webView.Settings;
 
-                settings.AllowFileAccessFromFileURLs =
-                    settings.AllowUniversalAccessFromFileURLs =
-                    settings.AllowContentAccess =
-                    settings.AllowFileAccess =
-                    settings.DatabaseEnabled =
-                    settings.JavaScriptCanOpenWindowsAutomatically =
-                    settings.DomStorageEnabled = true;
+            settings.AllowFileAccessFromFileURLs =
+            settings.AllowUniversalAccessFromFileURLs =
+            settings.AllowContentAccess =
+            settings.AllowFileAccess =
+            settings.DatabaseEnabled =
+            settings.JavaScriptCanOpenWindowsAutomatically =
+            settings.JavaScriptEnabled =
+            settings.AllowContentAccess =
+            settings.LoadsImagesAutomatically =
+            settings.DomStorageEnabled = true;
 
-                if (BuildConfiguration.IsDebug())
-                {
-                    settings.MixedContentMode = Android.Webkit.MixedContentHandling.AlwaysAllow;
-                }
+            if (BuildConfiguration.IsDebug())
+            {
+                settings.MixedContentMode = Android.Webkit.MixedContentHandling.AlwaysAllow;
+            }
 
-                settings.BlockNetworkLoads = settings.BlockNetworkImage = false;
+            settings.BlockNetworkLoads = settings.BlockNetworkImage = false;
 #endif
         });
     }
