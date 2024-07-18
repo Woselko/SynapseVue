@@ -43,7 +43,7 @@ public partial class VideoStreamController : AppControllerBase, IVideoStreamCont
 
         VideoSettings Settings = new Mjpeg()
         {
-            Camera = 0,
+            Camera = 1,
             Width = 1280,
             Height = 720,
             // Width = 320,

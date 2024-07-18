@@ -10,7 +10,7 @@ using SynapseVue.Server.Data;
 namespace SynapseVue.Server.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240603124004_InitialMigration")]
+    [Migration("20240717210906_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
