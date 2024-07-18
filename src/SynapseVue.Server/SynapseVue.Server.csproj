@@ -60,8 +60,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\RaspSensorLibrary\RaspSensorLibrary.csproj" />
         <ProjectReference Include="..\RaspCameraLibrary\RaspCameraLibrary.csproj" />
+        <ProjectReference Include="..\RaspSensorLibrary\RaspSensorLibrary.csproj" />
         <ProjectReference Include="..\SynapseVue.Shared\SynapseVue.Shared.csproj" />
         <ProjectReference Include="..\Client\SynapseVue.Client.Web\SynapseVue.Client.Web.csproj" />
     </ItemGroup>

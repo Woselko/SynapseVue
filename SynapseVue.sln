@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SynapseVue.Client.Windows",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaspCameraLibrary", "src\RaspCameraLibrary\RaspCameraLibrary.csproj", "{B1F9B629-0752-464E-8D01-7F0C6C07B9A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspSensorLibrary", "RaspSensorLibrary\RaspSensorLibrary.csproj", "{905996C5-689E-4C68-B6F3-580AF7C81547}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaspSensorLibrary", "src\RaspSensorLibrary\RaspSensorLibrary.csproj", "{2825511B-24B5-458A-A8EE-D339FD08FE77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,10 +79,10 @@ Global
 		{B1F9B629-0752-464E-8D01-7F0C6C07B9A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1F9B629-0752-464E-8D01-7F0C6C07B9A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1F9B629-0752-464E-8D01-7F0C6C07B9A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{905996C5-689E-4C68-B6F3-580AF7C81547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{905996C5-689E-4C68-B6F3-580AF7C81547}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{905996C5-689E-4C68-B6F3-580AF7C81547}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{905996C5-689E-4C68-B6F3-580AF7C81547}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2825511B-24B5-458A-A8EE-D339FD08FE77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2825511B-24B5-458A-A8EE-D339FD08FE77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2825511B-24B5-458A-A8EE-D339FD08FE77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2825511B-24B5-458A-A8EE-D339FD08FE77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,8 +96,8 @@ Global
 		{E3CB3C34-F5DE-4A96-B552-7D52BCAD1E1F} = {248D8229-BABD-4F0A-A9C6-0417B464507B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_NeutralResourcesLanguage = en-US
-		RESX_CodeReferences = {"Items":[{"Expression":"\\W($File.$Key)\\W","Extensions":".cs,.xaml,.cshtml,.razor","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($File.$Key)\\W","Extensions":".vbhtml","IsCaseSensitive":false,"SingleLineComment":null},{"Expression":"ResourceManager.GetString\\(\"($Key)\"\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"typeof\\((\\w+\\.)*($File)\\).+\"($Key)\"|\"($Key)\".+typeof\\((\\w+\\.)*($File)\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($Key)\\W","Extensions":".vb","IsCaseSensitive":false,"SingleLineComment":"'"},{"Expression":"\\W($File::$Key)\\W","Extensions":".cpp,.c,.hxx,.h","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"&lt;%\\$\\s+Resources:\\s*($File)\\s*,\\s*($Key)\\s*%&gt;","Extensions":".aspx,.ascx,.master","IsCaseSensitive":true,"SingleLineComment":null},{"Expression":"StringResourceKey\\.($Key)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\.($Key)","Extensions":".ts,.html","IsCaseSensitive":true,"SingleLineComment":"\/\/"}]}
 		SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}
+		RESX_CodeReferences = {"Items":[{"Expression":"\\W($File.$Key)\\W","Extensions":".cs,.xaml,.cshtml,.razor","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($File.$Key)\\W","Extensions":".vbhtml","IsCaseSensitive":false,"SingleLineComment":null},{"Expression":"ResourceManager.GetString\\(\"($Key)\"\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"typeof\\((\\w+\\.)*($File)\\).+\"($Key)\"|\"($Key)\".+typeof\\((\\w+\\.)*($File)\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($Key)\\W","Extensions":".vb","IsCaseSensitive":false,"SingleLineComment":"'"},{"Expression":"\\W($File::$Key)\\W","Extensions":".cpp,.c,.hxx,.h","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"&lt;%\\$\\s+Resources:\\s*($File)\\s*,\\s*($Key)\\s*%&gt;","Extensions":".aspx,.ascx,.master","IsCaseSensitive":true,"SingleLineComment":null},{"Expression":"StringResourceKey\\.($Key)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\.($Key)","Extensions":".ts,.html","IsCaseSensitive":true,"SingleLineComment":"\/\/"}]}
+		RESX_NeutralResourcesLanguage = en-US
 	EndGlobalSection
 EndGlobal
