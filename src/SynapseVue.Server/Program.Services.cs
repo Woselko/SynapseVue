@@ -1,18 +1,20 @@
-﻿using System.IO.Compression;
-using SynapseVue.Server.Services;
-using SynapseVue.Client.Web;
-using Microsoft.AspNetCore.HttpOverrides;
+﻿using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.ResponseCompression;
-using System.Net.Mail;
-using System.Net;
-using System.Security.Cryptography.X509Certificates;
-using SynapseVue.Server.Models.Identity;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.OData;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.StaticFiles;
+using System.Net.Mail;
+using System.Net;
+using System.IO.Compression;
+using System.Security.Cryptography.X509Certificates;
+using SynapseVue.Server.Models.Identity;
+using SynapseVue.Server.Services;
+using SynapseVue.Client.Web;
+using Hangfire;
+using Hangfire.MemoryStorage;
 
 namespace SynapseVue.Server;
 
@@ -122,8 +124,23 @@ public static partial class Program
             }
         }
 
-
+        AddDataCollectorFromSensors(builder);
         AddBlazor(builder);
+    }
+
+    private static void AddDataCollectorFromSensors(WebApplicationBuilder builder)
+    {
+        // Konfiguracja Hangfire z pamięcią tymczasową
+        GlobalConfiguration.Configuration
+            .UseMemoryStorage();
+
+        builder.Services.AddHangfire(config => config.UseMemoryStorage());
+        builder.Services.AddHangfireServer();
+        
+
+
+        // Zainicjuj zadanie powtarzające się co minutę
+        //RecurringJob.AddOrUpdate(() => RaspSensorLibrary.MainDataCollector.CollectData(), Cron.Minutely);
     }
 
     private static void AddBlazor(WebApplicationBuilder builder)

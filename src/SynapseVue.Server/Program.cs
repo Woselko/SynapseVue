@@ -1,4 +1,6 @@
 ﻿
+using Hangfire;
+
 namespace SynapseVue.Server;
 
 public static partial class Program
@@ -19,6 +21,9 @@ public static partial class Program
         builder.Services.AddControllers();
         
         var app = builder.Build();
+
+        app.UseHangfireDashboard();
+        RecurringJob.AddOrUpdate("DataCollecting", () => RaspSensorLibrary.MainDataCollector.CollectData(), Cron.Minutely);
 
         app.ConfiureMiddlewares();
 

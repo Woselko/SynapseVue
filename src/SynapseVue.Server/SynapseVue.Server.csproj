@@ -8,6 +8,10 @@
     <ItemGroup>
         <PackageReference Include="Bit.CodeAnalyzers" Version="8.8.1" PrivateAssets="all" />
         <PackageReference Include="Bit.SourceGenerators" Version="8.8.1" PrivateAssets="all" />
+        <PackageReference Include="Hangfire" Version="1.8.14" />
+        <PackageReference Include="Hangfire.AspNet" Version="0.3.0" />
+        <PackageReference Include="Hangfire.Core" Version="1.8.14" />
+        <PackageReference Include="Hangfire.MemoryStorage" Version="1.8.1.1" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.4" />
     </ItemGroup>
 
@@ -56,6 +60,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\RaspSensorLibrary\RaspSensorLibrary.csproj" />
         <ProjectReference Include="..\RaspCameraLibrary\RaspCameraLibrary.csproj" />
         <ProjectReference Include="..\SynapseVue.Shared\SynapseVue.Shared.csproj" />
         <ProjectReference Include="..\Client\SynapseVue.Client.Web\SynapseVue.Client.Web.csproj" />
