@@ -1,4 +1,6 @@
-﻿using SynapseVue.Shared.Dtos.Identity;
+﻿using SynapseVue.Client.Core.Controllers.System;
+using SynapseVue.Shared.Dtos.Identity;
+using SynapseVue.Shared.Dtos.System;
 
 namespace SynapseVue.Client.Core.Components.Layout;
 
@@ -11,11 +13,8 @@ public partial class NavMenu
     private UserDto user = new();
     private List<BitNavItem> navItems = [];
     private Action unsubscribe = default!;
-
     [AutoInject] private NavigationManager navManager = default!;
-
     [Parameter] public bool IsMenuOpen { get; set; }
-
     [Parameter] public EventCallback<bool> IsMenuOpenChanged { get; set; }
 
     protected override async Task OnInitAsync()
@@ -27,6 +26,12 @@ public partial class NavMenu
                 Text = Localizer[nameof(AppStrings.Home)],
                 IconName = BitIconName.Home,
                 Url = "/",
+            },
+            new()
+            {
+                Text = Localizer[nameof(AppStrings.System)],
+                IconName = BitIconName.Settings,
+                Url = "/system",
             },
             new()
             {
@@ -93,7 +98,6 @@ public partial class NavMenu
 
             await InvokeAsync(StateHasChanged);
         });
-
         user = (await PrerenderStateService.GetValue(() => HttpClient.GetFromJsonAsync("api/User/GetCurrentUser", AppJsonContext.Default.UserDto, CurrentCancellationToken)))!;
 
         var access_token = await PrerenderStateService.GetValue(() => AuthTokenProvider.GetAccessTokenAsync());

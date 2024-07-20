@@ -559,6 +559,12 @@
   <data name="DeleteProduct" xml:space="preserve">
     <value>حذف محصول</value>
   </data>
+  <data name="Mode" xml:space="preserve">
+    <value>وضع</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>نظام</value>
+  </data>
   <data name="CategoryCouldNotBeFound" xml:space="preserve">
     <value>دسته مورد نظر پیدا نشد</value>
   </data>

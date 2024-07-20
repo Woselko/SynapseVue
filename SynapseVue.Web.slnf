@@ -5,7 +5,9 @@
       "src\\SynapseVue.Server\\SynapseVue.Server.csproj",
       "src\\SynapseVue.Shared\\SynapseVue.Shared.csproj",
       "src\\Client\\SynapseVue.Client.Core\\SynapseVue.Client.Core.csproj",
-      "src\\Client\\SynapseVue.Client.Web\\SynapseVue.Client.Web.csproj"
+      "src\\Client\\SynapseVue.Client.Web\\SynapseVue.Client.Web.csproj",
+      "src\\RaspCameraLibrary\\RaspCameraLibrary.csproj",
+      "src\\RaspSensorLibrary\\RaspSensorLibrary.csproj"
     ]
   }
 }

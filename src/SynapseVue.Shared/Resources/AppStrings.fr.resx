@@ -462,6 +462,12 @@
     <data name="CategoriesPageTitle" xml:space="preserve">
     <value>Catégories</value>
   </data>
+    <data name="Mode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+    <data name="System" xml:space="preserve">
+    <value>Système</value>
+  </data>
     <data name="EnterCategoryName" xml:space="preserve">
     <value>Entrez le nom de la catégorie</value>
   </data>

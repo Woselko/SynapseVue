@@ -1,6 +1,7 @@
 ﻿using SynapseVue.Server.Models.Categories;
 using SynapseVue.Server.Models.Products;
 using SynapseVue.Server.Models.Identity;
+using SynapseVue.Server.Models.System;
 using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -13,6 +14,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
 
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
+    public DbSet<SystemState> SystemStates { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

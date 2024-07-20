@@ -476,6 +476,12 @@ Please confirm your email by clicking on the link.</value>
     <data name="TotalProducts" xml:space="preserve">
     <value>Total products</value>
   </data>
+    <data name="Mode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+    <data name="System" xml:space="preserve">
+    <value>System</value>
+  </data>
     <data name="EditCategory" xml:space="preserve">
     <value>Edit category</value>
   </data>

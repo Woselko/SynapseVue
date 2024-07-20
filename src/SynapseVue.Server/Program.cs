@@ -23,7 +23,8 @@ public static partial class Program
         var app = builder.Build();
 
         app.UseHangfireDashboard();
-        RecurringJob.AddOrUpdate("DataCollecting", () => RaspSensorLibrary.MainDataCollector.CollectData(), Cron.Minutely);
+        RecurringJob.AddOrUpdate("DataCollecting", () => 
+            RaspSensorLibrary.MainDataCollector.Instance.CollectData(), Cron.Minutely);
 
         app.ConfiureMiddlewares();
 

@@ -1,0 +1,32 @@
+﻿@page "/system"
+@inherits AppComponentBase
+
+
+<div class="page-container">
+    <form method="post" class="form">
+        <h1 class="form-title">System Settings Page</h1>
+        @if (isLoading)
+        {
+            <div class="loading-contianer">
+                <BitSpinner Size="BitSpinnerSize.Large"></BitSpinner>
+            </div>
+        }
+        else
+        {
+            <div class="hero-section-desc">
+                <div class="page-row">
+                    <BitLabel>Current SynapseVue state: @systemState.Mode</BitLabel>
+                </div>
+                <div class="form-input-container">
+                </div>
+                <div class="page-row">
+                    <BitLabel>Current SynapseVue state: @systemState.Mode</BitLabel>
+                </div>
+                <div class="page-row">
+                    <BitLabel>Current SynapseVue state: @systemState.Mode</BitLabel>
+                </div>
+            </div>
+        }
+    </form>
+</div>
+

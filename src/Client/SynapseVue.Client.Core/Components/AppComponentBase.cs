@@ -1,4 +1,6 @@
 ﻿using System.Text.Json;
+using SynapseVue.Client.Core.Controllers.System;
+using SynapseVue.Shared.Dtos.System;
 
 namespace SynapseVue.Client.Core.Components;
 
@@ -44,7 +46,7 @@ public partial class AppComponentBase : ComponentBase, IAsyncDisposable
         try
         {
             await OnInitAsync();
-            await base.OnInitializedAsync();
+            await base.OnInitializedAsync();            
         }
         catch (Exception exp)
         {

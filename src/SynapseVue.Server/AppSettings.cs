@@ -9,6 +9,14 @@ public class AppSettings
     public HealthCheckSettings HealthCheckSettings { get; set; } = default!;
 
     public string UserProfileImagesDir { get; set; } = default!;
+
+    public int BUZZ_PIN { get; set; } = default!;
+
+    public int DHT22_PIN { get; set; } = default!;
+
+    public int PIR_PIN { get; set; } = default!;
+
+    public int LED_PIN { get; set; } = default!;
 }
 
 public class HealthCheckSettings

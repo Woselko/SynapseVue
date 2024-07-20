@@ -554,6 +554,29 @@ namespace SynapseVue.Server.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SynapseVue.Server.Models.System.SystemState", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Mode")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SystemStates");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Mode = "Home"
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("SynapseVue.Server.Models.Identity.Role", null)

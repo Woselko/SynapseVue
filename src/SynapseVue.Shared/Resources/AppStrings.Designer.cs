@@ -843,6 +843,15 @@ namespace SynapseVue.Shared.Resources {
                 return ResourceManager.GetString("Password", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Mode.
+        /// </summary>
+        public static string Mode {
+            get {
+                return ResourceManager.GetString("Mode", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Your password changed successfully..
@@ -1336,6 +1345,15 @@ namespace SynapseVue.Shared.Resources {
         public static string UpdateConcurrencyException {
             get {
                 return ResourceManager.GetString("UpdateConcurrencyException", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to System.
+        /// </summary>
+        public static string System {
+            get {
+                return ResourceManager.GetString("System", resourceCulture);
             }
         }
         

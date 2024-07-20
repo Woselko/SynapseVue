@@ -15,6 +15,7 @@ using SynapseVue.Server.Services;
 using SynapseVue.Client.Web;
 using Hangfire;
 using Hangfire.MemoryStorage;
+using RaspSensorLibrary;
 
 namespace SynapseVue.Server;
 
@@ -125,22 +126,26 @@ public static partial class Program
         }
 
         AddDataCollectorFromSensors(builder);
+
         AddBlazor(builder);
     }
 
     private static void AddDataCollectorFromSensors(WebApplicationBuilder builder)
     {
-        // Konfiguracja Hangfire z pamięcią tymczasową
+        var appSettings = builder.Configuration.GetSection(nameof(AppSettings)).Get<AppSettings>()!;
         GlobalConfiguration.Configuration
             .UseMemoryStorage();
 
         builder.Services.AddHangfire(config => config.UseMemoryStorage());
         builder.Services.AddHangfireServer();
-        
 
+                // Rejestracja MainDataCollector jako Singleton
+        builder.Services.AddSingleton(MainDataCollector.Instance);
 
-        // Zainicjuj zadanie powtarzające się co minutę
-        //RecurringJob.AddOrUpdate(() => RaspSensorLibrary.MainDataCollector.CollectData(), Cron.Minutely);
+        // Zainicjuj Singleton z wymaganymi parametrami
+        var mainDataCollector = MainDataCollector.Instance;
+        mainDataCollector.Initialize(dht22Pin: appSettings.DHT22_PIN, pirPin: appSettings.PIR_PIN, 
+            ledPin: appSettings.LED_PIN, buzzPin: appSettings.BUZZ_PIN);
     }
 
     private static void AddBlazor(WebApplicationBuilder builder)

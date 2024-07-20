@@ -1,14 +1,26 @@
 ﻿@page "/videostream"
+@using SynapseVue.Client.Core.Controllers.VideoStream
 @inherits AppComponentBase
 @inject HttpClient Http
 
-<h2>Video Stream Viewer</h2>
-@* <div>
-    <button @onclick="StartStream" disabled="@isStreaming">Start</button>
-    <button @onclick="StopStream" disabled="@(!isStreaming)">Stop</button>
-</div> *@
+<div class="page-container">
+    @if (isLoading)
+    {
+        <div class="loading-contianer">
+            <BitSpinner Size="BitSpinnerSize.Large"></BitSpinner>
+        </div>
+    }
+    <div class="page-row">
+    <h1 class="page-title">Video Stream</h1>
+    <BitButton OnClick="StartStream" disabled="@isStreaming">Start</BitButton>
+    <BitButton OnClick="StopStream" disabled="@(!isStreaming)">Stop</BitButton>
+    </div>
+    <div hidden="@(!isStreaming)">
+        <img id="videoFrame" src="@videoSrc" alt="Video Frame" />
+    </div>
+</div>
 
-<div>
+@* <div>
     <button @onclick="StopStream" >Stop</button>
 </div>
     <canvas id="player" style="background: #000;">
@@ -20,14 +32,11 @@
     // var player = new MJPEG.Player("player", "http://localhost:6030/api/videostream/get");
     var player = new MJPEG.Player("player", "http://10.0.2.2:6030/api/videostream/get");
     player.start();
-  </script>
-@* <div>
-    <img id="videoFrame" src="@videoSrc" alt="Video Frame" />
-    <BitImage Src="@videoSrc" alt="BitImage Frame"> </BitImage>
-</div> *@
+  </script> *@
 
 
 @code {
+    [AutoInject] IVideoStreamController systemController = default!;
     private static bool isStreaming = false;
     private static string videoSrc = string.Empty;
     private Task streamTask;
@@ -38,7 +47,7 @@
         isStreaming = true; 
         //streamTask = FetchVideoStream();
         //await Http.GetAsync("http://localhost:6030/api/videostream/get"); // Ustaw URL endpointa zatrzymania strumieniowania
-        //videoSrc = "http://localhost:6030/api/videostream/get"; // Ustaw URL endpointa strumieniowania  
+        videoSrc = "http://localhost:6030/api/videostream/get"; // Ustaw URL endpointa strumieniowania  
         //await Http.GetAsync("http://10.0.2.2:6030/api/videostream/get"); // Ustaw URL endpointa zatrzymania strumieniowania
         //videoSrc = "http://10.0.2.2:6030/api/videostream/get";
         StateHasChanged();
@@ -48,7 +57,7 @@
     {
         isStreaming = false;
         //cancellationTokenSource.Cancel();
-        //await Http.GetAsync("http://localhost:6030/api/videostream/stop"); // Ustaw URL endpointa zatrzymania strumieniowania
+        await Http.GetAsync("http://localhost:6030/api/videostream/stop"); // Ustaw URL endpointa zatrzymania strumieniowania
         //await Http.GetAsync("http://10.0.2.2:6030/api/videostream/stop"); // Ustaw URL endpointa zatrzymania strumieniowania
         videoSrc = string.Empty;
         StateHasChanged();

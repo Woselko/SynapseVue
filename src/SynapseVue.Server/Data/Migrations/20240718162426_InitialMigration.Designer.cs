@@ -10,7 +10,7 @@ using SynapseVue.Server.Data;
 namespace SynapseVue.Server.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240717210906_InitialMigration")]
+    [Migration("20240718162426_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -554,6 +554,29 @@ namespace SynapseVue.Server.Data.Migrations
                             Description = "extensive driving range, lots of standard safety features",
                             Name = "Model Y",
                             Price = 67790m
+                        });
+                });
+
+            modelBuilder.Entity("SynapseVue.Server.Models.System.SystemState", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Mode")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SystemStates");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Mode = "Home"
                         });
                 });
 
