@@ -37,11 +37,11 @@
             </div>
 
             <div class="form-input-container">
-                <BitNumberField @bind-Value="product.Price"
+                <BitNumberField @bind-Value="product.PIN"
                                 Precision="2"
                                 Suffix="$"
-                                Label="@Localizer[(nameof(AppStrings.Price))]" />
-                <ValidationMessage For="() => product.Price" />
+                                Label="@Localizer[(nameof(AppStrings.PIN))]" />
+                <ValidationMessage For="() => product.PIN" />
             </div>
 
             <div class="form-input-container">

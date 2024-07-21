@@ -11,13 +11,20 @@ public class ProductDto
     public string? Name { get; set; }
 
     [Required(ErrorMessage = nameof(AppStrings.RequiredAttribute_ValidationError))]
-    [Range(0, double.MaxValue, ErrorMessage = nameof(AppStrings.RangeAttribute_ValidationError))]
-    [Display(Name = nameof(AppStrings.Price))]
-    public decimal Price { get; set; }
+    [Range(0, int.MaxValue, ErrorMessage = nameof(AppStrings.RangeAttribute_ValidationError))]
+    [Display(Name = nameof(AppStrings.PIN))]
+    public int PIN { get; set; }
 
     [MaxLength(512, ErrorMessage = nameof(AppStrings.MaxLengthAttribute_InvalidMaxLength))]
     [Display(Name = nameof(AppStrings.Description))]
     public string? Description { get; set; }
+
+    [Display(Name = nameof(AppStrings.LastSuccessActivity))]
+    public DateTimeOffset? LastSuccessActivity { get; set; }
+
+    [MaxLength(512, ErrorMessage = nameof(AppStrings.MaxLengthAttribute_InvalidMaxLength))]
+    [Display(Name = nameof(AppStrings.LastReadValue))]
+    public string? LastReadValue { get; set; }
 
     [Required(ErrorMessage = nameof(AppStrings.RequiredAttribute_ValidationError))]
     [Display(Name = nameof(AppStrings.Category))]

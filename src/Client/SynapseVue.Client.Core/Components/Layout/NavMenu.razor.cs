@@ -46,10 +46,10 @@ public partial class NavMenu
                 IsExpanded = true,
                 ChildItems =
                 [
-                    new() {
-                        Text = Localizer[nameof(AppStrings.Dashboard)],
-                        Url = "/dashboard",
-                    },
+                    // new() {
+                    //     Text = Localizer[nameof(AppStrings.Dashboard)],
+                    //     Url = "/dashboard",
+                    // },
                     new() {
                         Text = Localizer[nameof(AppStrings.Products)],
                         Url = "/products",

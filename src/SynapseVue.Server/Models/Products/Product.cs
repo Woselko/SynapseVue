@@ -9,14 +9,16 @@ public class Product
     [Required, MaxLength(64)]
     public string? Name { get; set; }
 
-    [Column(TypeName = "money")]
-    [Range(0, double.MaxValue)]
-    public decimal Price { get; set; }
-
+    [Required]
+    [Range(0, int.MaxValue)]
+    public int PIN { get; set; }
     [MaxLength(512)]
     public string? Description { get; set; }
-
     public DateTimeOffset CreatedOn { get; set; } = DateTimeOffset.UtcNow;
+    public DateTimeOffset? LastSuccessActivity { get; set; }
+    [MaxLength(512)]
+    public string? LastReadValue { get; set; }
+
 
     [ForeignKey(nameof(CategoryId))]
     public Category? Category { get; set; }

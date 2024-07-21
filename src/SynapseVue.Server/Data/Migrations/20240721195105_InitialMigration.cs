@@ -107,9 +107,11 @@ namespace SynapseVue.Server.Data.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", maxLength: 64, nullable: false),
-                    Price = table.Column<decimal>(type: "money", nullable: false),
+                    PIN = table.Column<int>(type: "INTEGER", nullable: false),
                     Description = table.Column<string>(type: "TEXT", maxLength: 512, nullable: true),
                     CreatedOn = table.Column<long>(type: "INTEGER", nullable: false),
+                    LastSuccessActivity = table.Column<long>(type: "INTEGER", nullable: true),
+                    LastReadValue = table.Column<string>(type: "TEXT", maxLength: 512, nullable: true),
                     CategoryId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -234,11 +236,11 @@ namespace SynapseVue.Server.Data.Migrations
                 columns: new[] { "Id", "Color", "Name" },
                 values: new object[,]
                 {
-                    { 1, "#FFCD56", "Ford" },
-                    { 2, "#FF6384", "Nissan" },
-                    { 3, "#4BC0C0", "Benz" },
-                    { 4, "#FF9124", "BMW" },
-                    { 5, "#2B88D8", "Tesla" }
+                    { 1, "#FFCD56", "Safety" },
+                    { 2, "#FF6384", "Sensor" },
+                    { 3, "#4BC0C0", "Display" },
+                    { 4, "#FF9124", "Sound" },
+                    { 5, "#2B88D8", "Camera" }
                 });
 
             migrationBuilder.InsertData(
@@ -253,32 +255,16 @@ namespace SynapseVue.Server.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "CategoryId", "CreatedOn", "Description", "Name", "Price" },
+                columns: new[] { "Id", "CategoryId", "CreatedOn", "Description", "LastReadValue", "LastSuccessActivity", "Name", "PIN" },
                 values: new object[,]
                 {
-                    { 1, 1, 1307691122688000120L, "The Ford Mustang is ranked #1 in Sports Cars", "Mustang", 27155m },
-                    { 2, 1, 1307682275328000120L, "The Ford GT is a mid-engine two-seater sports car manufactured and marketed by American automobile manufacturer", "GT", 500000m },
-                    { 3, 1, 1307664580608000120L, "Ford Ranger is a nameplate that has been used on multiple model lines of pickup trucks sold by Ford worldwide.", "Ranger", 25000m },
-                    { 4, 1, 1307655733248000120L, "Raptor is a SCORE off-road trophy truck living in a asphalt world", "Raptor", 53205m },
-                    { 5, 1, 1307646885888000120L, "The Ford Maverick is a compact pickup truck produced by Ford Motor Company.", "Maverick", 22470m },
-                    { 6, 2, 1307691122688000120L, "A powerful convertible sports car", "Roadster", 42800m },
-                    { 7, 2, 1307682275328000120L, "A perfectly adequate family sedan with sharp looks", "Altima", 24550m },
-                    { 8, 2, 1307664580608000120L, "Legendary supercar with AWD, 4 seats, a powerful V6 engine and the latest tech", "GT-R", 113540m },
-                    { 9, 2, 1307646885888000120L, "A new smart SUV", "Juke", 28100m },
-                    { 10, 3, 1307691122688000120L, "", "H247", 54950m },
-                    { 11, 3, 1307682275328000120L, "", "V297", 103360m },
-                    { 12, 3, 1307646885888000120L, "", "R50", 2000000m },
-                    { 13, 4, 1307691122688000120L, "", "M550i", 77790m },
-                    { 14, 4, 1307682275328000120L, "", "540i", 60945m },
-                    { 15, 4, 1307673427968000120L, "", "530e", 56545m },
-                    { 16, 4, 1307664580608000120L, "", "530i", 55195m },
-                    { 17, 4, 1307655733248000120L, "", "M850i", 100045m },
-                    { 18, 4, 1307646885888000120L, "", "X7", 77980m },
-                    { 19, 4, 1307638038528000120L, "", "IX", 87000m },
-                    { 20, 5, 1307691122688000120L, "rapid acceleration and dynamic handling", "Model 3", 61990m },
-                    { 21, 5, 1307682275328000120L, "finishes near the top of our luxury electric car rankings.", "Model S", 135000m },
-                    { 22, 5, 1307673427968000120L, "Heart-pumping acceleration, long drive range", "Model X", 138890m },
-                    { 23, 5, 1307646885888000120L, "extensive driving range, lots of standard safety features", "Model Y", 67790m }
+                    { 1, 1, 1307708817408000120L, "Passive Infra Red motion detector", "", 1307708817408000120L, "PIRSensor", 18 },
+                    { 2, 1, 1307708817408000120L, "Led diode", "", 1307708817408000120L, "LED", 17 },
+                    { 3, 4, 1307673427968000120L, "Buzzer for sound generating", "", 1307708817408000120L, "Buzzer", 23 },
+                    { 4, 2, 1307708817408000120L, "DHT Temperature and humidity reader", "", 1307708817408000120L, "DHT22Sensor", 27 },
+                    { 5, 3, 1307708817408000120L, "Display, no pin needed", "", 1307708817408000120L, "Display", 0 },
+                    { 6, 5, 1307675197440000120L, "Camera connected to PCI slot 0, no pin needed", "", 1307708817408000120L, "Camera0", 0 },
+                    { 7, 5, 1307691122688000120L, "Camera connected to PCI slot 1, no pin needed", "", 1307708817408000120L, "Camera1", 0 }
                 });
 
             migrationBuilder.CreateIndex(

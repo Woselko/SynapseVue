@@ -1464,5 +1464,32 @@ namespace SynapseVue.Shared.Resources {
                 return ResourceManager.GetString("Video", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to PIN.
+        /// </summary>
+        public static string PIN {
+            get {
+                return ResourceManager.GetString("PIN", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Last read.
+        /// </summary>
+        public static string LastSuccessActivity {
+            get {
+                return ResourceManager.GetString("Last read", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Last read value.
+        /// </summary>
+        public static string LastReadValue {
+            get {
+                return ResourceManager.GetString("Last read value", resourceCulture);
+            }
+        }
     }
 }

@@ -33,18 +33,18 @@ public partial class DashboardController : AppControllerBase, IDashboardControll
             });
     }
 
-    [HttpGet]
-    public IQueryable<ProductSaleStatResponseDto> GetProductsSalesStats()
-    {
-        Random rand = new Random();
-        return DbContext.Products.Include(p => p.Category)
-             .Select(p => new ProductSaleStatResponseDto()
-             {
-                 ProductName = p.Name,
-                 CategoryColor = p.Category!.Color,
-                 SaleAmount = rand.Next(1, 10) * p.Price
-             });
-    }
+    // [HttpGet]
+    // public IQueryable<ProductSaleStatResponseDto> GetProductsSalesStats()
+    // {
+    //     Random rand = new Random();
+    //     return DbContext.Products.Include(p => p.Category)
+    //          .Select(p => new ProductSaleStatResponseDto()
+    //          {
+    //              ProductName = p.Name,
+    //              CategoryColor = p.Category!.Color,
+    //              SaleAmount = rand.Next(1, 10) * p.Price
+    //          });
+    // }
 
 
     [HttpGet]

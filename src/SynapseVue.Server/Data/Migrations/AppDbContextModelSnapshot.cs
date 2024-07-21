@@ -155,31 +155,31 @@ namespace SynapseVue.Server.Data.Migrations
                         {
                             Id = 1,
                             Color = "#FFCD56",
-                            Name = "Ford"
+                            Name = "Safety"
                         },
                         new
                         {
                             Id = 2,
                             Color = "#FF6384",
-                            Name = "Nissan"
+                            Name = "Sensor"
                         },
                         new
                         {
                             Id = 3,
                             Color = "#4BC0C0",
-                            Name = "Benz"
+                            Name = "Display"
                         },
                         new
                         {
                             Id = 4,
                             Color = "#FF9124",
-                            Name = "BMW"
+                            Name = "Sound"
                         },
                         new
                         {
                             Id = 5,
                             Color = "#2B88D8",
-                            Name = "Tesla"
+                            Name = "Camera"
                         });
                 });
 
@@ -330,13 +330,20 @@ namespace SynapseVue.Server.Data.Migrations
                         .HasMaxLength(512)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("LastReadValue")
+                        .HasMaxLength(512)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long?>("LastSuccessActivity")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("money");
+                    b.Property<int>("PIN")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -349,208 +356,78 @@ namespace SynapseVue.Server.Data.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedOn = 1307691122688000120L,
-                            Description = "The Ford Mustang is ranked #1 in Sports Cars",
-                            Name = "Mustang",
-                            Price = 27155m
+                            CreatedOn = 1307708817408000120L,
+                            Description = "Passive Infra Red motion detector",
+                            LastReadValue = "",
+                            LastSuccessActivity = 1307708817408000120L,
+                            Name = "PIRSensor",
+                            PIN = 18
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 1,
-                            CreatedOn = 1307682275328000120L,
-                            Description = "The Ford GT is a mid-engine two-seater sports car manufactured and marketed by American automobile manufacturer",
-                            Name = "GT",
-                            Price = 500000m
+                            CreatedOn = 1307708817408000120L,
+                            Description = "Led diode",
+                            LastReadValue = "",
+                            LastSuccessActivity = 1307708817408000120L,
+                            Name = "LED",
+                            PIN = 17
                         },
                         new
                         {
                             Id = 3,
-                            CategoryId = 1,
-                            CreatedOn = 1307664580608000120L,
-                            Description = "Ford Ranger is a nameplate that has been used on multiple model lines of pickup trucks sold by Ford worldwide.",
-                            Name = "Ranger",
-                            Price = 25000m
+                            CategoryId = 4,
+                            CreatedOn = 1307673427968000120L,
+                            Description = "Buzzer for sound generating",
+                            LastReadValue = "",
+                            LastSuccessActivity = 1307708817408000120L,
+                            Name = "Buzzer",
+                            PIN = 23
                         },
                         new
                         {
                             Id = 4,
-                            CategoryId = 1,
-                            CreatedOn = 1307655733248000120L,
-                            Description = "Raptor is a SCORE off-road trophy truck living in a asphalt world",
-                            Name = "Raptor",
-                            Price = 53205m
+                            CategoryId = 2,
+                            CreatedOn = 1307708817408000120L,
+                            Description = "DHT Temperature and humidity reader",
+                            LastReadValue = "",
+                            LastSuccessActivity = 1307708817408000120L,
+                            Name = "DHT22Sensor",
+                            PIN = 27
                         },
                         new
                         {
                             Id = 5,
-                            CategoryId = 1,
-                            CreatedOn = 1307646885888000120L,
-                            Description = "The Ford Maverick is a compact pickup truck produced by Ford Motor Company.",
-                            Name = "Maverick",
-                            Price = 22470m
+                            CategoryId = 3,
+                            CreatedOn = 1307708817408000120L,
+                            Description = "Display, no pin needed",
+                            LastReadValue = "",
+                            LastSuccessActivity = 1307708817408000120L,
+                            Name = "Display",
+                            PIN = 0
                         },
                         new
                         {
                             Id = 6,
-                            CategoryId = 2,
-                            CreatedOn = 1307691122688000120L,
-                            Description = "A powerful convertible sports car",
-                            Name = "Roadster",
-                            Price = 42800m
+                            CategoryId = 5,
+                            CreatedOn = 1307675197440000120L,
+                            Description = "Camera connected to PCI slot 0, no pin needed",
+                            LastReadValue = "",
+                            LastSuccessActivity = 1307708817408000120L,
+                            Name = "Camera0",
+                            PIN = 0
                         },
                         new
                         {
                             Id = 7,
-                            CategoryId = 2,
-                            CreatedOn = 1307682275328000120L,
-                            Description = "A perfectly adequate family sedan with sharp looks",
-                            Name = "Altima",
-                            Price = 24550m
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CategoryId = 2,
-                            CreatedOn = 1307664580608000120L,
-                            Description = "Legendary supercar with AWD, 4 seats, a powerful V6 engine and the latest tech",
-                            Name = "GT-R",
-                            Price = 113540m
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CategoryId = 2,
-                            CreatedOn = 1307646885888000120L,
-                            Description = "A new smart SUV",
-                            Name = "Juke",
-                            Price = 28100m
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CategoryId = 3,
-                            CreatedOn = 1307691122688000120L,
-                            Description = "",
-                            Name = "H247",
-                            Price = 54950m
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CategoryId = 3,
-                            CreatedOn = 1307682275328000120L,
-                            Description = "",
-                            Name = "V297",
-                            Price = 103360m
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CategoryId = 3,
-                            CreatedOn = 1307646885888000120L,
-                            Description = "",
-                            Name = "R50",
-                            Price = 2000000m
-                        },
-                        new
-                        {
-                            Id = 13,
-                            CategoryId = 4,
-                            CreatedOn = 1307691122688000120L,
-                            Description = "",
-                            Name = "M550i",
-                            Price = 77790m
-                        },
-                        new
-                        {
-                            Id = 14,
-                            CategoryId = 4,
-                            CreatedOn = 1307682275328000120L,
-                            Description = "",
-                            Name = "540i",
-                            Price = 60945m
-                        },
-                        new
-                        {
-                            Id = 15,
-                            CategoryId = 4,
-                            CreatedOn = 1307673427968000120L,
-                            Description = "",
-                            Name = "530e",
-                            Price = 56545m
-                        },
-                        new
-                        {
-                            Id = 16,
-                            CategoryId = 4,
-                            CreatedOn = 1307664580608000120L,
-                            Description = "",
-                            Name = "530i",
-                            Price = 55195m
-                        },
-                        new
-                        {
-                            Id = 17,
-                            CategoryId = 4,
-                            CreatedOn = 1307655733248000120L,
-                            Description = "",
-                            Name = "M850i",
-                            Price = 100045m
-                        },
-                        new
-                        {
-                            Id = 18,
-                            CategoryId = 4,
-                            CreatedOn = 1307646885888000120L,
-                            Description = "",
-                            Name = "X7",
-                            Price = 77980m
-                        },
-                        new
-                        {
-                            Id = 19,
-                            CategoryId = 4,
-                            CreatedOn = 1307638038528000120L,
-                            Description = "",
-                            Name = "IX",
-                            Price = 87000m
-                        },
-                        new
-                        {
-                            Id = 20,
                             CategoryId = 5,
                             CreatedOn = 1307691122688000120L,
-                            Description = "rapid acceleration and dynamic handling",
-                            Name = "Model 3",
-                            Price = 61990m
-                        },
-                        new
-                        {
-                            Id = 21,
-                            CategoryId = 5,
-                            CreatedOn = 1307682275328000120L,
-                            Description = "finishes near the top of our luxury electric car rankings.",
-                            Name = "Model S",
-                            Price = 135000m
-                        },
-                        new
-                        {
-                            Id = 22,
-                            CategoryId = 5,
-                            CreatedOn = 1307673427968000120L,
-                            Description = "Heart-pumping acceleration, long drive range",
-                            Name = "Model X",
-                            Price = 138890m
-                        },
-                        new
-                        {
-                            Id = 23,
-                            CategoryId = 5,
-                            CreatedOn = 1307646885888000120L,
-                            Description = "extensive driving range, lots of standard safety features",
-                            Name = "Model Y",
-                            Price = 67790m
+                            Description = "Camera connected to PCI slot 1, no pin needed",
+                            LastReadValue = "",
+                            LastSuccessActivity = 1307708817408000120L,
+                            Name = "Camera1",
+                            PIN = 0
                         });
                 });
 

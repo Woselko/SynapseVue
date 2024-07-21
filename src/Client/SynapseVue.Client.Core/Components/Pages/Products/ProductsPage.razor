@@ -29,8 +29,10 @@
                                       InputHtmlAttributes="@(new Dictionary<string, object> {{"autofocus", true}})" />
                     </ColumnOptions>
                 </BitDataGridPropertyColumn>
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.PIN)]" Property="p => p!.PIN" Sortable="true" Align="BitDataGridAlign.Left" />
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.LastReadValue)]" Property="p => p!.LastReadValue" Sortable="false" Align="BitDataGridAlign.Left" />
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.LastSuccessActivity)]" Property="p => p!.LastSuccessActivity" Sortable="true" Align="BitDataGridAlign.Left" />
                 <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.Category)]" Property="p => p!.CategoryName" Sortable="true" Align="BitDataGridAlign.Left" />
-                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.Price)]" Property="p => p!.Price" Sortable="true" Align="BitDataGridAlign.Left" />
                 <BitDataGridTemplateColumn Title="@Localizer[(nameof(AppStrings.Action))]" Align="BitDataGridAlign.Center" Context="product">
                     <BitIconButton IconName="@BitIconName.Edit" OnClick="() => EditProduct(product!)" Title="@Localizer[(nameof(AppStrings.Edit))]" />
                     <BitIconButton IconName="@BitIconName.Delete" OnClick="WrapHandled(() => DeleteProduct(product!))" Title="@Localizer[(nameof(AppStrings.Delete))]" />

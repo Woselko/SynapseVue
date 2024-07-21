@@ -33,12 +33,12 @@ public partial class ProductsSalesWidget
         {
             isLoading = true;
 
-            var data = await dashboardController.GetProductsSalesStats(CurrentCancellationToken);
+            //var data = await dashboardController.GetProductsSalesStats(CurrentCancellationToken);
 
-            BitChartBarDataset<decimal> chartDataSet = [.. data.Select(d => d.SaleAmount)];
-            chartDataSet.BackgroundColor = data.Select(d => d.CategoryColor ?? string.Empty).ToArray();
-            config.Data.Datasets.Add(chartDataSet);
-            config.Data.Labels.AddRange(data.Select(d => d.ProductName ?? string.Empty));
+            // BitChartBarDataset<decimal> chartDataSet = [.. data.Select(d => d.SaleAmount)];
+            // chartDataSet.BackgroundColor = data.Select(d => d.CategoryColor ?? string.Empty).ToArray();
+            // config.Data.Datasets.Add(chartDataSet);
+            // config.Data.Labels.AddRange(data.Select(d => d.ProductName ?? string.Empty));
         }
         finally
         {

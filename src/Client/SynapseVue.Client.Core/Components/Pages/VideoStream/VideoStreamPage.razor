@@ -12,8 +12,8 @@
     }
     <div class="page-row">
     <h1 class="page-title">Video Stream</h1>
-    <BitButton OnClick="StartStream" disabled="@isStreaming">Start</BitButton>
-    <BitButton OnClick="StopStream" disabled="@(!isStreaming)">Stop</BitButton>
+    <BitButton OnClick="StartStream" Disabled="@isStreaming">Start</BitButton>
+    <BitButton OnClick="StopStream" Disabled="@(!isStreaming)">Stop</BitButton>
     </div>
     <div hidden="@(!isStreaming)">
         <img id="videoFrame" src="@videoSrc" alt="Video Frame" />

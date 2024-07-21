@@ -569,4 +569,13 @@ Please confirm your email by clicking on the link.</value>
     <data name="Video" xml:space="preserve">
     <value>Video</value>
   </data>
+    <data name="PIN" xml:space="preserve">
+    <value>PIN</value>
+  </data>
+    <data name="LastSuccessActivity" xml:space="preserve">
+    <value>Last read</value>
+  </data>
+    <data name="LastReadValue" xml:space="preserve">
+    <value>Last read value</value>
+  </data>
 </root>
