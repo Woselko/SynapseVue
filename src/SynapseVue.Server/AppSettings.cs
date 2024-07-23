@@ -10,13 +10,7 @@ public class AppSettings
 
     public string UserProfileImagesDir { get; set; } = default!;
 
-    public int BUZZ_PIN { get; set; } = default!;
-
-    public int DHT22_PIN { get; set; } = default!;
-
-    public int PIR_PIN { get; set; } = default!;
-
-    public int LED_PIN { get; set; } = default!;
+    public List<string> AttachedDevices { get; set; } = default!;
 }
 
 public class HealthCheckSettings

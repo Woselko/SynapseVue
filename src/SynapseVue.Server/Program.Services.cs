@@ -138,14 +138,18 @@ public static partial class Program
 
         builder.Services.AddHangfire(config => config.UseMemoryStorage());
         builder.Services.AddHangfireServer();
+        builder.Services.AddScoped<DataCollectorDbService>();
 
-                // Rejestracja MainDataCollector jako Singleton
-        builder.Services.AddSingleton(MainDataCollector.Instance);
-
-        // Zainicjuj Singleton z wymaganymi parametrami
-        var mainDataCollector = MainDataCollector.Instance;
-        mainDataCollector.Initialize(dht22Pin: appSettings.DHT22_PIN, pirPin: appSettings.PIR_PIN, 
-            ledPin: appSettings.LED_PIN, buzzPin: appSettings.BUZZ_PIN);
+        // Rejestracja MainDataCollector jako Singleton
+        builder.Services.AddSingleton<MainDataCollector>(serviceProvider =>
+        {
+            var appSettings = builder.Configuration.GetSection("AppSettings").Get<AppSettings>(); // Pobieranie AppSettings
+            // Tworzymy instancję MainDataCollector
+            var mainDataCollector = MainDataCollector.Instance;
+            // Inicjalizujemy MainDataCollector z AppSettings, ale nie z DataCollectorDbService
+            mainDataCollector.Initialize(appSettings, serviceProvider);
+            return mainDataCollector;
+        });
     }
 
     private static void AddBlazor(WebApplicationBuilder builder)

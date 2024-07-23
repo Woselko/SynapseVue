@@ -1,5 +1,6 @@
 ﻿
 using Hangfire;
+using SynapseVue.Server.Services;
 
 namespace SynapseVue.Server;
 
@@ -24,7 +25,7 @@ public static partial class Program
 
         app.UseHangfireDashboard();
         RecurringJob.AddOrUpdate("DataCollecting", () => 
-            RaspSensorLibrary.MainDataCollector.Instance.CollectData(), Cron.Minutely);
+           MainDataCollector.Instance.CollectData(), Cron.Minutely);
 
         app.ConfiureMiddlewares();
 
