@@ -150,6 +150,8 @@ public static partial class Program
             mainDataCollector.Initialize(appSettings, serviceProvider);
             return mainDataCollector;
         });
+        builder.Services.AddSingleton<MainMotionDetectionService>();
+        builder.Services.AddHostedService(provider => provider.GetService<MainMotionDetectionService>());
     }
 
     private static void AddBlazor(WebApplicationBuilder builder)

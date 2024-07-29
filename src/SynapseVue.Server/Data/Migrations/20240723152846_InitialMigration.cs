@@ -236,11 +236,17 @@ namespace SynapseVue.Server.Data.Migrations
                 columns: new[] { "Id", "Color", "Name" },
                 values: new object[,]
                 {
-                    { 1, "#FFCD56", "Safety" },
-                    { 2, "#FF6384", "Sensor" },
-                    { 3, "#4BC0C0", "Display" },
-                    { 4, "#FF9124", "Sound" },
-                    { 5, "#2B88D8", "Camera" }
+                    { 1, "#FFCD56", "DHT22" },
+                    { 2, "#441C4D", "DHT11" },
+                    { 3, "#FF6384", "PIR" },
+                    { 4, "#07E80B", "LED" },
+                    { 5, "#4BC0C0", "LCD-DISPLAY" },
+                    { 6, "#FF9124", "BUZZ" },
+                    { 7, "#2B88D8", "CAMERA" },
+                    { 8, "#DB650B", "RFID" },
+                    { 9, "#07E8B0", "BH1750" },
+                    { 10, "#BD040D", "MQ-9" },
+                    { 11, "#DE0064", "MQ-3" }
                 });
 
             migrationBuilder.InsertData(
@@ -258,13 +264,13 @@ namespace SynapseVue.Server.Data.Migrations
                 columns: new[] { "Id", "CategoryId", "CreatedOn", "Description", "LastReadValue", "LastSuccessActivity", "Name", "PIN" },
                 values: new object[,]
                 {
-                    { 1, 1, 1307708817408000120L, "Passive Infra Red motion detector", "", 1307708817408000120L, "PIRSensor", 18 },
-                    { 2, 1, 1307708817408000120L, "Led diode", "", 1307708817408000120L, "LED", 17 },
-                    { 3, 4, 1307673427968000120L, "Buzzer for sound generating", "", 1307708817408000120L, "Buzzer", 23 },
-                    { 4, 2, 1307708817408000120L, "DHT Temperature and humidity reader", "", 1307708817408000120L, "DHT22Sensor", 27 },
-                    { 5, 3, 1307708817408000120L, "Display, no pin needed", "", 1307708817408000120L, "Display", 0 },
-                    { 6, 5, 1307675197440000120L, "Camera connected to PCI slot 0, no pin needed", "", 1307708817408000120L, "Camera0", 0 },
-                    { 7, 5, 1307691122688000120L, "Camera connected to PCI slot 1, no pin needed", "", 1307708817408000120L, "Camera1", 0 }
+                    { 1, 3, 1307708817408000120L, "Passive Infra Red motion detector", "", 1307708817408000120L, "PIRSensor-main", 18 },
+                    { 2, 4, 1307708817408000120L, "Led diode", "", 1307708817408000120L, "LED-main", 17 },
+                    { 3, 6, 1307673427968000120L, "Buzzer for sound generating", "", 1307708817408000120L, "Buzzer-main", 23 },
+                    { 4, 1, 1307708817408000120L, "DHT Temperature and humidity reader", "", 1307708817408000120L, "DHT22Sensor-main", 27 },
+                    { 5, 5, 1307708817408000120L, "Display, no pin needed", "", 1307708817408000120L, "Display-main", 0 },
+                    { 6, 7, 1307675197440000120L, "Camera connected to PCI slot 0, no pin needed", "", 1307708817408000120L, "Camera0-AI-main", 0 },
+                    { 7, 7, 1307691122688000120L, "Camera connected to PCI slot 1, no pin needed", "", 1307708817408000120L, "Camera1-SERVER-main", 0 }
                 });
 
             migrationBuilder.CreateIndex(

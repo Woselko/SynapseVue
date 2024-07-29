@@ -39,7 +39,7 @@
             <div class="form-input-container">
                 <BitNumberField @bind-Value="product.PIN"
                                 Precision="2"
-                                Suffix="$"
+                                Suffix="GPIO pin, 0 if not needed"
                                 Label="@Localizer[(nameof(AppStrings.PIN))]" />
                 <ValidationMessage For="() => product.PIN" />
             </div>

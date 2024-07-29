@@ -31,14 +31,21 @@ public partial class SystemController : AppControllerBase, ISystemController
             throw new InvalidOperationException("Invalid mode");
 
         var entityToUpdate = await DbContext.SystemStates.FirstOrDefaultAsync(t => t.Id == dto.Id, cancellationToken);
-
+        
         if (entityToUpdate is null)
             throw new ResourceNotFoundException(Localizer[nameof(AppStrings.ProductCouldNotBeFound)]);
 
         dto.Patch(entityToUpdate);
 
         await DbContext.SaveChangesAsync(cancellationToken);
-
+        if (dto.Mode == "Home")
+        {
+            MainMotionDetectionService.StopMonitoring();
+        }
+        else
+        {
+            MainMotionDetectionService.StartMonitoring();
+        }
         return entityToUpdate.Map();
     }
 

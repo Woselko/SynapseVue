@@ -78,23 +78,24 @@ public class MainDataCollector
     #region DHT22
     private (double humidity, double temperature, DateTime time)? ReadDht22TempAndHumidity(Product device)
     {
-        var dht22 = new Dht22Reader(device.PIN);
         (double humidity, double temperature)? tempAndHumidity = null;
         int attemptCount = 0;
         while (attemptCount < 3 && tempAndHumidity == null)
         {
+            var dht22 = new Dht22Reader(device.PIN);
             tempAndHumidity = dht22.ReadDht22();
             attemptCount++;
         }
+        DateTime time = DateTime.Now;
         if (tempAndHumidity != null)
-        {
-            DateTime time = DateTime.Now;
+        {  
             (double humidity, double temperature) = tempAndHumidity.Value;
             Console.WriteLine(temperature + "C degrees, " + humidity + "% humidity " + time.ToShortDateString() + " " + time.ToShortTimeString());
             return (humidity, temperature, time);
         }
         else
         {
+            SaveToDatabase(device, time, null);
             Console.WriteLine("Failed to read temperature and humidity after 3 attempts.");
             throw new Exception("Failed to read temperature and humidity after 3 attempts.");
         }
@@ -102,7 +103,9 @@ public class MainDataCollector
 
     private (string value, DateTime time) WrapDataFromDHT22((double humidity, double temperature, DateTime time)? data)
     {
-        return ($"{data.Value.temperature}C degrees {data.Value.humidity}% humidity", data.Value.time);
+        var temp = Math.Round(data.Value.temperature, 1);
+        var humidity = Math.Round(data.Value.humidity, 1);
+        return ($"{temp}C degrees {humidity}% humidity", data.Value.time);
     }
     #endregion
 }

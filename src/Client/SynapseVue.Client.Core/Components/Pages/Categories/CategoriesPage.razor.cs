@@ -14,7 +14,7 @@ public partial class CategoriesPage
     private ConfirmMessageBox confirmMessageBox = default!;
     private BitDataGrid<CategoryDto>? dataGrid;
     private BitDataGridItemsProvider<CategoryDto> categoriesProvider = default!;
-    private BitDataGridPaginationState pagination = new() { ItemsPerPage = 10 };
+    private BitDataGridPaginationState pagination = new() { ItemsPerPage = 15 };
 
     private string CategoryNameFilter
     {

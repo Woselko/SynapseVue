@@ -155,31 +155,67 @@ namespace SynapseVue.Server.Data.Migrations
                         {
                             Id = 1,
                             Color = "#FFCD56",
-                            Name = "Safety"
+                            Name = "DHT22"
                         },
                         new
                         {
                             Id = 2,
-                            Color = "#FF6384",
-                            Name = "Sensor"
+                            Color = "#441C4D",
+                            Name = "DHT11"
                         },
                         new
                         {
                             Id = 3,
-                            Color = "#4BC0C0",
-                            Name = "Display"
+                            Color = "#FF6384",
+                            Name = "PIR"
                         },
                         new
                         {
                             Id = 4,
-                            Color = "#FF9124",
-                            Name = "Sound"
+                            Color = "#07E80B",
+                            Name = "LED"
                         },
                         new
                         {
                             Id = 5,
+                            Color = "#4BC0C0",
+                            Name = "LCD-DISPLAY"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Color = "#FF9124",
+                            Name = "BUZZ"
+                        },
+                        new
+                        {
+                            Id = 7,
                             Color = "#2B88D8",
-                            Name = "Camera"
+                            Name = "CAMERA"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Color = "#DB650B",
+                            Name = "RFID"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Color = "#07E8B0",
+                            Name = "BH1750"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Color = "#BD040D",
+                            Name = "MQ-9"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Color = "#DE0064",
+                            Name = "MQ-3"
                         });
                 });
 
@@ -355,78 +391,78 @@ namespace SynapseVue.Server.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CategoryId = 1,
+                            CategoryId = 3,
                             CreatedOn = 1307708817408000120L,
                             Description = "Passive Infra Red motion detector",
                             LastReadValue = "",
                             LastSuccessActivity = 1307708817408000120L,
-                            Name = "PIRSensor",
+                            Name = "PIRSensor-main",
                             PIN = 18
                         },
                         new
                         {
                             Id = 2,
-                            CategoryId = 1,
+                            CategoryId = 4,
                             CreatedOn = 1307708817408000120L,
                             Description = "Led diode",
                             LastReadValue = "",
                             LastSuccessActivity = 1307708817408000120L,
-                            Name = "LED",
+                            Name = "LED-main",
                             PIN = 17
                         },
                         new
                         {
                             Id = 3,
-                            CategoryId = 4,
+                            CategoryId = 6,
                             CreatedOn = 1307673427968000120L,
                             Description = "Buzzer for sound generating",
                             LastReadValue = "",
                             LastSuccessActivity = 1307708817408000120L,
-                            Name = "Buzzer",
+                            Name = "Buzzer-main",
                             PIN = 23
                         },
                         new
                         {
                             Id = 4,
-                            CategoryId = 2,
+                            CategoryId = 1,
                             CreatedOn = 1307708817408000120L,
                             Description = "DHT Temperature and humidity reader",
                             LastReadValue = "",
                             LastSuccessActivity = 1307708817408000120L,
-                            Name = "DHT22Sensor",
+                            Name = "DHT22Sensor-main",
                             PIN = 27
                         },
                         new
                         {
                             Id = 5,
-                            CategoryId = 3,
+                            CategoryId = 5,
                             CreatedOn = 1307708817408000120L,
                             Description = "Display, no pin needed",
                             LastReadValue = "",
                             LastSuccessActivity = 1307708817408000120L,
-                            Name = "Display",
+                            Name = "Display-main",
                             PIN = 0
                         },
                         new
                         {
                             Id = 6,
-                            CategoryId = 5,
+                            CategoryId = 7,
                             CreatedOn = 1307675197440000120L,
                             Description = "Camera connected to PCI slot 0, no pin needed",
                             LastReadValue = "",
                             LastSuccessActivity = 1307708817408000120L,
-                            Name = "Camera0",
+                            Name = "Camera0-AI-main",
                             PIN = 0
                         },
                         new
                         {
                             Id = 7,
-                            CategoryId = 5,
+                            CategoryId = 7,
                             CreatedOn = 1307691122688000120L,
                             Description = "Camera connected to PCI slot 1, no pin needed",
                             LastReadValue = "",
                             LastSuccessActivity = 1307708817408000120L,
-                            Name = "Camera1",
+                            Name = "Camera1-SERVER-main",
                             PIN = 0
                         });
                 });

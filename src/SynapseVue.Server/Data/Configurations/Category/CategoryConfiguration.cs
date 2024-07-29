@@ -10,7 +10,7 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
             new() { Id = 1, Name = "DHT22", Color = "#FFCD56" },
             new() { Id = 2, Name = "DHT11", Color = "#441C4D" },
             new() { Id = 3, Name = "PIR", Color = "#FF6384" },
-            new() { Id = 4, Name = "LED", Color = "##07E80B" },
+            new() { Id = 4, Name = "LED", Color = "#07E80B" },
             new() { Id = 5, Name = "LCD-DISPLAY", Color = "#4BC0C0" },
             new() { Id = 6, Name = "BUZZ", Color = "#FF9124" },
             new() { Id = 7, Name = "CAMERA", Color = "#2B88D8" },
