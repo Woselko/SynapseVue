@@ -13,20 +13,32 @@
         }
         else
         {
-            <div class="hero-section-desc">
-                <div class="page-row">
-                    <BitLabel>Current SynapseVue state: @systemState.Mode</BitLabel>
-                </div>
-                <div class="form-input-container">
-                </div>
-                <div class="page-row">
-                    <BitLabel>Current SynapseVue state: @systemState.Mode</BitLabel>
-                </div>
-                <div class="page-row">
-                    <BitLabel>Current SynapseVue state: @systemState.Mode</BitLabel>
-                </div>
+            <div class="content-container danger-panel">
+                <BitTypography Variant="BitTypographyVariant.H5" 
+                    Style=@safeModeStylesTitle>
+                    Current SynapseVue state: @systemState.Mode
+                </BitTypography>
+                <br />
+                <br />
+                <BitButton ButtonStyle="BitButtonStyle.Standard"
+                           Style=@safeModeStylesLabel
+                           OnClick="ChangeState">
+                           @buttonLabel
+                </BitButton>
+                <br />
+                <br />
+                <BitButton ButtonStyle="BitButtonStyle.Standard"
+                           Style="color: #dc0000; border-color: #dc0000"
+                           OnClick="Reboot">
+                           Reboot System
+                </BitButton>
             </div>
         }
     </form>
 </div>
 
+@code {
+    private string buttonLabel => isSafeMode ? "Switch to Home" : "Switch to Safe";
+    private string safeModeStylesTitle => isSafeMode ? "color: #00ac1d;border-bottom: 1px solid #00ac1d" : "color: #dc0000;border-bottom: 1px solid #dc0000";
+    private string safeModeStylesLabel => !isSafeMode ? "color: #00ac1d; border-color: #00ac1d" : "color: #dc0000; border-color: #dc0000";
+}

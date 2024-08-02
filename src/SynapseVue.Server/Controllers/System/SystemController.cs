@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using SynapseVue.Client.Core.Controllers.System;
 using SynapseVue.Server.Models.System;
 using SynapseVue.Shared.Dtos.System;
@@ -8,10 +9,29 @@ namespace SynapseVue.Server.Controllers;
 [ApiController]
 public partial class SystemController : AppControllerBase, ISystemController
 {
-    // public IQueryable<SystemStateDto> Get()
-    // {
-    //     return DbContext.SystemStates.Project();
-    // }
+        [HttpPost]
+        public async Task<SystemStateDto> Reboot()
+        {
+            Task.Run(() =>
+            {
+                var processStartInfo = new ProcessStartInfo
+                {
+                    FileName = "/bin/bash",
+                    Arguments = "-c \"sudo reboot\"",
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                using (var process = new Process { StartInfo = processStartInfo })
+                {
+                    process.Start();
+                    process.WaitForExit();
+                }
+            });
+            return new SystemStateDto{Id = 1,Mode = "Rebooting"};
+        }
 
     [HttpGet]
     public async Task<SystemStateDto> Get(CancellationToken cancellationToken)

@@ -6,6 +6,9 @@ namespace SynapseVue.Client.Core.Controllers.System;
 [Route("api/[controller]/[action]/")]
 public interface ISystemController : IAppController
 {
+    [HttpPost]
+    Task<SystemStateDto> Reboot();
+
     [HttpGet]
     Task<SystemStateDto> Get(CancellationToken cancellationToken = default);
 

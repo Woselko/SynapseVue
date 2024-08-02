@@ -23,6 +23,20 @@ public partial class SystemPage
         isLoading = false;
         StateHasChanged();
     }
+    private async Task ChangeState()
+    {
+        if (systemState != null)
+        {
+            systemState.Mode = isSafeMode ? "Home" : "Safe";
+            await systemController.Update(systemState);
+            isSafeMode = !isSafeMode;
+            StateHasChanged();
+        }
+    }
 
+    private async Task Reboot()
+    {
+        await systemController.Reboot();
+    }
 
 }
