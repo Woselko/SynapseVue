@@ -11,11 +11,11 @@
         </div>
         <BitLabel>@path</BitLabel>
 
-        @if (File.Exists(path))
+        @if (File.Exists(path2))
         {
             <div class="video-container">
                 <video controls>
-                    <source src="@path" type="video/mp4">
+                    <source src="videos/@video.Name" type="video/mp4">
                 </video>
             </div>
         }

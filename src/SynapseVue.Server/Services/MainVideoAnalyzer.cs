@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using RaspSensorLibrary;
 using SynapseVue.Server;
@@ -9,6 +9,7 @@ using Emgu.CV.Dnn;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
 using Emgu.CV;
+using System.Diagnostics;
 
 namespace SynapseVue.Server.Services;
 
@@ -49,11 +50,22 @@ public class MainVideoAnalyzer
         {
             isProcessing = true;
             var vidToAnalyze = _videos.Last();
-            AnalyzeVideo(ref vidToAnalyze);
+            try
+            {
+                AnalyzeVideo(ref vidToAnalyze);
+                ConvertAviToMp4(ref vidToAnalyze);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Fail during processing video");
+                isProcessing = false;
+                return;
+            }
             SaveToDatabase(ref vidToAnalyze);
             isProcessing = false;
         }
     }
+
     private void AnalyzeVideo(ref Video vidToAnalyze)
     {
         vidToAnalyze.DetectedObjects = "";
@@ -118,6 +130,58 @@ public class MainVideoAnalyzer
                     }
                 }
             }
+        }
+    }
+
+    private void ConvertAviToMp4(ref Video vidToAnalyze)
+    {
+        string inputFilePath = vidToAnalyze.FilePath;
+        string outputFilePath = Path.ChangeExtension(inputFilePath, ".mp4");
+
+        try
+        {
+            // Prepare the ffmpeg process start information
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = "ffmpeg",
+                Arguments = $"-i \"{inputFilePath}\" \"{outputFilePath}\"",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            // Start the ffmpeg process
+            using (var process = new Process { StartInfo = startInfo })
+            {
+                process.Start();
+                process.WaitForExit();
+
+                // Check if the process completed successfully
+                if (process.ExitCode != 0)
+                {
+                    string error = process.StandardError.ReadToEnd();
+                    Console.WriteLine($"ffmpeg failed with error: {error}");
+                    throw new Exception("ffmpeg conversion failed");
+                }
+            }
+
+            // If the conversion was successful, delete the original .avi file
+            if (File.Exists(outputFilePath))
+            {
+                File.Delete(inputFilePath);
+                // Update the video object to point to the new file
+                vidToAnalyze.FilePath = outputFilePath;
+            }
+            else
+            {
+                throw new Exception("Output file was not created");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error during video conversion: {ex.Message}");
+            throw;
         }
     }
 

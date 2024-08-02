@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using RaspSensorLibrary;
 using SynapseVue.Server;
@@ -40,7 +40,7 @@ public class VideoRecorderService
             return;
         }
         string videoName = $"MotionDetect_{DateTime.Now:ddMMyyyy_HHmm}.avi";
-        var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Media", videoName);
+        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "videos", videoName);
         Video video = new Video(){
             Name = videoName,
             IsPersonDetected = false,

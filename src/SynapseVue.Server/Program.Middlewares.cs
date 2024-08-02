@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
 using Microsoft.Net.Http.Headers;
+using Microsoft.Extensions.FileProviders;
 
 namespace SynapseVue.Server;
 
@@ -50,6 +51,7 @@ public static partial class Program
 
         Configure_401_403_404_Pages(app);
 
+        app.UseStaticFiles();
         app.UseStaticFiles(new StaticFileOptions
         {
             OnPrepareResponse = ctx =>

@@ -6,6 +6,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Content Remove="wwwroot\videos\test.avi" />
+      <Content Remove="wwwroot\videos\test1.avi" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Bit.CodeAnalyzers" Version="8.8.1" PrivateAssets="all" />
         <PackageReference Include="Bit.SourceGenerators" Version="8.8.1" PrivateAssets="all" />
         <PackageReference Include="Hangfire" Version="1.8.14" />
@@ -58,14 +63,6 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
 
-        <None Update="Media\test.avi">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-
-        <None Update="Media\test1.avi">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-
         <None Update="coco.names">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
@@ -79,6 +76,15 @@
         </None>
         
         <Content Include=".config\dotnet-tools.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="wwwroot\videos\test.avi">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </None>
+      <None Include="wwwroot\videos\test1.avi">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
     <ItemGroup>

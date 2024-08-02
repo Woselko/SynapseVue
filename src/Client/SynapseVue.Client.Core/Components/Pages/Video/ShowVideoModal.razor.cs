@@ -12,6 +12,7 @@ public partial class ShowVideoModal
     private bool isSaving;
     private VideoDto video = new();
     private string path = string.Empty;
+    private string path2 = string.Empty;
     private List<BitDropdownItem<string>> allCategoryList = [];
     private string selectedCategoyId = string.Empty;
 
@@ -31,6 +32,8 @@ public partial class ShowVideoModal
             path = video.FilePath;
             StateHasChanged();
         });
+
+        path2 = Path.Combine(Directory.GetCurrentDirectory(), "videos", path);
     }
 
 
