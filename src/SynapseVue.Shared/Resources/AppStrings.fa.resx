@@ -583,16 +583,37 @@
   <data name="NotFoundText" xml:space="preserve">
     <value>چیزی پیدا نشد.</value>
   </data>
-    <data name="Video" xml:space="preserve">
+  <data name="Video" xml:space="preserve">
     <value>Video</value>
   </data>
-    <data name="PIN" xml:space="preserve">
+  <data name="PIN" xml:space="preserve">
     <value>PIN</value>
   </data>
-    <data name="LastSuccessActivity" xml:space="preserve">
+  <data name="LastSuccessActivity" xml:space="preserve">
     <value>آخر قراءة ناجحة</value>
   </data>
-    <data name="LastReadValue" xml:space="preserve">
+  <data name="LastReadValue" xml:space="preserve">
     <value>آخر قيمة قراءة</value>
+  </data>
+  <data name="DetectedObjects" xml:space="preserve">
+    <value>الأشياء التي تم اكتشافها</value>
+  </data>
+  <data name="IsPersonDetected" xml:space="preserve">
+    <value>هل تم اكتشاف الشخص؟</value>
+  </data>
+  <data name="IsProcessed" xml:space="preserve">
+    <value>جاري العمل؟</value>
+  </data>
+  <data name="Media" xml:space="preserve">
+    <value>وسائط</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>صورة</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>يعرض</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>مقاس</value>
   </data>
 </root>

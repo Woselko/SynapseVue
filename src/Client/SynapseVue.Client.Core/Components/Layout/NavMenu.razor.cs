@@ -62,6 +62,25 @@ public partial class NavMenu
             },
             new()
             {
+                Text = Localizer[nameof(AppStrings.Media)],
+                IconName = BitIconName.Media,
+                IsExpanded = true,
+                ChildItems =
+                [
+                    new() {
+                        IconName = BitIconName.Video,
+                        Text = Localizer[nameof(AppStrings.Video)],
+                        Url = "/video",
+                    },
+                    new() {
+                        IconName = BitIconName.Photo,
+                        Text = Localizer[nameof(AppStrings.Photo)],
+                        Url = "/photo",
+                    },
+                ]
+            },
+            new()
+            {
                 Text = Localizer[nameof(AppStrings.EditProfileTitle)],
                 IconName = BitIconName.EditContact,
                 Url = "/edit-profile",

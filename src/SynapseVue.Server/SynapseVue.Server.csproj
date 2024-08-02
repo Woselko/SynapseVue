@@ -55,6 +55,14 @@
         <None Update="IdentityCertificate.pfx">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+
+        <None Update="Media\test.avi">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+
+        <None Update="Media\test1.avi">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
         
         <Content Include=".config\dotnet-tools.json" />
     </ItemGroup>

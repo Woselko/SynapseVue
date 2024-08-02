@@ -1,0 +1,48 @@
+﻿@page "/photo"
+@using SynapseVue.Shared.Dtos.Media
+@inherits AppComponentBase
+
+<PageTitle>@Localizer[nameof(AppStrings.Photo)]</PageTitle>
+
+<div class="page-container">
+    @if (isLoading)
+    {
+        <div class="loading-contianer">
+            <BitSpinner Size="BitSpinnerSize.Large"></BitSpinner>
+        </div>
+    }
+
+    <div class="page-row">
+        <h1 class="page-title">@Localizer[nameof(AppStrings.Photo)]</h1>
+        @*<BitButton OnClick="WrapHandled(CreateProduct)">@Localizer[nameof(AppStrings.AddProduct)]</BitButton> *@
+    </div>
+
+    <div class="grid">
+        <div class="grid-container">
+            <BitDataGrid @ref="dataGrid" ItemsProvider="photosProvider" TGridItem="PhotoDto" ResizableColumns="true" Pagination="pagination">
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.Id)]" Property="p => p!.Id" Sortable="true" Class="id-col"
+                                           Align="BitDataGridAlign.Left" IsDefaultSort="BitDataGridSortDirection.Ascending" />
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.Name)]" Property="p => p!.Name" Sortable="true" Class="column1">
+                    <ColumnOptions>
+                        <BitSearchBox @bind-Value="PhotoNameFilter"
+                                      Placeholder="@Localizer[(nameof(AppStrings.SearchOnName))]"
+                                      InputHtmlAttributes="@(new Dictionary<string, object> {{"autofocus", true}})" />
+                    </ColumnOptions>
+                </BitDataGridPropertyColumn>
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.LastSuccessActivity)]" Property="p => p!.CreatedAt" Sortable="true" Align="BitDataGridAlign.Left" />
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.Description)]" Property="p => p!.Data" Sortable="false" Align="BitDataGridAlign.Left" />
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.Description)]" Property="p => p!.Description" Sortable="true" Align="BitDataGridAlign.Left" />
+                <BitDataGridTemplateColumn Title="@Localizer[(nameof(AppStrings.Action))]" Align="BitDataGridAlign.Center" Context="photo">
+                    <BitIconButton IconName="@BitIconName.Edit" OnClick="() => EditPhoto(photo!)" Title="@Localizer[(nameof(AppStrings.Edit))]" />
+                    <BitIconButton IconName="@BitIconName.Delete" OnClick="WrapHandled(() => DeletePhoto(photo!))" Title="@Localizer[(nameof(AppStrings.Delete))]" />
+                    <BitIconButton IconName="@BitIconName.Play" OnClick="() => ShowPhoto(photo!)" Title="@Localizer[(nameof(AppStrings.Show))]" />
+                </BitDataGridTemplateColumn>
+            </BitDataGrid>
+        </div>
+        <BitDataGridPaginator Value="pagination" />
+    </div>
+</div>
+
+<ShowPhotoModal @ref="showModal" />
+<AddOrEditPhotoModal @ref="modal" OnSave="WrapHandled(RefreshData)" />
+<ConfirmMessageBox @ref=confirmMessageBox />

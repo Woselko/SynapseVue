@@ -1,0 +1,51 @@
+﻿@page "/video"
+@using SynapseVue.Shared.Dtos.Media
+@inherits AppComponentBase
+
+<PageTitle>@Localizer[nameof(AppStrings.ProductsPageTitle)]</PageTitle>
+
+<div class="page-container">
+    @if (isLoading)
+    {
+        <div class="loading-contianer">
+            <BitSpinner Size="BitSpinnerSize.Large"></BitSpinner>
+        </div>
+    }
+
+    <div class="page-row">
+        <h1 class="page-title">@Localizer[nameof(AppStrings.Video)]</h1>
+        @*<BitButton OnClick="WrapHandled(CreateProduct)">@Localizer[nameof(AppStrings.AddProduct)]</BitButton> *@
+    </div>
+
+    <div class="grid">
+        <div class="grid-container">
+            <BitDataGrid @ref="dataGrid" ItemsProvider="videosProvider" TGridItem="VideoDto" ResizableColumns="true" Pagination="pagination">
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.Id)]" Property="p => p!.Id" Sortable="true" Class="id-col"
+                                           Align="BitDataGridAlign.Left" IsDefaultSort="BitDataGridSortDirection.Ascending" />
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.Name)]" Property="p => p!.Name" Sortable="true" Class="column1">
+                    <ColumnOptions>
+                        <BitSearchBox @bind-Value="VideoNameFilter"
+                                      Placeholder="@Localizer[(nameof(AppStrings.SearchOnName))]"
+                                      InputHtmlAttributes="@(new Dictionary<string, object> {{"autofocus", true}})" />
+                    </ColumnOptions>
+                </BitDataGridPropertyColumn>
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.LastReadValue)]" Property="p => p!.CreatedAt" Sortable="true" Align="BitDataGridAlign.Left" />
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.IsProcessed)]" Property="p => p!.IsProcessed" Sortable="false" Align="BitDataGridAlign.Left" />
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.IsPersonDetected)]" Property="p => p!.IsPersonDetected" Sortable="true" Align="BitDataGridAlign.Left" />
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.DetectedObjects)]" Property="p => p!.DetectedObjects" Sortable="true" Align="BitDataGridAlign.Left" />
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.FilePath)]" Property="p => p!.FilePath" Sortable="true" Align="BitDataGridAlign.Left" />
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.Size)]" Property="p => p!.FileSize" Sortable="true" Align="BitDataGridAlign.Left" />
+                <BitDataGridTemplateColumn Title="@Localizer[(nameof(AppStrings.Action))]" Align="BitDataGridAlign.Center" Context="video">
+                    <BitIconButton IconName="@BitIconName.Edit" OnClick="() => EditVideo(video!)" Title="@Localizer[(nameof(AppStrings.Edit))]" />
+                    <BitIconButton IconName="@BitIconName.Delete" OnClick="WrapHandled(() => DeleteVideo(video!))" Title="@Localizer[(nameof(AppStrings.Delete))]" />
+                    <BitIconButton IconName="@BitIconName.Play" OnClick="() => PlayVideo(video!)" Title="@Localizer[(nameof(AppStrings.Show))]" />
+                </BitDataGridTemplateColumn>
+            </BitDataGrid>
+        </div>
+        <BitDataGridPaginator Value="pagination" />
+    </div>
+</div>
+
+<ShowVideoModal @ref="showModal" />
+<AddOrEditVideoModal @ref="modal" OnSave="WrapHandled(RefreshData)" />
+<ConfirmMessageBox @ref=confirmMessageBox />

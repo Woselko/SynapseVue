@@ -1,0 +1,23 @@
+﻿@inherits AppComponentBase
+
+
+<BitModal @bind-IsOpen="isOpen" IsBlocking="true">
+    <div class="main-container">
+        <div class="header">
+            <BitLabel>@video.Name</BitLabel>
+            <BitLabel>@video.CreatedAt</BitLabel>
+            <BitLabel>@Localizer[nameof(AppStrings.IsPersonDetected)]:@video.IsPersonDetected</BitLabel>
+            <BitIconButton IconName="@BitIconName.ChromeClose" OnClick="OnCloseClick" />
+        </div>
+        <BitLabel>@path</BitLabel>
+
+        @if (File.Exists(path))
+        {
+
+        }
+        else
+        {
+            <BitLabel>@Localizer[nameof(AppStrings.Error)]</BitLabel>
+        }
+    </div>
+</BitModal>

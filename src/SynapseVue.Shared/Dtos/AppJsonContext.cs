@@ -3,6 +3,7 @@ using SynapseVue.Shared.Dtos.Dashboard;
 using SynapseVue.Shared.Dtos.Products;
 using SynapseVue.Shared.Dtos.Identity;
 using SynapseVue.Shared.Dtos.System;
+using SynapseVue.Shared.Dtos.Media;
 
 namespace SynapseVue.Shared.Dtos;
 
@@ -33,6 +34,10 @@ namespace SynapseVue.Shared.Dtos;
 [JsonSerializable(typeof(SendResetPasswordEmailRequestDto))]
 [JsonSerializable(typeof(ResetPasswordRequestDto))]
 [JsonSerializable(typeof(SystemStateDto))]
+[JsonSerializable(typeof(VideoDto))]
+[JsonSerializable(typeof(PagedResult<VideoDto>))]
+[JsonSerializable(typeof(PhotoDto))]
+[JsonSerializable(typeof(PagedResult<PhotoDto>))]
 public partial class AppJsonContext : JsonSerializerContext
 {
 }

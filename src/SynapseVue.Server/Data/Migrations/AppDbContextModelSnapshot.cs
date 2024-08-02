@@ -350,6 +350,120 @@ namespace SynapseVue.Server.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SynapseVue.Server.Models.Media.Photo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("CreatedAt")
+                        .HasMaxLength(512)
+                        .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("Data")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(512)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Photos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = 1307708817408000120L,
+                            Data = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
+                            Description = "MyPhoto1",
+                            Name = "photo1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = 1307708817408000120L,
+                            Data = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
+                            Description = "MyPhoto2",
+                            Name = "photo2"
+                        });
+                });
+
+            modelBuilder.Entity("SynapseVue.Server.Models.Media.Video", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("CreatedAt")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(512)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DetectedObjects")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("FileSize")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsPersonDetected")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsProcessed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Videos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = 1307708817408000120L,
+                            Description = "MyVideo 1",
+                            DetectedObjects = "nothing",
+                            FilePath = "Media/test.avi",
+                            FileSize = 14324L,
+                            IsPersonDetected = false,
+                            IsProcessed = false,
+                            Name = "video1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = 1307708817408000120L,
+                            Description = "MyVideo 2",
+                            DetectedObjects = "nothing",
+                            FilePath = "Media/test1.avi",
+                            FileSize = 34124L,
+                            IsPersonDetected = false,
+                            IsProcessed = false,
+                            Name = "video2"
+                        });
+                });
+
             modelBuilder.Entity("SynapseVue.Server.Models.Products.Product", b =>
                 {
                     b.Property<int>("Id")

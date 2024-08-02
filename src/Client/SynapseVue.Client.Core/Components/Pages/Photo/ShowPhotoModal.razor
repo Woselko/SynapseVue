@@ -1,0 +1,13 @@
+﻿@inherits AppComponentBase
+
+<BitModal @bind-IsOpen="isOpen" IsBlocking="true">
+    <div class="main-container">
+        <div class="header">
+            <BitLabel>@photo.Name</BitLabel>
+            <BitLabel>@photo.CreatedAt</BitLabel>
+            <BitIconButton IconName="@BitIconName.ChromeClose" OnClick="OnCloseClick" />
+        </div>
+
+
+    </div>
+</BitModal>

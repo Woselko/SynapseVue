@@ -183,4 +183,7 @@
   <data name="PasswordRequiresUniqueChars" xml:space="preserve">
     <value>رمزهای عبور باید حداقل از {0} حرف مختلف استفاده کنند.</value>
   </data>
+  <data name="FilePath" xml:space="preserve">
+    <value>مسار الملف</value>
+  </data>
 </root>

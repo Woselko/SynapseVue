@@ -404,20 +404,20 @@ namespace SynapseVue.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete todo item.
-        /// </summary>
-        public static string DeleteTodoItem {
-            get {
-                return ResourceManager.GetString("DeleteTodoItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string Description {
             get {
                 return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detected objects.
+        /// </summary>
+        public static string DetectedObjects {
+            get {
+                return ResourceManager.GetString("DetectedObjects", resourceCulture);
             }
         }
         
@@ -553,6 +553,15 @@ namespace SynapseVue.Shared.Resources {
         public static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File path.
+        /// </summary>
+        public static string FilePath {
+            get {
+                return ResourceManager.GetString("FilePath", resourceCulture);
             }
         }
         
@@ -719,6 +728,24 @@ namespace SynapseVue.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is person detected?.
+        /// </summary>
+        public static string IsPersonDetected {
+            get {
+                return ResourceManager.GetString("IsPersonDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is processed?.
+        /// </summary>
+        public static string IsProcessed {
+            get {
+                return ResourceManager.GetString("IsProcessed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last 30 days category count.
         /// </summary>
         public static string Last30DaysCategoryCount {
@@ -737,6 +764,24 @@ namespace SynapseVue.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last read value.
+        /// </summary>
+        public static string LastReadValue {
+            get {
+                return ResourceManager.GetString("LastReadValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last read.
+        /// </summary>
+        public static string LastSuccessActivity {
+            get {
+                return ResourceManager.GetString("LastSuccessActivity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MaxLengthAttribute must have a Length value that is greater than zero. Use MaxLength() without parameters to indicate that the string or array can have the maximum allowable length..
         /// </summary>
         public static string MaxLengthAttribute_InvalidMaxLength {
@@ -746,11 +791,29 @@ namespace SynapseVue.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Media.
+        /// </summary>
+        public static string Media {
+            get {
+                return ResourceManager.GetString("Media", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The field {0} must be a string or array type with a minimum length of &apos;{1}&apos;..
         /// </summary>
         public static string MinLengthAttribute_ValidationError {
             get {
                 return ResourceManager.GetString("MinLengthAttribute_ValidationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mode.
+        /// </summary>
+        public static string Mode {
+            get {
+                return ResourceManager.GetString("Mode", resourceCulture);
             }
         }
         
@@ -800,29 +863,11 @@ namespace SynapseVue.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No todos yet.
-        /// </summary>
-        public static string NoTodos {
-            get {
-                return ResourceManager.GetString("NoTodos", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Haven’t you received the confirmation email?.
         /// </summary>
         public static string NotReceivedConfirmationEmailMessage {
             get {
                 return ResourceManager.GetString("NotReceivedConfirmationEmailMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Offline Edit profile.
-        /// </summary>
-        public static string OfflineEditProfileTitle {
-            get {
-                return ResourceManager.GetString("OfflineEditProfileTitle", resourceCulture);
             }
         }
         
@@ -843,15 +888,6 @@ namespace SynapseVue.Shared.Resources {
                 return ResourceManager.GetString("Password", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Mode.
-        /// </summary>
-        public static string Mode {
-            get {
-                return ResourceManager.GetString("Mode", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to Your password changed successfully..
@@ -859,6 +895,24 @@ namespace SynapseVue.Shared.Resources {
         public static string PasswordChangedSuccessfullyMessage {
             get {
                 return ResourceManager.GetString("PasswordChangedSuccessfullyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Photo.
+        /// </summary>
+        public static string Photo {
+            get {
+                return ResourceManager.GetString("Photo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PIN.
+        /// </summary>
+        public static string PIN {
+            get {
+                return ResourceManager.GetString("PIN", resourceCulture);
             }
         }
         
@@ -1142,6 +1196,15 @@ namespace SynapseVue.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show.
+        /// </summary>
+        public static string Show {
+            get {
+                return ResourceManager.GetString("Show", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign in.
         /// </summary>
         public static string SignIn {
@@ -1205,11 +1268,29 @@ namespace SynapseVue.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        public static string Size {
+            get {
+                return ResourceManager.GetString("Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Submit.
         /// </summary>
         public static string Submit {
             get {
                 return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System.
+        /// </summary>
+        public static string System {
+            get {
+                return ResourceManager.GetString("System", resourceCulture);
             }
         }
         
@@ -1246,42 +1327,6 @@ namespace SynapseVue.Shared.Resources {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add a todo.
-        /// </summary>
-        public static string TodoAddPlaceholder {
-            get {
-                return ResourceManager.GetString("TodoAddPlaceholder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Todo item could not be found.
-        /// </summary>
-        public static string ToDoItemCouldNotBeFound {
-            get {
-                return ResourceManager.GetString("ToDoItemCouldNotBeFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Search some todo....
-        /// </summary>
-        public static string TodoSearchPlaceholder {
-            get {
-                return ResourceManager.GetString("TodoSearchPlaceholder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Todo.
-        /// </summary>
-        public static string TodoTitle {
-            get {
-                return ResourceManager.GetString("TodoTitle", resourceCulture);
             }
         }
         
@@ -1347,15 +1392,6 @@ namespace SynapseVue.Shared.Resources {
                 return ResourceManager.GetString("UpdateConcurrencyException", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to System.
-        /// </summary>
-        public static string System {
-            get {
-                return ResourceManager.GetString("System", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to Would you like to update to the new version?.
@@ -1399,6 +1435,15 @@ namespace SynapseVue.Shared.Resources {
         public static string UserNameNotFound {
             get {
                 return ResourceManager.GetString("UserNameNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video.
+        /// </summary>
+        public static string Video {
+            get {
+                return ResourceManager.GetString("Video", resourceCulture);
             }
         }
         
@@ -1453,42 +1498,6 @@ namespace SynapseVue.Shared.Resources {
         public static string YouNeedToSignIn {
             get {
                 return ResourceManager.GetString("YouNeedToSignIn", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Video.
-        /// </summary>
-        public static string Video {
-            get {
-                return ResourceManager.GetString("Video", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to PIN.
-        /// </summary>
-        public static string PIN {
-            get {
-                return ResourceManager.GetString("PIN", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Last read.
-        /// </summary>
-        public static string LastSuccessActivity {
-            get {
-                return ResourceManager.GetString("Last read", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Last read value.
-        /// </summary>
-        public static string LastReadValue {
-            get {
-                return ResourceManager.GetString("Last read value", resourceCulture);
             }
         }
     }

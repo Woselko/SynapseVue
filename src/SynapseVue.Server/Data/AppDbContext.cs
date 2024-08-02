@@ -4,6 +4,7 @@ using SynapseVue.Server.Models.Identity;
 using SynapseVue.Server.Models.System;
 using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using SynapseVue.Server.Models.Media;
 
 namespace SynapseVue.Server.Data;
 
@@ -15,6 +16,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<SystemState> SystemStates { get; set; }
+    public DbSet<Photo> Photos { get; set; }
+    public DbSet<Video> Videos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

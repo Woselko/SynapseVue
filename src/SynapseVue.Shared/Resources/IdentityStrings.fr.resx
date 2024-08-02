@@ -183,4 +183,7 @@
   <data name="PasswordRequiresUniqueChars" xml:space="preserve">
     <value>Les mots de passe doivent utiliser au moins {0} caractères différents.</value>
   </data>
+  <data name="FilePath" xml:space="preserve">
+    <value>Chemin du fichier</value>
+  </data>
 </root>
