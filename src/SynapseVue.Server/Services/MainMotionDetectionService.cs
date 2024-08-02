@@ -18,7 +18,9 @@ public class MainMotionDetectionService : BackgroundService
     private Product DHT22;
     private Product BUZZ;
     private Product Display;
+    private Product AICamera;
     private string mode=""; 
+    private bool isRecordingVideo = false;
 
     public MainMotionDetectionService(ILogger<MainMotionDetectionService> logger, IServiceProvider serviceProvider)
     {
@@ -78,6 +80,9 @@ public class MainMotionDetectionService : BackgroundService
                 if (product.CategoryId == 6)//BUZZER
                 {
                     BUZZ= product;
+                }
+                if(product.Name.Contains("AI-main")){
+                    AICamera = product;
                 }
             }
             var state = _dbContext.SystemStates.First();
@@ -184,6 +189,16 @@ public class MainMotionDetectionService : BackgroundService
     private void OnMotionDetected(object sender, PinValueChangedEventArgs args)
     {
         if (_cts.Token.IsCancellationRequested) return;
+        if(AICamera != null){
+            var videoRecorderService = VideoRecorderService.Instance;
+            videoRecorderService.Initialize(_serviceProvider);
+
+            if (!videoRecorderService.IsRecordingVideo)
+            {
+                Task.Run(() => videoRecorderService.Record());
+            }
+        }
+            
         if(LED != null)
         {
             _controller.Write(LED.PIN, PinValue.High);

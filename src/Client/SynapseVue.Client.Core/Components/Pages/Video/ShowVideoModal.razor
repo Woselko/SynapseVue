@@ -13,7 +13,11 @@
 
         @if (File.Exists(path))
         {
-
+            <div class="video-container">
+                <video controls>
+                    <source src="@path" type="video/mp4">
+                </video>
+            </div>
         }
         else
         {

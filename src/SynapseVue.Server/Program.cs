@@ -23,9 +23,12 @@ public static partial class Program
         
         var app = builder.Build();
 
-        app.UseHangfireDashboard();
+        app.MapHangfireDashboardWithAuthorizationPolicy("");
         RecurringJob.AddOrUpdate("DataCollecting", () => 
            MainDataCollector.Instance.CollectData(), Cron.Minutely);
+
+        RecurringJob.AddOrUpdate("VideoProcessing", () => 
+           MainVideoAnalyzer.Instance.ProcessVideo(), Cron.Minutely);
 
         app.ConfiureMiddlewares();
 

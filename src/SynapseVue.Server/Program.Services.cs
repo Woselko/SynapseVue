@@ -16,6 +16,7 @@ using SynapseVue.Client.Web;
 using Hangfire;
 using Hangfire.MemoryStorage;
 using RaspSensorLibrary;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace SynapseVue.Server;
 
@@ -150,6 +151,19 @@ public static partial class Program
             mainDataCollector.Initialize(appSettings, serviceProvider);
             return mainDataCollector;
         });
+
+        // Rejestracja MainVideoAnalyzer jako Singleton
+        builder.Services.AddSingleton<MainVideoAnalyzer>(serviceProvider =>
+        {
+            var appSettings = builder.Configuration.GetSection("AppSettings").Get<AppSettings>(); // Pobieranie AppSettings
+            // Tworzymy instancję MainVideoAnalyzer
+            var mainDataCollector = MainVideoAnalyzer.Instance;
+            // Inicjalizujemy MainVideoAnalyzer z AppSettings
+            mainDataCollector.Initialize(appSettings, serviceProvider);
+            return mainDataCollector;
+        });
+
+
         builder.Services.AddSingleton<MainMotionDetectionService>();
         builder.Services.AddHostedService(provider => provider.GetService<MainMotionDetectionService>());
     }

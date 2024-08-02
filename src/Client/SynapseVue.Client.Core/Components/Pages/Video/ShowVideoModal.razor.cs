@@ -28,7 +28,7 @@ public partial class ShowVideoModal
         {
             isOpen = true;
             video = videoToShow;
-            path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, video.FilePath);
+            path = video.FilePath;
             StateHasChanged();
         });
     }

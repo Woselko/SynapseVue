@@ -41,6 +41,8 @@
         <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="8.0.1" />
         <PackageReference Include="AspNetCore.HealthChecks.Network" Version="8.0.1" />
         <PackageReference Include="Riok.Mapperly" Version="3.5.0" />
+        <PackageReference Include="Emgu.CV" Version="4.9.0.5494" />
+        <PackageReference Include="Emgu.CV.runtime.debian-arm64" Version="4.9.0.5494" />
 
         <Using Include="Microsoft.EntityFrameworkCore.Migrations" />
         <Using Include="Microsoft.EntityFrameworkCore.Metadata.Builders" />
@@ -53,15 +55,27 @@
         <Using Include="Microsoft.AspNetCore.Mvc" />
 
         <None Update="IdentityCertificate.pfx">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
 
         <None Update="Media\test.avi">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
 
         <None Update="Media\test1.avi">
-          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+
+        <None Update="coco.names">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+
+        <None Update="yolov3.cfg">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+
+        <None Update="yolov3.weights">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         
         <Content Include=".config\dotnet-tools.json" />
