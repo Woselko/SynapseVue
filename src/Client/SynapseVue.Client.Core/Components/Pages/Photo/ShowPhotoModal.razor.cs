@@ -11,6 +11,7 @@ public partial class ShowPhotoModal
     private bool isOpen;
     private bool isLoading;
     private bool isSaving;
+    private string bytes;
     private PhotoDto photo = new();
     private List<BitDropdownItem<string>> allCategoryList = [];
     private string selectedCategoyId = string.Empty;
@@ -19,6 +20,7 @@ public partial class ShowPhotoModal
 
     protected override async Task OnInitAsync()
     {
+        
     }
 
     public async Task ShowModal(PhotoDto photoToShow)
@@ -27,7 +29,7 @@ public partial class ShowPhotoModal
         {
             isOpen = true;
             photo = photoToShow;
-
+            bytes = Convert.ToBase64String(photo.Data);
             StateHasChanged();
         });
     }

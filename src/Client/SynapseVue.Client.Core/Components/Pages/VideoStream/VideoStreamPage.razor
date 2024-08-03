@@ -1,5 +1,7 @@
 ﻿@page "/videostream"
+@using SynapseVue.Client.Core.Controllers.Media
 @using SynapseVue.Client.Core.Controllers.VideoStream
+@using SynapseVue.Shared.Dtos.Media
 @inherits AppComponentBase
 @inject HttpClient Http
 
@@ -13,13 +15,56 @@
     <div class="page-row">
     <h1 class="page-title">Video Stream</h1>
     <BitButton OnClick="StartStream" Disabled="@isStreaming">Start</BitButton>
+    <BitButton OnClick="CaptureImage" Disabled="@(!isStreaming)">Capture</BitButton>
+    <BitButton OnClick="SaveImage" Disabled="@(!isStreaming)">Save Image</BitButton>
     <BitButton OnClick="StopStream" Disabled="@(!isStreaming)">Stop</BitButton>
     </div>
     <div hidden="@(!isStreaming)">
         <img id="videoFrame" src="@videoSrc" alt="Video Frame" />
     </div>
 </div>
+<script>
+    function captureImage() {
+        var img = document.getElementById('videoFrame');
+        var canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        
+        canvas.toBlob(function(blob) {
+            var link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'capture.jpg';
+            link.click();
+        }, 'image/jpeg');
+    }
 
+    function saveImage() {
+        var img = document.getElementById('videoFrame');
+        var canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth/4;
+        canvas.height = img.naturalHeight/4;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+
+        canvas.toBlob(function(blob) {
+            var reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = function() {
+                var base64data = reader.result;
+                console.log("Base64 Image Data: ", base64data); // Log base64 data for debugging
+                DotNet.invokeMethodAsync('SynapseVue.Client.Core', 'ReceiveImage', base64data)
+                    .then(() => {
+                        console.log("Image sent to Blazor successfully.");
+                    })
+                    .catch(err => {
+                        console.error("Error sending image to Blazor: ", err);
+                    });
+            };
+        }, 'image/jpeg');
+    }
+</script>
 @* <div>
     <button @onclick="StopStream" >Stop</button>
 </div>
@@ -36,77 +81,5 @@
 
 
 @code {
-    [AutoInject] IVideoStreamController systemController = default!;
-    private static bool isStreaming = false;
-    private static string videoSrc = string.Empty;
-    private Task streamTask;
-    private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-
-    private async Task StartStream()
-    {
-        isStreaming = true; 
-        //streamTask = FetchVideoStream();
-        //await Http.GetAsync("http://localhost:6030/api/videostream/get"); // Ustaw URL endpointa zatrzymania strumieniowania
-        videoSrc = "http://localhost:6030/api/videostream/get"; // Ustaw URL endpointa strumieniowania  
-        //await Http.GetAsync("http://10.0.2.2:6030/api/videostream/get"); // Ustaw URL endpointa zatrzymania strumieniowania
-        //videoSrc = "http://10.0.2.2:6030/api/videostream/get";
-        StateHasChanged();
-    }
-
-    private async Task StopStream()
-    {
-        isStreaming = false;
-        //cancellationTokenSource.Cancel();
-        await Http.GetAsync("http://localhost:6030/api/videostream/stop"); // Ustaw URL endpointa zatrzymania strumieniowania
-        //await Http.GetAsync("http://10.0.2.2:6030/api/videostream/stop"); // Ustaw URL endpointa zatrzymania strumieniowania
-        videoSrc = string.Empty;
-        StateHasChanged();
-    }
-
-    private async Task FetchVideoStream()
-    {
-        var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:6030/api/videostream/get");
-        request.Headers.Add("Accept", "multipart/x-mixed-replace; boundary=--frame");
-
-        try
-        {
-            using var response = await Http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationTokenSource.Token);
-
-            response.EnsureSuccessStatusCode();
-
-            var stream = await response.Content.ReadAsStreamAsync(cancellationTokenSource.Token);
-            var buffer = new byte[1024 * 512]; // Adjust buffer size as needed
-
-            while (isStreaming && !cancellationTokenSource.Token.IsCancellationRequested)
-            {
-                var imageBuffer = new List<byte>();
-                var bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length, cancellationTokenSource.Token);
-                if (bytesRead == 0)
-                {
-                    break;
-                }
-
-                imageBuffer.AddRange(buffer.Take(bytesRead));
-                //var imageStart = imageBuffer.IndexOf((byte)0xFF);
-                //var imageEnd = imageBuffer.IndexOf((byte)0xD9, imageStart) + 1;
-
-                //if (imageStart != -1 && imageEnd != -1 && imageEnd > imageStart)
-                //{
-                    //var imageData = imageBuffer.Skip(imageStart).Take(imageEnd - imageStart).ToArray();
-                    //var imageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(imageData);
-                    //videoSrc = imageUrl;
-                    StateHasChanged();
-                    //imageBuffer = imageBuffer.Skip(imageEnd).ToList();
-                //}
-            }
-        }
-        catch (TaskCanceledException)
-        {
-            // Handle task cancellation
-        }
-        catch (Exception ex)
-        {
-            System.Console.WriteLine($"Error fetching video stream: {ex.Message}");
-        }
-    }
+ 
 }

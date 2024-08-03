@@ -10,7 +10,7 @@ using SynapseVue.Server.Data;
 namespace SynapseVue.Server.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240802202526_InitialMigration")]
+    [Migration("20240802204705_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -447,7 +447,7 @@ namespace SynapseVue.Server.Data.Migrations
                             CreatedAt = 1307708817408000120L,
                             Description = "MyVideo 1",
                             DetectedObjects = "nothing",
-                            FilePath = "C:\\C_Sources\\00SynapseVue\\src\\SynapseVue.Server\\wwwroot\\videos\\test.avi",
+                            FilePath = "/home/woselko/SynapseVue/src/SynapseVue.Server/wwwroot/videos/test.avi",
                             FileSize = 14324L,
                             IsPersonDetected = false,
                             IsProcessed = true,
@@ -459,7 +459,7 @@ namespace SynapseVue.Server.Data.Migrations
                             CreatedAt = 1307708817408000120L,
                             Description = "MyVideo 2",
                             DetectedObjects = "nothing",
-                            FilePath = "C:\\C_Sources\\00SynapseVue\\src\\SynapseVue.Server\\wwwroot\\videos\\test1.avi",
+                            FilePath = "/home/woselko/SynapseVue/src/SynapseVue.Server/wwwroot/videos/test1.avi",
                             FileSize = 34124L,
                             IsPersonDetected = false,
                             IsProcessed = false,
@@ -471,7 +471,7 @@ namespace SynapseVue.Server.Data.Migrations
                             CreatedAt = 1307708817408000120L,
                             Description = "MyVideo 3 mp3",
                             DetectedObjects = "nothing",
-                            FilePath = "C:\\C_Sources\\00SynapseVue\\src\\SynapseVue.Server\\wwwroot\\videos\\film.mp4",
+                            FilePath = "/home/woselko/SynapseVue/src/SynapseVue.Server/wwwroot/videos/film.mp4",
                             FileSize = 34124L,
                             IsPersonDetected = false,
                             IsProcessed = true,

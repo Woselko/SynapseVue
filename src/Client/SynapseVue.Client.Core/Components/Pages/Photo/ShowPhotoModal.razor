@@ -8,6 +8,14 @@
             <BitIconButton IconName="@BitIconName.ChromeClose" OnClick="OnCloseClick" />
         </div>
 
+        @if (bytes != null)
+        {
+            <img src="data:image/jpeg;base64,@bytes" alt="Photo" />
+        }
+        else
+        {
+            <BitSpinner Size="BitSpinnerSize.Large" />
+        }
 
     </div>
 </BitModal>

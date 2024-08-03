@@ -33,7 +33,7 @@ public class VideoRecorderService
 
     public bool IsRecordingVideo => isRecordingVideo;
 
-    public async Task Record(int seconds = 30)
+    public async Task Record(int seconds = 15)
     {
         if (isRecordingVideo)
         {
@@ -61,6 +61,7 @@ public class VideoRecorderService
             VFlip = false,
             WhiteBalance = WhiteBalance.Incandescent,
             Output = path,
+            Framerate = 15,
         };
 
         isRecordingVideo = true;

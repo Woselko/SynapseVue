@@ -71,10 +71,17 @@ public partial class VideoController : AppControllerBase, IVideoController
     [HttpDelete("{id}")]
     public async Task Delete(int id, CancellationToken cancellationToken)
     {
+        var entityToDelete = Get().FirstOrDefault(t => t.Id == id);
+        // var entityToDelete = await DbContext.Videos.FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
+        var fileToDelete = entityToDelete.FilePath;
         DbContext.Videos.Remove(new() { Id = id });
 
         var affectedRows = await DbContext.SaveChangesAsync(cancellationToken);
-
+        
+        //delete file
+        if (System.IO.File.Exists(fileToDelete))
+            System.IO.File.Delete(fileToDelete);
+        
         if (affectedRows < 1)
             throw new ResourceNotFoundException(Localizer[nameof(AppStrings.ProductCouldNotBeFound)]);
     }

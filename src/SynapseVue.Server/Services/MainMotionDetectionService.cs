@@ -124,7 +124,7 @@ public class MainMotionDetectionService : BackgroundService
 
             try
             {
-                await Task.Delay(2000, _cts.Token); // Delay using the token to allow for cancellation
+                await Task.Delay(10000, _cts.Token); // Delay using the token to allow for cancellation
             }
             catch (TaskCanceledException)
             {
@@ -132,7 +132,7 @@ public class MainMotionDetectionService : BackgroundService
                 {
                     break; // Exit the loop if the service is stopping
                 }
-                await Task.Delay(2000); // Delay a bit to avoid a tight loop if cancellation token is set
+                await Task.Delay(10000); // Delay a bit to avoid a tight loop if cancellation token is set
             }
         }
         _controller.Dispose();
@@ -140,36 +140,39 @@ public class MainMotionDetectionService : BackgroundService
 
     private void HandleDisplay()
     {
+        Product product = null;
         using (var scope = _serviceProvider.CreateScope())
         {
             var _dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            var product = _dbContext.Products.Where(p => p.Name.Contains("-main") && p.CategoryId == 1).First();
-            var text1 = DateTime.Now.ToString();
-            TryDisplayTextOnLCD(text1, 0);
-            var text2 = $"Mode: {mode}";
-            if(product != null && product.LastReadValue != null)
-            {
-                Regex regex = new Regex(@"\d+\.?\d*C");
-                Match match = regex.Match(product?.LastReadValue);
+            product = _dbContext.Products.Where(p => p.Name.Contains("-main") && p.CategoryId == 1).First();
+            //rest here
 
-                if (match.Success)
-                {
-                    string temperature = match.Value;
-                    text2 = $"Mode: {mode} {temperature}";
-                    TryDisplayTextOnLCD(text2, 1);
-                }
-                else
-                    TryDisplayTextOnLCD(text2, 1);
-            }
-            else
+            // Display.LastReadValue = text1 + " " + text2;
+            // _dbContext.Entry(Display).State = EntityState.Modified;
+            // _dbContext.SaveChanges();
+        }
+        var text1 = DateTime.Now.ToString();
+        TryDisplayTextOnLCD(text1, 0);
+        var text2 = $"Mode: {mode}";
+        if(product != null && product.LastReadValue != null)
+        {
+            Regex regex = new Regex(@"\d+\.?\d*C");
+            Match match = regex.Match(product?.LastReadValue);
+            if (match.Success)
             {
+                string temperature = match.Value;
+                text2 = $"Mode: {mode} {temperature}";
                 TryDisplayTextOnLCD(text2, 1);
             }
-            Display.LastReadValue = text1 + " " + text2;
-            _dbContext.Entry(Display).State = EntityState.Modified;
-            _dbContext.SaveChanges();
+            else
+                TryDisplayTextOnLCD(text2, 1);
+        }
+        else
+        {
+            TryDisplayTextOnLCD(text2, 1);
         }
     }
+    
 
     private void TryDisplayTextOnLCD(string text, int line)
     {
@@ -215,26 +218,26 @@ public class MainMotionDetectionService : BackgroundService
         if (_cts.Token.IsCancellationRequested) return;
 
         var time = DateTime.Now;
-        using (var scope = _serviceProvider.CreateScope())
-        {
-            var _dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        // using (var scope = _serviceProvider.CreateScope())
+        // {
+        //     var _dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             if(LED != null)
             {
-                LED.LastSuccessActivity = time;
-                _dbContext.Entry(LED).State = EntityState.Modified;
+                //LED.LastSuccessActivity = time;
+                //dbContext.Entry(LED).State = EntityState.Modified;
                 _controller.Write(LED.PIN, PinValue.Low);
             }
             if(BUZZ != null)
             {
-                BUZZ.LastSuccessActivity = time;
-                _dbContext.Entry(BUZZ).State = EntityState.Modified;
+                //BUZZ.LastSuccessActivity = time;
+                //_dbContext.Entry(BUZZ).State = EntityState.Modified;
                 _controller.Write(BUZZ.PIN, PinValue.Low);
             }
             _logger.LogInformation("Motion ended: LED and BUZZER are OFF");
-            PIR.LastReadValue = "Detected!!!";
-            PIR.LastSuccessActivity = time;
-            _dbContext.Entry(PIR).State = EntityState.Modified;
-            _dbContext.SaveChanges();
-        }
+            // PIR.LastReadValue = "Detected!!!";
+            // PIR.LastSuccessActivity = time;
+            // _dbContext.Entry(PIR).State = EntityState.Modified;
+            // _dbContext.SaveChanges();
+        //}
     }
 }

@@ -265,6 +265,8 @@ public class MainVideoAnalyzer
         using (var scope = _serviceProvider.CreateScope())
         {
             video.IsProcessed = true;
+            video.Name = video.Name.Replace(".avi", ".mp4");
+            video.FileSize = new FileInfo(video.FilePath).Length;
             var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             dbContext.Entry(video).State = EntityState.Modified;
             dbContext.SaveChanges();

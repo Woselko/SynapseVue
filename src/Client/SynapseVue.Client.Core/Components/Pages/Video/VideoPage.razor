@@ -33,12 +33,15 @@
                 <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.IsProcessed)]" Property="p => p!.IsProcessed" Sortable="false" Align="BitDataGridAlign.Left" />
                 <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.IsPersonDetected)]" Property="p => p!.IsPersonDetected" Sortable="true" Align="BitDataGridAlign.Left" />
                 <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.DetectedObjects)]" Property="p => p!.DetectedObjects" Sortable="true" Align="BitDataGridAlign.Left" />
-                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.FilePath)]" Property="p => p!.FilePath" Sortable="true" Align="BitDataGridAlign.Left" />
+                @* <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.FilePath)]" Property="p => p!.FilePath" Sortable="true" Align="BitDataGridAlign.Left" /> *@
                 <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.Size)]" Property="p => p!.FileSize" Sortable="true" Align="BitDataGridAlign.Left" />
                 <BitDataGridTemplateColumn Title="@Localizer[(nameof(AppStrings.Action))]" Align="BitDataGridAlign.Center" Context="video">
                     <BitIconButton IconName="@BitIconName.Edit" OnClick="() => EditVideo(video!)" Title="@Localizer[(nameof(AppStrings.Edit))]" />
                     <BitIconButton IconName="@BitIconName.Delete" OnClick="WrapHandled(() => DeleteVideo(video!))" Title="@Localizer[(nameof(AppStrings.Delete))]" />
-                    <BitIconButton IconName="@BitIconName.Play" OnClick="() => PlayVideo(video!)" Title="@Localizer[(nameof(AppStrings.Show))]" />
+                    @if(video.IsProcessed)
+                    {
+                        <BitIconButton IconName="@BitIconName.Play" OnClick="() => PlayVideo(video!)" Title="@Localizer[(nameof(AppStrings.Show))]" />
+                    }
                 </BitDataGridTemplateColumn>
             </BitDataGrid>
         </div>
