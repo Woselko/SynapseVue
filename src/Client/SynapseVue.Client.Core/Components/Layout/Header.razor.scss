@@ -26,14 +26,14 @@
 
 .logo-lnk {
     cursor: pointer;
-    width: rem2(24px);
-    height: rem2(24px);
-    min-width: rem2(24px);
-    border-radius: rem2(4px);
+    width: rem2(36px);
+    height: rem2(36px);
+    min-width: rem2(36px);
+    border-radius: rem2(2px);
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url('images/bit-logo.svg');
+    background-image: url('images/faviconSquare512.ico');
 }
 
 .header-contact {

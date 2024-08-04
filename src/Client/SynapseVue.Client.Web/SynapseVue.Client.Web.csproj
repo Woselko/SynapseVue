@@ -49,5 +49,14 @@
         <ItemGroup>
         <BlazorWebAssemblyLazyLoad Include="Newtonsoft.Json.wasm" />
     </ItemGroup>
+
+        <ItemGroup>
+          <Content Update="wwwroot\faviconSquare512.ico">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+          </Content>
+          <Content Update="wwwroot\images\faviconSquare512.ico">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+          </Content>
+        </ItemGroup>
     
 </Project>

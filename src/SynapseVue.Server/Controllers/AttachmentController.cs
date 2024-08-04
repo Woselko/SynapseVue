@@ -144,4 +144,22 @@ public partial class AttachmentController : AppControllerBase
         return PhysicalFile(Path.Combine(webHostEnvironment.ContentRootPath, filePath),
             contentType, enableRangeProcessing: true);
     }
+
+    [HttpGet]
+    public async Task<IActionResult>GetVideo(string fileName)
+    {
+        var videoPath = Path.Combine(webHostEnvironment.WebRootPath, "videos", fileName);
+        if (!System.IO.File.Exists(videoPath))
+        {
+            return NotFound();
+        }
+
+        if (contentTypeProvider.TryGetContentType(videoPath, out var contentType) is false)
+        {
+            throw new InvalidOperationException();
+        }
+
+        return PhysicalFile(Path.Combine(webHostEnvironment.ContentRootPath, videoPath),
+            contentType, enableRangeProcessing: true);
+    }
 }

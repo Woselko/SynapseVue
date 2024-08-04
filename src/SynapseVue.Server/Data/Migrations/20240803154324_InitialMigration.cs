@@ -309,9 +309,8 @@ namespace SynapseVue.Server.Data.Migrations
                 columns: new[] { "Id", "CreatedAt", "Description", "DetectedObjects", "FilePath", "FileSize", "IsPersonDetected", "IsProcessed", "Name" },
                 values: new object[,]
                 {
-                    { 1, 1307708817408000120L, "MyVideo 1", "nothing", "/home/woselko/SynapseVue/src/SynapseVue.Server/wwwroot/videos/test.avi", 14324L, false, true, "test.avi" },
-                    { 2, 1307708817408000120L, "MyVideo 2", "nothing", "/home/woselko/SynapseVue/src/SynapseVue.Server/wwwroot/videos/test1.avi", 34124L, false, false, "test1.avi" },
-                    { 3, 1307708817408000120L, "MyVideo 3 mp3", "nothing", "/home/woselko/SynapseVue/src/SynapseVue.Server/wwwroot/videos/film.mp4", 34124L, false, true, "film.mp4" }
+                    { 2, 1307708817408000120L, "MyVideo 2", "nothing", "C:\\C_Sources\\00SynapseVue\\src\\SynapseVue.Server\\wwwroot\\videos\\test1.avi", 34124L, false, false, "test1.avi" },
+                    { 3, 1307708817408000120L, "MyVideo 3 mp3", "nothing", "C:\\C_Sources\\00SynapseVue\\src\\SynapseVue.Server\\wwwroot\\videos\\film.mp4", 34124L, false, true, "film.mp4" }
                 });
 
             migrationBuilder.InsertData(

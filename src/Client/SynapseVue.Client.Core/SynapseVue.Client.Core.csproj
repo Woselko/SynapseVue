@@ -62,6 +62,12 @@
         </EmbeddedResource>
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Update="wwwroot\images\faviconSquare512.ico">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
     <!-- <Target Name="InstallNodejsDependencies" AfterTargets="CoreCompile" Inputs="package.json" Outputs="node_modules\.package-lock.json">
         <Exec Command="npm install" StandardOutputImportance="high" StandardErrorImportance="high" />
     </Target> -->

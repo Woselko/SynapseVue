@@ -23,8 +23,11 @@ public static partial class Program
         
         var app = builder.Build();
 
-        app.UseHangfireDashboard();
-        //app.MapHangfireDashboardWithAuthorizationPolicy("");
+        app.UseHangfireDashboard("/hangfire", new DashboardOptions
+        {
+            Authorization = new[] { new DashboardAuthorizationFilter() }
+        });
+
         RecurringJob.AddOrUpdate("DataCollecting", () =>
            MainDataCollector.Instance.CollectData(), Cron.Minutely);
 

@@ -11,17 +11,10 @@
         </div>
         <BitLabel>@path</BitLabel>
 
-        @if (File.Exists(path2))
-        {
-            <div class="video-container">
-                <video controls>
-                    <source src="videos/@video.Name" type="video/mp4">
-                </video>
-            </div>
-        }
-        else
-        {
-            <BitLabel>@Localizer[nameof(AppStrings.Error)]</BitLabel>
-        }
+        <div class="video-container">
+            <video controls>
+                <source src="@videoUrl" type="video/mp4">
+            </video>
+        </div>
     </div>
 </BitModal>

@@ -46,10 +46,6 @@ public partial class NavMenu
                 IsExpanded = true,
                 ChildItems =
                 [
-                    // new() {
-                    //     Text = Localizer[nameof(AppStrings.Dashboard)],
-                    //     Url = "/dashboard",
-                    // },
                     new() {
                         Text = Localizer[nameof(AppStrings.Products)],
                         Url = "/products",
@@ -58,6 +54,12 @@ public partial class NavMenu
                         Text = Localizer[nameof(AppStrings.Categories)],
                         Url = "/categories",
                     },
+                    new()
+                    {
+                        Text = Localizer[nameof(AppStrings.Dashboard)],
+                        IconName = BitIconName.History,
+                        Url = "/hangfire"
+                    }
                 ]
             },
             new()

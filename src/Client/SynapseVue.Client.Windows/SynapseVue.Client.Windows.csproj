@@ -10,7 +10,7 @@
         <EnableWindowsTargeting>true</EnableWindowsTargeting>
         <RootNamespace>SynapseVue.Client.Windows</RootNamespace>
         <StartupObject>SynapseVue.Client.Windows.Program</StartupObject>
-        <ApplicationIcon>wwwroot\favicon.ico</ApplicationIcon>
+        <ApplicationIcon>wwwroot\faviconSquare512.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
@@ -38,6 +38,12 @@
 
     <ItemGroup>
         <ProjectReference Include="..\SynapseVue.Client.Core\SynapseVue.Client.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="wwwroot\faviconSquare512.ico">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <Target Name="BeforeBuildTasks" BeforeTargets="BeforeBuild">
