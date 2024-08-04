@@ -10,6 +10,7 @@ using Emgu.CV.Structure;
 using Emgu.CV.Util;
 using Emgu.CV;
 using System.Diagnostics;
+using FluentEmail.Core;
 
 namespace SynapseVue.Server.Services;
 
@@ -125,11 +126,26 @@ public class MainVideoAnalyzer
                             if(text == "person")
                             {
                                 vidToAnalyze.IsPersonDetected = true;
+                                SendEmail(ref vidToAnalyze);
                             }
                         }
                     }
                 }
             }
+        }
+    }
+
+    private void SendEmail(ref Video vidToAnalyze)
+    {
+        var body = $"Person detected in video: {vidToAnalyze.Name}, probably is processed and saved in .mp4 format. \r\n Detected objects: {vidToAnalyze.DetectedObjects} \r\n created at: {vidToAnalyze.CreatedAt}";  
+        using (var scope = _serviceProvider.CreateScope())
+        {
+            IFluentEmail fluentEmail = scope.ServiceProvider.GetRequiredService<IFluentEmail>();
+            var result = fluentEmail
+                .To(_appSettings.EmailSettings.DefaultToEmail, _appSettings.EmailSettings.DefaultToEmail)
+                .Subject(vidToAnalyze.Name + " - person detected!! " + vidToAnalyze.CreatedAt)
+                .Body(body, isHtml: true)
+                .SendAsync().Result;
         }
     }
 

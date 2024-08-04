@@ -333,20 +333,20 @@ namespace SynapseVue.Server.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            BirthDate = 1306790461440000060L,
+                            BirthDate = 1290017636352000060L,
                             ConcurrencyStamp = "315e1a26-5b3a-4544-8e91-2760cd28e231",
-                            Email = "test@bitplatform.dev",
+                            Email = "wojciech.wlas@gmail.com",
                             EmailConfirmed = true,
-                            FullName = "SynapseVue test account",
-                            Gender = 2,
+                            FullName = "SynapseVue Admin Account",
+                            Gender = 0,
                             LockoutEnabled = true,
-                            NormalizedEmail = "TEST@BITPLATFORM.DEV",
-                            NormalizedUserName = "TEST@BITPLATFORM.DEV",
+                            NormalizedEmail = "WOJCIECH.WLAS@GMAIL.COM",
+                            NormalizedUserName = "WOJCIECH.WLAS@GMAIL.COM",
                             PasswordHash = "AQAAAAIAAYagAAAAEP0v3wxkdWtMkHA3Pp5/JfS+42/Qto9G05p2mta6dncSK37hPxEHa3PGE4aqN30Aag==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "959ff4a9-4b07-4cc1-8141-c5fc033daf83",
                             TwoFactorEnabled = false,
-                            UserName = "test@bitplatform.dev"
+                            UserName = "wojciech.wlas@gmail.com"
                         });
                 });
 
@@ -444,7 +444,7 @@ namespace SynapseVue.Server.Data.Migrations
                             CreatedAt = 1307708817408000120L,
                             Description = "MyVideo 2",
                             DetectedObjects = "nothing",
-                            FilePath = "C:\\C_Sources\\00SynapseVue\\src\\SynapseVue.Server\\wwwroot\\videos\\test1.avi",
+                            FilePath = "/home/woselko/SynapseVue/src/SynapseVue.Server/wwwroot/videos/test1.avi",
                             FileSize = 34124L,
                             IsPersonDetected = false,
                             IsProcessed = false,
@@ -456,7 +456,7 @@ namespace SynapseVue.Server.Data.Migrations
                             CreatedAt = 1307708817408000120L,
                             Description = "MyVideo 3 mp3",
                             DetectedObjects = "nothing",
-                            FilePath = "C:\\C_Sources\\00SynapseVue\\src\\SynapseVue.Server\\wwwroot\\videos\\film.mp4",
+                            FilePath = "/home/woselko/SynapseVue/src/SynapseVue.Server/wwwroot/videos/film.mp4",
                             FileSize = 34124L,
                             IsPersonDetected = false,
                             IsProcessed = true,

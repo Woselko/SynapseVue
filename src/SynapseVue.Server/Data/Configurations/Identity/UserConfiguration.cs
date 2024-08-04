@@ -6,16 +6,16 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        const string userName = "test@bitplatform.dev";
+        const string userName = "wojciech.wlas@gmail.com";
 
         builder.HasData([new()
         {
             Id = 1,
             EmailConfirmed = true,
             LockoutEnabled = true,
-            Gender = Gender.Other,
-            BirthDate = new DateTime(2023, 1, 1),
-            FullName = "SynapseVue test account",
+            Gender = Gender.Male,
+            BirthDate = new DateTime(1997, 1, 18),
+            FullName = "SynapseVue Admin Account",
             UserName = userName,
             Email = userName,
             NormalizedUserName = userName.ToUpperInvariant(),

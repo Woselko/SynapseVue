@@ -46,6 +46,7 @@ public class EmailSettings
     public string UserName { get; set; } = default!;
     public string Password { get; set; } = default!;
     public string DefaultFromEmail { get; set; } = default!;
+    public string DefaultToEmail { get; set; } = default!;
     public string DefaultFromName { get; set; } = default!;
     public bool HasCredential => (string.IsNullOrEmpty(UserName) is false) && (string.IsNullOrEmpty(Password) is false);
 }

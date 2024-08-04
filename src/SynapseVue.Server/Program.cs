@@ -23,16 +23,17 @@ public static partial class Program
         
         var app = builder.Build();
 
-        app.UseHangfireDashboard("/hangfire", new DashboardOptions
-        {
-            Authorization = new[] { new DashboardAuthorizationFilter() }
-        });
+        app.UseHangfireDashboard("/hangfire");
+        // , new DashboardOptions
+        // {
+        //     Authorization = new[] { new DashboardAuthorizationFilter() }
+        // });
 
         RecurringJob.AddOrUpdate("DataCollecting", () =>
            MainDataCollector.Instance.CollectData(), Cron.Minutely);
 
         RecurringJob.AddOrUpdate("VideoProcessing", () =>
-           MainVideoAnalyzer.Instance.ProcessVideo(), Cron.Daily);
+           MainVideoAnalyzer.Instance.ProcessVideo(), Cron.Minutely);
 
         app.ConfiureMiddlewares();
 

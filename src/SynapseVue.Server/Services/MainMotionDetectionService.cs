@@ -124,7 +124,7 @@ public class MainMotionDetectionService : BackgroundService
 
             try
             {
-                await Task.Delay(10000, _cts.Token); // Delay using the token to allow for cancellation
+                await Task.Delay(5000, _cts.Token); // Delay using the token to allow for cancellation
             }
             catch (TaskCanceledException)
             {
@@ -132,7 +132,7 @@ public class MainMotionDetectionService : BackgroundService
                 {
                     break; // Exit the loop if the service is stopping
                 }
-                await Task.Delay(10000); // Delay a bit to avoid a tight loop if cancellation token is set
+                await Task.Delay(5000); // Delay a bit to avoid a tight loop if cancellation token is set
             }
         }
         _controller.Dispose();

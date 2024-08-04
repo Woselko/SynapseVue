@@ -302,15 +302,15 @@ namespace SynapseVue.Server.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AccessFailedCount", "BirthDate", "ConcurrencyStamp", "ConfirmationEmailRequestedOn", "Email", "EmailConfirmed", "FullName", "Gender", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfileImageName", "ResetPasswordEmailRequestedOn", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, 1306790461440000060L, "315e1a26-5b3a-4544-8e91-2760cd28e231", null, "test@bitplatform.dev", true, "SynapseVue test account", 2, true, null, "TEST@BITPLATFORM.DEV", "TEST@BITPLATFORM.DEV", "AQAAAAIAAYagAAAAEP0v3wxkdWtMkHA3Pp5/JfS+42/Qto9G05p2mta6dncSK37hPxEHa3PGE4aqN30Aag==", null, false, null, null, "959ff4a9-4b07-4cc1-8141-c5fc033daf83", false, "test@bitplatform.dev" });
+                values: new object[] { 1, 0, 1290017636352000060L, "315e1a26-5b3a-4544-8e91-2760cd28e231", null, "wojciech.wlas@gmail.com", true, "SynapseVue Admin Account", 0, true, null, "WOJCIECH.WLAS@GMAIL.COM", "WOJCIECH.WLAS@GMAIL.COM", "AQAAAAIAAYagAAAAEP0v3wxkdWtMkHA3Pp5/JfS+42/Qto9G05p2mta6dncSK37hPxEHa3PGE4aqN30Aag==", null, false, null, null, "959ff4a9-4b07-4cc1-8141-c5fc033daf83", false, "wojciech.wlas@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "Videos",
                 columns: new[] { "Id", "CreatedAt", "Description", "DetectedObjects", "FilePath", "FileSize", "IsPersonDetected", "IsProcessed", "Name" },
                 values: new object[,]
                 {
-                    { 2, 1307708817408000120L, "MyVideo 2", "nothing", "C:\\C_Sources\\00SynapseVue\\src\\SynapseVue.Server\\wwwroot\\videos\\test1.avi", 34124L, false, false, "test1.avi" },
-                    { 3, 1307708817408000120L, "MyVideo 3 mp3", "nothing", "C:\\C_Sources\\00SynapseVue\\src\\SynapseVue.Server\\wwwroot\\videos\\film.mp4", 34124L, false, true, "film.mp4" }
+                    { 2, 1307708817408000120L, "MyVideo 2", "nothing", "/home/woselko/SynapseVue/src/SynapseVue.Server/wwwroot/videos/test1.avi", 34124L, false, false, "test1.avi" },
+                    { 3, 1307708817408000120L, "MyVideo 3 mp3", "nothing", "/home/woselko/SynapseVue/src/SynapseVue.Server/wwwroot/videos/film.mp4", 34124L, false, true, "film.mp4" }
                 });
 
             migrationBuilder.InsertData(
