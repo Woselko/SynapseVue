@@ -20,14 +20,12 @@ public static partial class Program
 
         builder.ConfigureServices();
         builder.Services.AddControllers();
-        
+
+        AddDataCollectorFromSensors(builder);
+
         var app = builder.Build();
 
-        app.UseHangfireDashboard("/hangfire");
-        // , new DashboardOptions
-        // {
-        //     Authorization = new[] { new DashboardAuthorizationFilter() }
-        // });
+        app.MapHangfireDashboardWithAuthorizationPolicy("");
 
         RecurringJob.AddOrUpdate("DataCollecting", () =>
            MainDataCollector.Instance.CollectData(), Cron.Minutely);

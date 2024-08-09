@@ -125,9 +125,6 @@ public static partial class Program
                 fluentEmailServiceBuilder.AddSmtpSender(appSettings.EmailSettings.Host, appSettings.EmailSettings.Port);
             }
         }
-
-        AddDataCollectorFromSensors(builder);
-
         AddBlazor(builder);
     }
 
