@@ -9,32 +9,41 @@ namespace SynapseVue.Server.Services;
 public class MainMotionDetectionService : BackgroundService
 {
     private readonly ILogger<MainMotionDetectionService> _logger;
-    private readonly IServiceProvider _serviceProvider;
-    private GpioController _controller;
+    private readonly IDbContextFactory<AppDbContext> _dbContextFactory;
+    private readonly VideoRecorderService _videoRecorderService;
     private CancellationTokenSource _cts;
     private bool _isRunning;
+    private GpioController _controller;
     private Product LED;
     private Product PIR;
     private Product DHT22;
     private Product BUZZ;
+    private Product RFID;
     private Product Display;
     private Product AICamera;
-    private string mode=""; 
-    private bool isRecordingVideo = false;
+    private string _mode = ""; 
+    string brelock = "E3E4E4A6";
+    string card = "A3E12396";
+    private bool _isRecordingVideo = false;
 
-    public MainMotionDetectionService(ILogger<MainMotionDetectionService> logger, IServiceProvider serviceProvider)
+    public MainMotionDetectionService(
+        ILogger<MainMotionDetectionService> logger,
+        IDbContextFactory<AppDbContext> dbContextFactory,
+        VideoRecorderService videoRecorderService)
     {
         _logger = logger;
-        _serviceProvider = serviceProvider;
+        _dbContextFactory = dbContextFactory;
+        _videoRecorderService = videoRecorderService;
         _cts = new CancellationTokenSource();
         _isRunning = true;
+
         FindProperDevicesForSafetyControlMain();
     }
 
     public void StopMonitoring()
     {
         if (!_isRunning) return;
-        this.mode = "Home";
+        _mode = "Home";
         _cts.Cancel();
         _isRunning = false;
         _logger.LogInformation("Motion detection stopped.");
@@ -43,7 +52,7 @@ public class MainMotionDetectionService : BackgroundService
     public void StartMonitoring()
     {
         if (_isRunning) return;
-        this.mode = "Safe";
+        _mode = "Safe";
         _cts = new CancellationTokenSource();
         _isRunning = true;
         _logger.LogInformation("Motion detection started.");
@@ -51,48 +60,49 @@ public class MainMotionDetectionService : BackgroundService
 
     private void FindProperDevicesForSafetyControlMain()
     {
-        using (var scope = _serviceProvider.CreateScope())
+        using (var context = _dbContextFactory.CreateDbContext())
         {
-            var _dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            var products = _dbContext.Products.ToList();
+            var products = context.Products.ToList();
             foreach (var product in products)
             {
-                if(!product.Name.Contains("-main"))//-main
+                if (!product.Name.Contains("-main")) continue;
+
+                switch (product.CategoryId)
                 {
-                    continue;
+                    case 1: // DHT22
+                        DHT22 = product;
+                        break;
+                    case 3: // PIR
+                        PIR = product;
+                        break;
+                    case 4: // LED
+                        LED = product;
+                        break;
+                    case 5: // Display
+                        Display = product;
+                        break;
+                    case 6: // BUZZER
+                        BUZZ = product;
+                        break;
+                    case 8: // RFID
+                        RFID = product;
+                        break;
                 }
-                if (product.CategoryId == 1)//DHT22
+
+                if (product.Name.Contains("AI-main"))
                 {
-                    DHT22 = product;
-                }
-                if (product.CategoryId == 3)//PIR
-                {
-                    PIR = product;
-                }
-                if (product.CategoryId == 4)//LED
-                {
-                    LED = product;
-                }
-                if (product.CategoryId == 5)//PIR
-                {
-                    Display = product;
-                }
-                if (product.CategoryId == 6)//BUZZER
-                {
-                    BUZZ= product;
-                }
-                if(product.Name.Contains("AI-main")){
                     AICamera = product;
                 }
             }
-            var state = _dbContext.SystemStates.First();
-            this.mode = state.Mode;
-            if(state.Mode == "Home")
+
+            var state = context.SystemStates.First();
+            _mode = state.Mode;
+
+            if (state.Mode == "Home")
             {
                 StopMonitoring();
             }
         }
-
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -111,6 +121,13 @@ public class MainMotionDetectionService : BackgroundService
             _logger.LogError("PIR sensor not found. Exiting...");
             return;
         }
+        if(RFID == null)
+        {
+            _logger.LogError("RFID sensor not found. Exiting...");
+            return;
+        }
+        RfidReader rfidReader = new RfidReader();
+        rfidReader.Setup(RFID.PIN);
         _controller.OpenPin(PIR.PIN, PinMode.Input);
         _controller.RegisterCallbackForPinValueChangedEvent(PIR.PIN, PinEventTypes.Rising, OnMotionDetected);
         _controller.RegisterCallbackForPinValueChangedEvent(PIR.PIN, PinEventTypes.Falling, OnMotionEnded);
@@ -121,10 +138,10 @@ public class MainMotionDetectionService : BackgroundService
             {
                 HandleDisplay();
             }
-
+            HandleRfid(rfidReader);
             try
             {
-                await Task.Delay(5000, _cts.Token); // Delay using the token to allow for cancellation
+                await Task.Delay(1000, _cts.Token); // Delay using the token to allow for cancellation
             }
             catch (TaskCanceledException)
             {
@@ -132,47 +149,82 @@ public class MainMotionDetectionService : BackgroundService
                 {
                     break; // Exit the loop if the service is stopping
                 }
-                await Task.Delay(5000); // Delay a bit to avoid a tight loop if cancellation token is set
+                await Task.Delay(1000); // Delay a bit to avoid a tight loop if cancellation token is set
             }
         }
         _controller.Dispose();
     }
 
+    private void HandleRfid(RfidReader rfidReader)
+    {
+        string rfidData = rfidReader.ReadData();
+        if (rfidData != null)
+        {
+            if (rfidData == brelock)
+            {
+                _logger.LogInformation("Brelock detected.");
+                ChangeMode(RFID);
+            }
+            else if (rfidData == card)
+            {
+                _logger.LogInformation("Card detected.");
+                ChangeMode(RFID);
+            }
+            else
+            {
+                _logger.LogInformation($"Unknown RFID detected: {rfidData}");
+            }
+        }
+    }
+
+    private void ChangeMode(Product RFID)
+    {
+        //chand mode in database and in service
+        using (var context = _dbContextFactory.CreateDbContext())
+        {
+            var state = context.SystemStates.First();
+            if (state.Mode == "Home")
+            {
+                StartMonitoring();
+                state.Mode = "Safe";
+            }
+            else
+            {
+                StopMonitoring();
+                state.Mode = "Home";
+            }
+            RFID.LastReadValue = $"Mode changed to: {state.Mode}";
+            RFID.LastSuccessActivity = DateTime.Now;
+            context.Entry(RFID).State = EntityState.Modified;
+            context.SaveChanges();
+            _mode = state.Mode;
+        }
+    }
+
     private void HandleDisplay()
     {
         Product product = null;
-        using (var scope = _serviceProvider.CreateScope())
+        using (var context = _dbContextFactory.CreateDbContext())
         {
-            var _dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            product = _dbContext.Products.Where(p => p.Name.Contains("-main") && p.CategoryId == 1).First();
-            //rest here
-
-            // Display.LastReadValue = text1 + " " + text2;
-            // _dbContext.Entry(Display).State = EntityState.Modified;
-            // _dbContext.SaveChanges();
+            product = context.Products.FirstOrDefault(p => p.Name.Contains("-main") && p.CategoryId == 1);
         }
+
         var text1 = DateTime.Now.ToString();
         TryDisplayTextOnLCD(text1, 0);
-        var text2 = $"Mode: {mode}";
-        if(product != null && product.LastReadValue != null)
+
+        var text2 = $"Mode: {_mode}";
+        if (product != null && product.LastReadValue != null)
         {
             Regex regex = new Regex(@"\d+\.?\d*C");
-            Match match = regex.Match(product?.LastReadValue);
+            Match match = regex.Match(product.LastReadValue);
             if (match.Success)
             {
                 string temperature = match.Value;
-                text2 = $"Mode: {mode} {temperature}";
-                TryDisplayTextOnLCD(text2, 1);
+                text2 = $"Mode: {_mode} {temperature}";
             }
-            else
-                TryDisplayTextOnLCD(text2, 1);
         }
-        else
-        {
-            TryDisplayTextOnLCD(text2, 1);
-        }
+        TryDisplayTextOnLCD(text2, 1);
     }
-    
 
     private void TryDisplayTextOnLCD(string text, int line)
     {
@@ -185,28 +237,23 @@ public class MainMotionDetectionService : BackgroundService
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Exception caught in main loop: {ex.Message}");
+            _logger.LogError($"Exception caught in main loop: {ex.Message}");
         }
     }
 
     private void OnMotionDetected(object sender, PinValueChangedEventArgs args)
     {
         if (_cts.Token.IsCancellationRequested) return;
-        if(AICamera != null){
-            var videoRecorderService = VideoRecorderService.Instance;
-            videoRecorderService.Initialize(_serviceProvider);
 
-            if (!videoRecorderService.IsRecordingVideo)
-            {
-                Task.Run(() => videoRecorderService.Record());
-            }
+        if (AICamera != null && !_videoRecorderService.IsRecordingVideo)
+        {
+            Task.Run(() => _videoRecorderService.Record());
         }
-            
-        if(LED != null)
+        if (LED != null)
         {
             _controller.Write(LED.PIN, PinValue.High);
         }
-        if(BUZZ != null)
+        if (BUZZ != null)
         {
             _controller.Write(BUZZ.PIN, PinValue.High);
         }
@@ -217,27 +264,15 @@ public class MainMotionDetectionService : BackgroundService
     {
         if (_cts.Token.IsCancellationRequested) return;
 
-        var time = DateTime.Now;
-        // using (var scope = _serviceProvider.CreateScope())
-        // {
-        //     var _dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            if(LED != null)
-            {
-                //LED.LastSuccessActivity = time;
-                //dbContext.Entry(LED).State = EntityState.Modified;
-                _controller.Write(LED.PIN, PinValue.Low);
-            }
-            if(BUZZ != null)
-            {
-                //BUZZ.LastSuccessActivity = time;
-                //_dbContext.Entry(BUZZ).State = EntityState.Modified;
-                _controller.Write(BUZZ.PIN, PinValue.Low);
-            }
-            _logger.LogInformation("Motion ended: LED and BUZZER are OFF");
-            // PIR.LastReadValue = "Detected!!!";
-            // PIR.LastSuccessActivity = time;
-            // _dbContext.Entry(PIR).State = EntityState.Modified;
-            // _dbContext.SaveChanges();
-        //}
+        if (LED != null)
+        {
+            _controller.Write(LED.PIN, PinValue.Low);
+        }
+        if (BUZZ != null)
+        {
+            _controller.Write(BUZZ.PIN, PinValue.Low);
+        }
+        _logger.LogInformation("Motion ended: LED and BUZZER are OFF");
     }
 }
+

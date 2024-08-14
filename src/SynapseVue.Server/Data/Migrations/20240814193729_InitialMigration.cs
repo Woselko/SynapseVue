@@ -322,9 +322,10 @@ namespace SynapseVue.Server.Data.Migrations
                     { 2, 4, 1307708817408000120L, "Led diode", "", 1307708817408000120L, "LED-main", 17 },
                     { 3, 6, 1307673427968000120L, "Buzzer for sound generating", "", 1307708817408000120L, "Buzzer-main", 23 },
                     { 4, 1, 1307708817408000120L, "DHT Temperature and humidity reader", "", 1307708817408000120L, "DHT22Sensor-main", 27 },
-                    { 5, 5, 1307708817408000120L, "Display, no pin needed", "", 1307708817408000120L, "Display-main", 0 },
-                    { 6, 7, 1307675197440000120L, "Camera connected to PCI slot 0, no pin needed", "", 1307708817408000120L, "Camera0-AI-main", 0 },
-                    { 7, 7, 1307691122688000120L, "Camera connected to PCI slot 1, no pin needed", "", 1307708817408000120L, "Camera1-SERVER-main", 0 }
+                    { 5, 8, 1307708817408000120L, "RFIF sensor for mode change", "", 1307708817408000120L, "RFID-main", 25 },
+                    { 6, 5, 1307708817408000120L, "Display, no pin needed", "", 1307708817408000120L, "Display-main", 0 },
+                    { 7, 7, 1307675197440000120L, "Camera connected to PCI slot 0, no pin needed", "", 1307708817408000120L, "Camera0-AI-main", 0 },
+                    { 8, 7, 1307691122688000120L, "Camera connected to PCI slot 1, no pin needed", "", 1307708817408000120L, "Camera1-SERVER-main", 0 }
                 });
 
             migrationBuilder.CreateIndex(

@@ -14,59 +14,59 @@ using FluentEmail.Core;
 
 namespace SynapseVue.Server.Services;
 
-public class MainVideoAnalyzer
+public partial class MainVideoAnalyzer
 {
-    public static MainVideoAnalyzer Instance => _instance.Value;
-    private static readonly Lazy<MainVideoAnalyzer> _instance = new Lazy<MainVideoAnalyzer>(() => new MainVideoAnalyzer());
-    private AppSettings _appSettings;
-    private IServiceProvider _serviceProvider;
+    private readonly IDbContextFactory<AppDbContext> _dbContextFactory;
+    private readonly IServiceProvider _serviceProvider;
+    private readonly ILogger<MainVideoAnalyzer> _logger;
     private List<Video> _videos;
-    private bool isProcessing = false;
+    private bool _isProcessing = false;
 
-    private MainVideoAnalyzer() { }
-
-    public void Initialize(AppSettings appSettings, IServiceProvider serviceProvider)
+    public MainVideoAnalyzer(IDbContextFactory<AppDbContext> dbContextFactory, IServiceProvider serviceProvider, ILogger<MainVideoAnalyzer> logger)
     {
-        _appSettings = appSettings;
+        _dbContextFactory = dbContextFactory;
         _serviceProvider = serviceProvider;
+        _logger = logger;
     }
 
     public void ProcessVideo()
     { 
-        if(isProcessing)
+        if (_isProcessing)
         {
-            Console.WriteLine("Is actively processing.");
+            _logger.LogInformation("Is actively processing.");
             return;
         }
-        using (var scope = _serviceProvider.CreateScope())
+    
+        using (var context = _dbContextFactory.CreateDbContext())
         {
-            var DbService = scope.ServiceProvider.GetRequiredService<DataCollectorDbService>();
-            _videos = DbService._context.Videos.Where(x => x.IsProcessed == false).ToList();
+            _videos = context.Videos.Where(x => x.IsProcessed == false).ToList();
         }
-        if(_videos.Count == 0)
+    
+        if (_videos.Count == 0)
         {
-            Console.WriteLine("No video to process.");
+            _logger.LogInformation("No video to process.");
+            return;
         }
-        else
+    
+        _isProcessing = true;
+        var vidToAnalyze = _videos.Last();
+        try
         {
-            isProcessing = true;
-            var vidToAnalyze = _videos.Last();
-            try
-            {
-                AnalyzeVideo(ref vidToAnalyze);
-                ConvertAviToMp4(ref vidToAnalyze);
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine("Fail during processing video");
-                isProcessing = false;
-                return;
-            }
+            AnalyzeVideo(ref vidToAnalyze);
+            ConvertAviToMp4(ref vidToAnalyze);
             SaveToDatabase(ref vidToAnalyze);
-            isProcessing = false;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Fail during processing video");
+            throw;
+        }
+        finally
+        {
+            _isProcessing = false;
         }
     }
-
+    
     private void AnalyzeVideo(ref Video vidToAnalyze)
     {
         vidToAnalyze.DetectedObjects = "";
@@ -75,17 +75,17 @@ public class MainVideoAnalyzer
         var classLabels = File.ReadAllLines("coco.names");
         net.SetPreferableBackend(Emgu.CV.Dnn.Backend.OpenCV);
         net.SetPreferableTarget(Emgu.CV.Dnn.Target.Cpu);
-
+    
         if (!File.Exists(vidToAnalyze.FilePath))
         {
-            Console.WriteLine("Video file not found.");
+            _logger.LogWarning("Video file not found: {FilePath}", vidToAnalyze.FilePath);
             return;
         }
-
+    
         VideoCapture vc = new VideoCapture(vidToAnalyze.FilePath);
         Mat frame = new();
         VectorOfMat output = new();
-
+    
         while (true)
         {
             if (!vc.Read(frame) || frame.IsEmpty)
@@ -93,29 +93,29 @@ public class MainVideoAnalyzer
                 // If there are no more frames, break out of the loop
                 break;
             }
-
+    
             CvInvoke.Resize(frame, frame, new System.Drawing.Size(0, 0), .4, .4);
-
+    
             var image = frame.ToImage<Bgr, byte>();
             var input = DnnInvoke.BlobFromImage(image, 1 / 255.0, swapRB: true);
             net.SetInput(input);
             net.Forward(output, net.UnconnectedOutLayersNames);
-
+    
             for (int i = 0; i < output.Size; i++)
             {
                 var mat = output[i];
                 var data = (float[,])mat.GetData();
-
+    
                 for (int j = 0; j < data.GetLength(0); j++)
                 {
                     float[] row = Enumerable.Range(0, data.GetLength(1))
                                   .Select(x => data[j, x])
                                   .ToArray();
-
+    
                     var rowScore = row.Skip(5).ToArray();
                     var classId = rowScore.ToList().IndexOf(rowScore.Max());
                     var confidence = rowScore[classId];
-
+    
                     if (confidence > 0.8f)
                     {
                         var text = classLabels[classId];
@@ -134,29 +134,60 @@ public class MainVideoAnalyzer
             }
         }
     }
-
+    
     private void SendEmail(ref Video vidToAnalyze)
     {
-        var body = $"Person detected in video: {vidToAnalyze.Name}, probably is processed and saved in .mp4 format. \r\n Detected objects: {vidToAnalyze.DetectedObjects} \r\n created at: {vidToAnalyze.CreatedAt}";  
-        using (var scope = _serviceProvider.CreateScope())
+        using (var context = _dbContextFactory.CreateDbContext())
         {
-            IFluentEmail fluentEmail = scope.ServiceProvider.GetRequiredService<IFluentEmail>();
-            var result = fluentEmail
-                .To(_appSettings.EmailSettings.DefaultToEmail, _appSettings.EmailSettings.DefaultToEmail)
-                .Subject(vidToAnalyze.Name + " - person detected!! " + vidToAnalyze.CreatedAt)
-                .Body(body, isHtml: true)
-                .SendAsync().Result;
+            var users = context.Users.ToList();
+    
+            if (users == null || users.Count == 0)
+            {
+                _logger.LogInformation("No users found to send emails.");
+                return;
+            }
+    
+            var body = $"Person detected in video: {vidToAnalyze.Name}, probably is processed and saved in .mp4 format. \r\n Detected objects: {vidToAnalyze.DetectedObjects} \r\n created at: {vidToAnalyze.CreatedAt}";
+    
+            foreach (var user in users)
+            {
+                FluentEmail.Core.Models.SendResponse result = null;
+                try
+                {
+                    using (var scope = _serviceProvider.CreateScope())
+                    {
+                        IFluentEmail fluentEmail = scope.ServiceProvider.GetRequiredService<IFluentEmail>();
+                        result = fluentEmail
+                            .To(user.Email, user.UserName)
+                            .Subject(vidToAnalyze.Name + " - person detected!! " + vidToAnalyze.CreatedAt)
+                            .Body(body, isHtml: true)
+                            .SendAsync().Result;
+                    }
+    
+                    if (result.Successful)
+                    {
+                        _logger.LogInformation($"Email sent to {user.Email}");
+                    }
+                    else
+                    {
+                        _logger.LogWarning($"Failed to send email to {user.Email}: {result.ErrorMessages}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, $"Exception while sending email to {user.Email}");
+                }
+            }
         }
     }
-
+    
     private void ConvertAviToMp4(ref Video vidToAnalyze)
     {
         string inputFilePath = vidToAnalyze.FilePath;
         string outputFilePath = Path.ChangeExtension(inputFilePath, ".mp4");
-
+    
         try
         {
-            // Prepare the ffmpeg process start information
             var startInfo = new ProcessStartInfo
             {
                 FileName = "ffmpeg",
@@ -166,27 +197,23 @@ public class MainVideoAnalyzer
                 UseShellExecute = false,
                 CreateNoWindow = true
             };
-
-            // Start the ffmpeg process
+    
             using (var process = new Process { StartInfo = startInfo })
             {
                 process.Start();
                 process.WaitForExit();
-
-                // Check if the process completed successfully
+    
                 if (process.ExitCode != 0)
                 {
                     string error = process.StandardError.ReadToEnd();
-                    Console.WriteLine($"ffmpeg failed with error: {error}");
+                    _logger.LogError($"ffmpeg failed with error: {error}");
                     throw new Exception("ffmpeg conversion failed");
                 }
             }
-
-            // If the conversion was successful, delete the original .avi file
+    
             if (File.Exists(outputFilePath))
             {
                 File.Delete(inputFilePath);
-                // Update the video object to point to the new file
                 vidToAnalyze.FilePath = outputFilePath;
             }
             else
@@ -196,10 +223,24 @@ public class MainVideoAnalyzer
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error during video conversion: {ex.Message}");
+            _logger.LogError(ex, $"Error during video conversion: {ex.Message}");
             throw;
         }
     }
+    
+    private void SaveToDatabase(ref Video video)
+    {
+        using (var context = _dbContextFactory.CreateDbContext())
+        {
+            video.IsProcessed = true;
+            video.Name = video.Name.Replace(".avi", ".mp4");
+            video.FileSize = new FileInfo(video.FilePath).Length;
+            context.Entry(video).State = EntityState.Modified;
+            context.SaveChanges();
+        }
+    }
+
+}
 
     // private void AnalyzeVideo(ref Video vidToAnalyze)
     // {
@@ -276,16 +317,4 @@ public class MainVideoAnalyzer
     //     }
     // }
 
-    private void SaveToDatabase(ref Video video)
-    {
-        using (var scope = _serviceProvider.CreateScope())
-        {
-            video.IsProcessed = true;
-            video.Name = video.Name.Replace(".avi", ".mp4");
-            video.FileSize = new FileInfo(video.FilePath).Length;
-            var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            dbContext.Entry(video).State = EntityState.Modified;
-            dbContext.SaveChanges();
-        }
-    }
-}
+

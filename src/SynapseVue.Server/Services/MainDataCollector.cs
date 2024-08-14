@@ -9,31 +9,30 @@ namespace SynapseVue.Server.Services;
 
 public class MainDataCollector
 {
-    public static MainDataCollector Instance => _instance.Value;
-    private static readonly Lazy<MainDataCollector> _instance = new Lazy<MainDataCollector>(() => new MainDataCollector());
-    private AppSettings _appSettings;
-    private IServiceProvider _serviceProvider;
-    private List<Product> CustomerDevices;
-    private List<Category> Categories;
+    private readonly IDbContextFactory<AppDbContext> _dbContextFactory;
+    private List<Product> _customerDevices;
+    private List<Category> _categories;
 
-    private MainDataCollector() { }
-
-    public void Initialize(AppSettings appSettings, IServiceProvider serviceProvider)
+    public MainDataCollector(IDbContextFactory<AppDbContext> dbContextFactory)
     {
-        _appSettings = appSettings;
-        _serviceProvider = serviceProvider;
-        using (var scope = _serviceProvider.CreateScope())
+        _dbContextFactory = dbContextFactory;
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        using (var context = _dbContextFactory.CreateDbContext())
         {
-            var dataCollectorDbService = scope.ServiceProvider.GetRequiredService<DataCollectorDbService>();
-            CustomerDevices = dataCollectorDbService._context.Products.ToList();
-            Categories = dataCollectorDbService._context.Categories.ToList();
+            _customerDevices = context.Products.ToList();
+            _categories = context.Categories.ToList();
         }
     }
 
     public void CollectData()
-    { 
+    {
         Console.WriteLine($"CollectData method executed at {DateTime.Now}");
-        foreach (var device in CustomerDevices)
+
+        foreach (var device in _customerDevices)
         {
             try
             {
@@ -44,21 +43,19 @@ public class MainDataCollector
             {
                 continue;
             }
-
         }
     }
 
     private void SaveToDatabase(Product device, DateTime time, string value)
     {
-        using (var scope = _serviceProvider.CreateScope())
+        using (var context = _dbContextFactory.CreateDbContext())
         {
-            var dataCollectorDbService = scope.ServiceProvider.GetRequiredService<DataCollectorDbService>();
-            var toUpdate = dataCollectorDbService._context.Products.FirstOrDefault(x => x.Id == device.Id);
+            var toUpdate = context.Products.FirstOrDefault(x => x.Id == device.Id);
             if (toUpdate != null)
             {
                 toUpdate.LastReadValue = value;
                 toUpdate.LastSuccessActivity = time;
-                dataCollectorDbService._context.SaveChanges();
+                context.SaveChanges();
             }
         }
     }
@@ -75,7 +72,6 @@ public class MainDataCollector
         }
     }
 
-    #region DHT22
     private (double humidity, double temperature, DateTime time)? ReadDht22TempAndHumidity(Product device)
     {
         (double humidity, double temperature)? tempAndHumidity = null;
@@ -86,11 +82,12 @@ public class MainDataCollector
             tempAndHumidity = dht22.ReadDht22();
             attemptCount++;
         }
+
         DateTime time = DateTime.Now;
         if (tempAndHumidity != null)
-        {  
+        {
             (double humidity, double temperature) = tempAndHumidity.Value;
-            Console.WriteLine(temperature + "C degrees, " + humidity + "% humidity " + time.ToShortDateString() + " " + time.ToShortTimeString());
+            Console.WriteLine($"{temperature}C degrees, {humidity}% humidity at {time.ToShortDateString}");
             return (humidity, temperature, time);
         }
         else
@@ -107,5 +104,4 @@ public class MainDataCollector
         var humidity = Math.Round(data.Value.humidity, 1);
         return ($"{temp}C degrees {humidity}% humidity", data.Value.time);
     }
-    #endregion
 }

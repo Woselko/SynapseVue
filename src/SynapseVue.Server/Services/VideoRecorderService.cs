@@ -18,30 +18,28 @@ namespace SynapseVue.Server.Services;
 
 public class VideoRecorderService
 {
-    private static readonly Lazy<VideoRecorderService> _instance = new Lazy<VideoRecorderService>(() => new VideoRecorderService());
-    private bool isRecordingVideo = false;
-    private IServiceProvider _serviceProvider;
+    private readonly IDbContextFactory<AppDbContext> _dbContextFactory;
+    private bool _isRecordingVideo = false;
 
-    private VideoRecorderService() { }
-
-    public static VideoRecorderService Instance => _instance.Value;
-
-    public void Initialize(IServiceProvider serviceProvider)
+    public VideoRecorderService(IDbContextFactory<AppDbContext> dbContextFactory)
     {
-        _serviceProvider = serviceProvider;
+        _dbContextFactory = dbContextFactory;
     }
 
-    public bool IsRecordingVideo => isRecordingVideo;
+    public bool IsRecordingVideo => _isRecordingVideo;
 
     public async Task Record(int seconds = 15)
     {
-        if (isRecordingVideo)
+        if (_isRecordingVideo)
         {
             return;
         }
+
         string videoName = $"MotionDetect_{DateTime.Now:ddMMyyyy_HHmm}.avi";
         var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "videos", videoName);
-        Video video = new Video(){
+
+        var video = new Video
+        {
             Name = videoName,
             IsPersonDetected = false,
             DetectedObjects = "nothing",
@@ -51,7 +49,7 @@ public class VideoRecorderService
             FileSize = 0
         };
 
-        VideoSettings Settings = new H264()
+        var settings = new H264
         {
             Camera = 0,
             Width = 1280,
@@ -64,20 +62,22 @@ public class VideoRecorderService
             Framerate = 15,
         };
 
-        isRecordingVideo = true;
-        ProcessStartInfo CaptureStartInfo = RaspCameraLibrary.Video.CaptureStartInfo(Settings);
-        Process? CaptureProcess = null;
+        _isRecordingVideo = true;
+
+        var captureStartInfo = RaspCameraLibrary.Video.CaptureStartInfo(settings);
+        Process? captureProcess = null;
+
         try
         {
-            CaptureProcess = Process.Start(CaptureStartInfo);
+            captureProcess = Process.Start(captureStartInfo);
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
-            isRecordingVideo = false;
+            _isRecordingVideo = false;
             return;
         }
-        
+
         try
         {
             await Task.Delay(TimeSpan.FromSeconds(seconds));
@@ -88,17 +88,23 @@ public class VideoRecorderService
         }
         finally
         {
-            CaptureProcess.Kill();
-            isRecordingVideo = false;
-            if(File.Exists(video.FilePath)){
+            if (captureProcess != null && !captureProcess.HasExited)
+            {
+                captureProcess.Kill();
+            }
+
+            _isRecordingVideo = false;
+
+            if (File.Exists(video.FilePath))
+            {
                 video.FileSize = new FileInfo(video.FilePath).Length;
-                using (var scope = _serviceProvider.CreateScope())
+                using (var context = _dbContextFactory.CreateDbContext())
                 {
-                    var _dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                    _dbContext.Videos.Add(video);
-                    _dbContext.SaveChanges();
+                    context.Videos.Add(video);
+                    context.SaveChanges();
                 }
             }
         }
     }
 }
+

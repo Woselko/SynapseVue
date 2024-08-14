@@ -10,7 +10,7 @@ using SynapseVue.Server.Data;
 namespace SynapseVue.Server.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240804151909_InitialMigration")]
+    [Migration("20240814193729_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -552,6 +552,17 @@ namespace SynapseVue.Server.Data.Migrations
                         new
                         {
                             Id = 5,
+                            CategoryId = 8,
+                            CreatedOn = 1307708817408000120L,
+                            Description = "RFIF sensor for mode change",
+                            LastReadValue = "",
+                            LastSuccessActivity = 1307708817408000120L,
+                            Name = "RFID-main",
+                            PIN = 25
+                        },
+                        new
+                        {
+                            Id = 6,
                             CategoryId = 5,
                             CreatedOn = 1307708817408000120L,
                             Description = "Display, no pin needed",
@@ -562,7 +573,7 @@ namespace SynapseVue.Server.Data.Migrations
                         },
                         new
                         {
-                            Id = 6,
+                            Id = 7,
                             CategoryId = 7,
                             CreatedOn = 1307675197440000120L,
                             Description = "Camera connected to PCI slot 0, no pin needed",
@@ -573,7 +584,7 @@ namespace SynapseVue.Server.Data.Migrations
                         },
                         new
                         {
-                            Id = 7,
+                            Id = 8,
                             CategoryId = 7,
                             CreatedOn = 1307691122688000120L,
                             Description = "Camera connected to PCI slot 1, no pin needed",

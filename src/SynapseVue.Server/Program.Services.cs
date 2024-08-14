@@ -70,7 +70,7 @@ public static partial class Program
                 };
             });
 
-        services.AddDbContextPool<AppDbContext>(options =>
+        services.AddDbContextFactory<AppDbContext>(options =>
         {
             options.EnableSensitiveDataLogging(env.IsDevelopment())
                 .EnableDetailedErrors(env.IsDevelopment());
@@ -130,39 +130,15 @@ public static partial class Program
 
     private static void AddDataCollectorFromSensors(WebApplicationBuilder builder)
     {
-        var appSettings = builder.Configuration.GetSection(nameof(AppSettings)).Get<AppSettings>()!;
-        GlobalConfiguration.Configuration
-            .UseMemoryStorage();
-
+        GlobalConfiguration.Configuration.UseMemoryStorage();
         builder.Services.AddHangfire(config => config.UseMemoryStorage());
         builder.Services.AddHangfireServer();
-        builder.Services.AddScoped<DataCollectorDbService>();
 
-        // Rejestracja MainDataCollector jako Singleton
-        builder.Services.AddSingleton<MainDataCollector>(serviceProvider =>
-        {
-            var appSettings = builder.Configuration.GetSection("AppSettings").Get<AppSettings>(); // Pobieranie AppSettings
-            // Tworzymy instancję MainDataCollector
-            var mainDataCollector = MainDataCollector.Instance;
-            // Inicjalizujemy MainDataCollector z AppSettings, ale nie z DataCollectorDbService
-            mainDataCollector.Initialize(appSettings, serviceProvider);
-            return mainDataCollector;
-        });
-
-        // Rejestracja MainVideoAnalyzer jako Singleton
-        builder.Services.AddSingleton<MainVideoAnalyzer>(serviceProvider =>
-        {
-            var appSettings = builder.Configuration.GetSection("AppSettings").Get<AppSettings>(); // Pobieranie AppSettings
-            // Tworzymy instancję MainVideoAnalyzer
-            var mainDataCollector = MainVideoAnalyzer.Instance;
-            // Inicjalizujemy MainVideoAnalyzer z AppSettings
-            mainDataCollector.Initialize(appSettings, serviceProvider);
-            return mainDataCollector;
-        });
-
-
+        builder.Services.AddSingleton<MainDataCollector>();
+        builder.Services.AddSingleton<MainVideoAnalyzer>();
+        builder.Services.AddSingleton<VideoRecorderService>();
         builder.Services.AddSingleton<MainMotionDetectionService>();
-        builder.Services.AddHostedService(provider => provider.GetService<MainMotionDetectionService>());
+        builder.Services.AddHostedService(provider => provider.GetRequiredService<MainMotionDetectionService>());
     }
 
     private static void AddBlazor(WebApplicationBuilder builder)

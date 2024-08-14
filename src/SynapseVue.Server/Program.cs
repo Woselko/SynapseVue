@@ -27,11 +27,8 @@ public static partial class Program
 
         app.MapHangfireDashboardWithAuthorizationPolicy("");
 
-        RecurringJob.AddOrUpdate("DataCollecting", () =>
-           MainDataCollector.Instance.CollectData(), Cron.Minutely);
-
-        RecurringJob.AddOrUpdate("VideoProcessing", () =>
-           MainVideoAnalyzer.Instance.ProcessVideo(), Cron.Minutely);
+        RecurringJob.AddOrUpdate<MainDataCollector>("DataCollecting", collector => collector.CollectData(), Cron.Minutely);
+        RecurringJob.AddOrUpdate<MainVideoAnalyzer>("VideoProcessing", analyzer => analyzer.ProcessVideo(), Cron.Minutely);
 
         app.ConfiureMiddlewares();
 
