@@ -186,8 +186,8 @@
   <data name="EditProfileTitle" xml:space="preserve">
     <value>ویرایش پروفایل</value>
   </data>
-  <data name="OfflineEditProfileTitle" xml:space="preserve">
-    <value>ویرایش پروفایل آفلاین</value>
+  <data name="NotFoundText" xml:space="preserve">
+    <value>چیزی پیدا نشد.</value>
   </data>
   <data name="FullName" xml:space="preserve">
     <value>نام کامل</value>
@@ -454,24 +454,6 @@
   <data name="AboutTitle" xml:space="preserve">
     <value>درباره</value>
   </data>
-  <data name="TodoAddPlaceholder" xml:space="preserve">
-    <value>افزودن یک کار</value>
-  </data>
-  <data name="NoTodos" xml:space="preserve">
-    <value>هنوز کاری ثبت نشده</value>
-  </data>
-  <data name="TodoSearchPlaceholder" xml:space="preserve">
-    <value>جستجو در کارها...</value>
-  </data>
-  <data name="ToDoItemCouldNotBeFound" xml:space="preserve">
-    <value>کار پیدا نشد</value>
-  </data>
-  <data name="TodoTitle" xml:space="preserve">
-    <value>کار</value>
-  </data>
-  <data name="DeleteTodoItem" xml:space="preserve">
-    <value>حذف کار</value>
-  </data>
   <data name="ProductsCount" xml:space="preserve">
     <value>تعداد محصولات</value>
   </data>
@@ -489,6 +471,12 @@
   </data>
   <data name="TotalProducts" xml:space="preserve">
     <value>تعداد محصولات</value>
+  </data>
+  <data name="Mode" xml:space="preserve">
+    <value>وضع</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>نظام</value>
   </data>
   <data name="EditCategory" xml:space="preserve">
     <value>ویرایش دسته</value>
@@ -559,12 +547,6 @@
   <data name="DeleteProduct" xml:space="preserve">
     <value>حذف محصول</value>
   </data>
-  <data name="Mode" xml:space="preserve">
-    <value>وضع</value>
-  </data>
-  <data name="System" xml:space="preserve">
-    <value>نظام</value>
-  </data>
   <data name="CategoryCouldNotBeFound" xml:space="preserve">
     <value>دسته مورد نظر پیدا نشد</value>
   </data>
@@ -579,9 +561,6 @@
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>داشبورد</value>
-  </data>
-  <data name="NotFoundText" xml:space="preserve">
-    <value>چیزی پیدا نشد.</value>
   </data>
   <data name="Video" xml:space="preserve">
     <value>Video</value>
@@ -615,5 +594,35 @@
   </data>
   <data name="Size" xml:space="preserve">
     <value>مقاس</value>
+  </data>
+  <data name="OfflineEditProfileTitle" xml:space="preserve">
+    <value>ویرایش پروفایل آفلاین</value>
+  </data>
+  <data name="TodoAddPlaceholder" xml:space="preserve">
+    <value>افزودن یک کار</value>
+  </data>
+  <data name="NoTodos" xml:space="preserve">
+    <value>هنوز کاری ثبت نشده</value>
+  </data>
+  <data name="TodoSearchPlaceholder" xml:space="preserve">
+    <value>جستجو در کارها...</value>
+  </data>
+  <data name="ToDoItemCouldNotBeFound" xml:space="preserve">
+    <value>کار پیدا نشد</value>
+  </data>
+  <data name="TodoTitle" xml:space="preserve">
+    <value>کار</value>
+  </data>
+  <data name="DeleteTodoItem" xml:space="preserve">
+    <value>حذف کار</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>قيمة</value>
+  </data>
+  <data name="SystemSettings" xml:space="preserve">
+    <value>إعدادات النظام</value>
+  </data>
+  <data name="DangerZone" xml:space="preserve">
+    <value>منطقة الخطر</value>
   </data>
 </root>

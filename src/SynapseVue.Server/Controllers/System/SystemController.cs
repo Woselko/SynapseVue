@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using SynapseVue.Client.Core.Controllers.System;
 using SynapseVue.Server.Models.System;
 using SynapseVue.Shared.Dtos.System;
@@ -9,34 +9,41 @@ namespace SynapseVue.Server.Controllers;
 [ApiController]
 public partial class SystemController : AppControllerBase, ISystemController
 {
-        [HttpPost]
-        public async Task<SystemStateDto> Reboot()
-        {
-            Task.Run(() =>
-            {
-                var processStartInfo = new ProcessStartInfo
-                {
-                    FileName = "/bin/bash",
-                    Arguments = "-c \"sudo reboot\"",
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
+    [HttpGet, EnableQuery]
+    public IQueryable<SystemStateDto> Get()
+    {
+        return DbContext.SystemStates
+            .Project();
+    }
 
-                using (var process = new Process { StartInfo = processStartInfo })
-                {
-                    process.Start();
-                    process.WaitForExit();
-                }
-            });
-            return new SystemStateDto{Id = 1,Mode = "Rebooting"};
-        }
+    [HttpPost]
+    public async Task<SystemStateDto> Reboot()
+    {
+        Task.Run(() =>
+        {
+            var processStartInfo = new ProcessStartInfo
+            {
+                FileName = "/bin/bash",
+                Arguments = "-c \"sudo reboot\"",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using (var process = new Process { StartInfo = processStartInfo })
+            {
+                process.Start();
+                process.WaitForExit();
+            }
+        });
+        return new SystemStateDto{Id = 1, Property ="Mode", Value = "Rebooting"};
+    }
 
     [HttpGet]
-    public async Task<SystemStateDto> Get(CancellationToken cancellationToken)
+    public async Task<SystemStateDto> GetSystemMode(CancellationToken cancellationToken)
     {
-        var dto = await DbContext.SystemStates.Project().FirstOrDefaultAsync(t => t.Id == 1, cancellationToken);
+        var dto = await DbContext.SystemStates.Project().FirstOrDefaultAsync(t => t.Property == "Mode", cancellationToken);
 
         if (dto is null)
             throw new ResourceNotFoundException(Localizer[nameof(AppStrings.ProductCouldNotBeFound)]);
@@ -44,10 +51,26 @@ public partial class SystemController : AppControllerBase, ISystemController
         return dto;
     }
 
+    [HttpGet]
+    public async Task<PagedResult<SystemStateDto>> GetSystemSettings(ODataQueryOptions<SystemStateDto> odataQuery, CancellationToken cancellationToken)
+    {
+        var query = (IQueryable<SystemStateDto>)odataQuery.ApplyTo(Get(), ignoreQueryOptions: AllowedQueryOptions.Top | AllowedQueryOptions.Skip);
+
+        var totalCount = await query.LongCountAsync(cancellationToken);
+
+        if (odataQuery.Skip is not null)
+            query = query.Skip(odataQuery.Skip.Value);
+
+        if (odataQuery.Top is not null)
+            query = query.Take(odataQuery.Top.Value);
+
+        return new PagedResult<SystemStateDto>(await query.ToArrayAsync(cancellationToken), totalCount);
+    }
+
     [HttpPut]
     public async Task<SystemStateDto> Update(SystemStateDto dto, CancellationToken cancellationToken)
     {
-        if (dto.Mode != "Home" && dto.Mode != "Safe")
+        if (dto.Property=="Mode" && dto.Value != "Home" && dto.Value != "Safe")
             throw new InvalidOperationException("Invalid mode");
 
         var entityToUpdate = await DbContext.SystemStates.FirstOrDefaultAsync(t => t.Id == dto.Id, cancellationToken);
@@ -58,11 +81,11 @@ public partial class SystemController : AppControllerBase, ISystemController
         dto.Patch(entityToUpdate);
 
         await DbContext.SaveChangesAsync(cancellationToken);
-        if (dto.Mode == "Home")
+        if (dto.Property == "Mode" && dto.Value == "Home")
         {
             MainMotionDetectionService.StopMonitoring();
         }
-        else
+        if(dto.Property == "Mode" && dto.Value == "Safe")
         {
             MainMotionDetectionService.StartMonitoring();
         }

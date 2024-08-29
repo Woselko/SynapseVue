@@ -1,42 +1,50 @@
-﻿@page "/system"
+﻿@page "/SystemSettings"
+@using SynapseVue.Shared.Dtos.System
 @inherits AppComponentBase
 
+<h1 class="form-title">System Settings Page</h1>
+<div class="page-container-danger">
+    @if (isLoading)
+    {
+        <div class="loading-contianer">
+            <BitSpinner Size="BitSpinnerSize.Large"></BitSpinner>
+        </div>
+    }
 
-<div class="page-container">
-    <form method="post" class="form">
-        <h1 class="form-title">System Settings Page</h1>
-        @if (isLoading)
-        {
-            <div class="loading-contianer">
-                <BitSpinner Size="BitSpinnerSize.Large"></BitSpinner>
-            </div>
-        }
-        else
-        {
-            <div class="content-container danger-panel">
-                <BitTypography Variant="BitTypographyVariant.H5" 
-                    Style=@safeModeStylesTitle>
-                    Current SynapseVue state: @systemState.Mode
-                </BitTypography>
-                <br />
-                <br />
-                <BitButton ButtonStyle="BitButtonStyle.Standard"
-                           Style=@safeModeStylesLabel
-                           OnClick="ChangeState">
-                           @buttonLabel
-                </BitButton>
-                <br />
-                <br />
-                <BitButton ButtonStyle="BitButtonStyle.Standard"
-                           Style="color: #dc0000; border-color: #dc0000"
-                           OnClick="Reboot">
-                           Reboot System
-                </BitButton>
-            </div>
-        }
-    </form>
+    <div class="grid">
+        <div class="grid-container">
+            <BitDataGrid @ref="dataGrid" ItemsProvider="systemStatesProvider" TGridItem="SystemStateDto" ResizableColumns="true" Pagination="pagination">
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.Id)]" Property="p => p!.Id" Sortable="true" Class="id-col"
+                                           Align="BitDataGridAlign.Left" IsDefaultSort="BitDataGridSortDirection.Ascending" />
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.Name)]" Property="p => p!.Property" Sortable="true" Class="column1">
+                    <ColumnOptions>
+                        <BitSearchBox @bind-Value="SystemStateNameFilter"
+                                      Placeholder="@Localizer[(nameof(AppStrings.SearchOnName))]"
+                                      InputHtmlAttributes="@(new Dictionary<string, object> {{"autofocus", true}})" />
+                    </ColumnOptions>
+                </BitDataGridPropertyColumn>
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.Value)]" Property="p => p!.Value" Sortable="true" Align="BitDataGridAlign.Left" />
+                <BitDataGridPropertyColumn Title="@Localizer[nameof(AppStrings.Description)]" Property="p => p!.Description" Sortable="true" Align="BitDataGridAlign.Left" />
+                <BitDataGridTemplateColumn Title="@Localizer[(nameof(AppStrings.Action))]" Align="BitDataGridAlign.Center" Context="systemState">
+                    @if(systemState.Property != "Mode")
+                    {
+                        <BitIconButton IconName="@BitIconName.Edit" OnClick="() => EditSystemState(systemState!)" Title="@Localizer[(nameof(AppStrings.Edit))]" />
+                    }
+                    else
+                    {
+                        //label that it is editable in danger zone
+                        <BitLabel>@Localizer[(nameof(AppStrings.Edit))] (Danger Zone) </BitLabel>
+                    }
+
+                </BitDataGridTemplateColumn>
+            </BitDataGrid>
+        </div>
+        <BitDataGridPaginator Value="pagination" />
+    </div>
 </div>
 
+<AddOrEditSystemStateModal @ref="modal" OnSave="WrapHandled(RefreshData)" />
+<ConfirmMessageBox @ref=confirmMessageBox />
 @code {
     private string buttonLabel => isSafeMode ? "Switch to Home" : "Switch to Safe";
     private string safeModeStylesTitle => isSafeMode ? "color: #00ac1d;border-bottom: 1px solid #00ac1d" : "color: #dc0000;border-bottom: 1px solid #dc0000";

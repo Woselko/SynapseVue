@@ -598,4 +598,34 @@ Please confirm your email by clicking on the link.</value>
   <data name="Size" xml:space="preserve">
     <value>Size</value>
   </data>
+  <data name="OfflineEditProfileTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TodoAddPlaceholder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NoTodos" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TodoSearchPlaceholder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ToDoItemCouldNotBeFound" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TodoTitle" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DeleteTodoItem" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="SystemSettings" xml:space="preserve">
+    <value>System Settings</value>
+  </data>
+  <data name="DangerZone" xml:space="preserve">
+    <value>Danger Zone</value>
+  </data>
 </root>

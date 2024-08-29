@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RequiredAttribute_ValidationError" xml:space="preserve">
-    <value>Le champ {0} est obligatoire.</value>
-  </data>
   <data name="CompareAttribute_ValidationError" xml:space="preserve">
     <value>« {0} » et « {1} » ne correspondent pas.</value>
   </data>
@@ -135,14 +132,8 @@
   <data name="RangeAttribute_ValidationError" xml:space="preserve">
     <value>Le champ {0} doit être compris entre {1} et {2}.</value>
   </data>
-  <data name="DuplicateEmail" xml:space="preserve">
-    <value>L'e-mail '{0}' est déjà pris.</value>
-  </data>
-  <data name="UserLockedOut" xml:space="preserve">
-    <value>L'utilisateur est verrouillé. Réessayez dans {0}</value>
-  </data>
-  <data name="UserNameNotFound" xml:space="preserve">
-    <value>L'utilisateur {0} n'existe pas.</value>
+  <data name="RequiredAttribute_ValidationError" xml:space="preserve">
+    <value>Le champ {0} est obligatoire.</value>
   </data>
   <data name="BadRequestException" xml:space="preserve">
     <value>Requête invalide</value>
@@ -195,8 +186,8 @@
   <data name="EditProfileTitle" xml:space="preserve">
     <value>Editer le profil</value>
   </data>
-  <data name="OfflineEditProfileTitle" xml:space="preserve">
-    <value>Modifier le profil hors ligne</value>
+  <data name="NotFoundText" xml:space="preserve">
+    <value>Il n'y a rien ici.</value>
   </data>
   <data name="FullName" xml:space="preserve">
     <value>Nom et prénom</value>
@@ -228,15 +219,6 @@
   <data name="UserImageCouldNotBeFound" xml:space="preserve">
     <value>L'image de l'utilisateur est introuvable</value>
   </data>
-  <data name="CategoryCouldNotBeFound" xml:space="preserve">
-    <value>L'entité de catégorie est introuvable</value>
-  </data>
-  <data name="ProductCouldNotBeFound" xml:space="preserve">
-    <value>L'entité du produit est introuvable</value>
-  </data>
-  <data name="CategoryNotEmpty" xml:space="preserve">
-    <value>Cette catégorie contient certains produits, vous ne pouvez donc pas la supprimer</value>
-  </data>
   <data name="Error" xml:space="preserve">
     <value>Erreur</value>
   </data>
@@ -258,35 +240,11 @@
   <data name="Name" xml:space="preserve">
     <value>Nom</value>
   </data>
-  <data name="Category" xml:space="preserve">
-    <value>Catégorie</value>
-  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
   <data name="Price" xml:space="preserve">
     <value>Prix</value>
-  </data>
-  <data name="Categories" xml:space="preserve">
-    <value>Catégories</value>
-  </data>
-  <data name="ProductCategory" xml:space="preserve">
-    <value>Catégorie de produit</value>
-  </data>
-  <data name="Products" xml:space="preserve">
-    <value>Des produits</value>
-  </data>
-  <data name="AreYouSureWannaDeleteCategory" xml:space="preserve">
-    <value>Etes-vous sûr de vouloir supprimer la catégorie {0}</value>
-  </data>
-  <data name="AreYouSureWannaDeleteProduct" xml:space="preserve">
-    <value>Êtes-vous sûr de vouloir supprimer le produit {0}</value>
-  </data>
-  <data name="DeleteCategory" xml:space="preserve">
-    <value>Supprimer la catégorie</value>
-  </data>
-  <data name="DeleteProduct" xml:space="preserve">
-    <value>Supprimer le produit</value>
   </data>
   <data name="YouNeedToSignIn" xml:space="preserve">
     <value>Vous devez être connecté pour continuer.</value>
@@ -300,23 +258,23 @@
   <data name="EmailAlreadyConfirmed" xml:space="preserve">
     <value>Votre email est déjà confirmé.</value>
   </data>
-  <data name="TodoTitle" xml:space="preserve">
-    <value>Faire</value>
-  </data>
   <data name="Title" xml:space="preserve">
     <value>Titre</value>
-  </data>
-  <data name="ToDoItemCouldNotBeFound" xml:space="preserve">
-    <value>L'élément à faire est introuvable</value>
   </data>
   <data name="AreYouSureWannaDelete" xml:space="preserve">
     <value>Etes-vous sûr de vouloir supprimer {0}?</value>
   </data>
-  <data name="DeleteTodoItem" xml:space="preserve">
-    <value>Supprimer l'élément à faire</value>
-  </data>
   <data name="Home" xml:space="preserve">
     <value>Maison</value>
+  </data>
+  <data name="UserLockedOut" xml:space="preserve">
+    <value>L'utilisateur est verrouillé. Réessayez dans {0}</value>
+  </data>
+  <data name="UserNameNotFound" xml:space="preserve">
+    <value>L'utilisateur {0} n'existe pas.</value>
+  </data>
+  <data name="DuplicateEmail" xml:space="preserve">
+    <value>L'e-mail '{0}' est déjà pris.</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>Ajouter</value>
@@ -435,14 +393,74 @@
   <data name="Yes" xml:space="preserve">
     <value>Oui</value>
   </data>
-  <data name="TodoAddPlaceholder" xml:space="preserve">
-    <value>Ajouter une tâche</value>
-  </data>
-  <data name="TodoSearchPlaceholder" xml:space="preserve">
-    <value>Rechercher des choses à faire...</value>
-  </data>
   <data name="SelectBirthDate" xml:space="preserve">
     <value>Sélectionnez votre date de naissance</value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Réinitialiser le mot de passe</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Dos</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="CheckSpamMailMessage" xml:space="preserve">
+    <value>Vérifiez vos spams/indésirables si vous ne les trouvez pas dans la boîte de réception.</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Couleur</value>
+  </data>
+  <data name="CustomColor" xml:space="preserve">
+    <value>Couleur personnalisée</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Identifiant</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Se connecter</value>
+  </data>
+  <data name="SignInAsDifferentUser" xml:space="preserve">
+    <value>Connectez-vous en tant qu'utilisateur différent</value>
+  </data>
+  <data name="YouAreSignInAs" xml:space="preserve">
+    <value>Vous êtes connecté en tant que</value>
+  </data>
+  <data name="ForgotPasswordLink" xml:space="preserve">
+    <value>Mot de passe oublié?</value>
+  </data>
+  <data name="GenderFemale" xml:space="preserve">
+    <value>Femelle</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Souviens-toi de moi?</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Mise à jour</value>
+  </data>
+  <data name="NewVersionIsAvailable" xml:space="preserve">
+    <value>Une nouvelle version est disponible</value>
+  </data>
+  <data name="UpdateToNewVersion" xml:space="preserve">
+    <value>Souhaitez-vous mettre à jour vers la nouvelle version?</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>À propos</value>
+  </data>
+  <data name="ProductsCount" xml:space="preserve">
+    <value>Les produits comptent</value>
+  </data>
+  <data name="Last30DaysProductCount" xml:space="preserve">
+    <value>Nombre de produits des 30 derniers jours</value>
+  </data>
+  <data name="AddProduct" xml:space="preserve">
+    <value>Ajouter un produit</value>
   </data>
   <data name="SelectCategory" xml:space="preserve">
     <value>Choisir une catégorie</value>
@@ -453,6 +471,12 @@
   <data name="TotalProducts" xml:space="preserve">
     <value>Produits totaux</value>
   </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>Système</value>
+  </data>
   <data name="EditCategory" xml:space="preserve">
     <value>Modifier la catégorie</value>
   </data>
@@ -461,12 +485,6 @@
   </data>
   <data name="CategoriesPageTitle" xml:space="preserve">
     <value>Catégories</value>
-  </data>
-  <data name="Mode" xml:space="preserve">
-    <value>Mode</value>
-  </data>
-  <data name="System" xml:space="preserve">
-    <value>Système</value>
   </data>
   <data name="EnterCategoryName" xml:space="preserve">
     <value>Entrez le nom de la catégorie</value>
@@ -501,86 +519,47 @@
   <data name="ProductsPercentagePerCategoryText" xml:space="preserve">
     <value>Ce graphique montre le pourcentage de produits dans chaque catégorie.</value>
   </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>Se connecter</value>
+  <data name="Categories" xml:space="preserve">
+    <value>Catégories</value>
   </data>
-  <data name="SignInAsDifferentUser" xml:space="preserve">
-    <value>Connectez-vous en tant qu'utilisateur différent</value>
+  <data name="ProductCategory" xml:space="preserve">
+    <value>Catégorie de produit</value>
   </data>
-  <data name="YouAreSignInAs" xml:space="preserve">
-    <value>Vous êtes connecté en tant que</value>
+  <data name="Products" xml:space="preserve">
+    <value>Des produits</value>
   </data>
-  <data name="ResetPassword" xml:space="preserve">
-    <value>Réinitialiser le mot de passe</value>
+  <data name="ProductCouldNotBeFound" xml:space="preserve">
+    <value>L'entité du produit est introuvable</value>
   </data>
-  <data name="NoTodos" xml:space="preserve">
-    <value>Aucune tâche pour l'instant</value>
+  <data name="CategoryNotEmpty" xml:space="preserve">
+    <value>Cette catégorie contient certains produits, vous ne pouvez donc pas la supprimer</value>
   </data>
-  <data name="AddProduct" xml:space="preserve">
-    <value>Ajouter un produit</value>
+  <data name="AreYouSureWannaDeleteCategory" xml:space="preserve">
+    <value>Etes-vous sûr de vouloir supprimer la catégorie {0}</value>
   </data>
-  <data name="Action" xml:space="preserve">
-    <value>Action</value>
+  <data name="AreYouSureWannaDeleteProduct" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir supprimer le produit {0}</value>
   </data>
-  <data name="Back" xml:space="preserve">
-    <value>Dos</value>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>Supprimer la catégorie</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Annuler</value>
+  <data name="DeleteProduct" xml:space="preserve">
+    <value>Supprimer le produit</value>
   </data>
-  <data name="CheckSpamMailMessage" xml:space="preserve">
-    <value>Vérifiez vos spams/indésirables si vous ne les trouvez pas dans la boîte de réception.</value>
+  <data name="CategoryCouldNotBeFound" xml:space="preserve">
+    <value>L'entité de catégorie est introuvable</value>
   </data>
-  <data name="Color" xml:space="preserve">
-    <value>Couleur</value>
-  </data>
-  <data name="CustomColor" xml:space="preserve">
-    <value>Couleur personnalisée</value>
+  <data name="Category" xml:space="preserve">
+    <value>Catégorie</value>
   </data>
   <data name="DefaultColorPicker" xml:space="preserve">
     <value>Sélecteur de couleurs par défaut</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Supprimer</value>
-  </data>
-  <data name="Id" xml:space="preserve">
-    <value>Identifiant</value>
-  </data>
-  <data name="ForgotPasswordLink" xml:space="preserve">
-    <value>Mot de passe oublié?</value>
-  </data>
-  <data name="Last30DaysProductCount" xml:space="preserve">
-    <value>Nombre de produits des 30 derniers jours</value>
-  </data>
-  <data name="GenderFemale" xml:space="preserve">
-    <value>Femelle</value>
   </data>
   <data name="EditProduct" xml:space="preserve">
     <value>Modifier le produit</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Tableau de bord</value>
-  </data>
-  <data name="RememberMe" xml:space="preserve">
-    <value>Souviens-toi de moi?</value>
-  </data>
-  <data name="Update" xml:space="preserve">
-    <value>Mise à jour</value>
-  </data>
-  <data name="ProductsCount" xml:space="preserve">
-    <value>Les produits comptent</value>
-  </data>
-  <data name="NewVersionIsAvailable" xml:space="preserve">
-    <value>Une nouvelle version est disponible</value>
-  </data>
-  <data name="UpdateToNewVersion" xml:space="preserve">
-    <value>Souhaitez-vous mettre à jour vers la nouvelle version?</value>
-  </data>
-  <data name="AboutTitle" xml:space="preserve">
-    <value>À propos</value>
-  </data>
-  <data name="NotFoundText" xml:space="preserve">
-    <value>Il n'y a rien ici.</value>
   </data>
   <data name="Video" xml:space="preserve">
     <value>Video</value>
@@ -614,5 +593,35 @@
   </data>
   <data name="Size" xml:space="preserve">
     <value>Taille</value>
+  </data>
+  <data name="OfflineEditProfileTitle" xml:space="preserve">
+    <value>Modifier le profil hors ligne</value>
+  </data>
+  <data name="TodoAddPlaceholder" xml:space="preserve">
+    <value>Ajouter une tâche</value>
+  </data>
+  <data name="NoTodos" xml:space="preserve">
+    <value>Aucune tâche pour l'instant</value>
+  </data>
+  <data name="TodoSearchPlaceholder" xml:space="preserve">
+    <value>Rechercher des choses à faire...</value>
+  </data>
+  <data name="ToDoItemCouldNotBeFound" xml:space="preserve">
+    <value>L'élément à faire est introuvable</value>
+  </data>
+  <data name="TodoTitle" xml:space="preserve">
+    <value>Faire</value>
+  </data>
+  <data name="DeleteTodoItem" xml:space="preserve">
+    <value>Supprimer l'élément à faire</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>valeur</value>
+  </data>
+  <data name="SystemSettings" xml:space="preserve">
+    <value>Paramètres du système</value>
+  </data>
+  <data name="DangerZone" xml:space="preserve">
+    <value>Zone de danger</value>
   </data>
 </root>

@@ -31,7 +31,20 @@ public partial class NavMenu
             {
                 Text = Localizer[nameof(AppStrings.System)],
                 IconName = BitIconName.Settings,
-                Url = "/system",
+                IsExpanded = true,
+                ChildItems =
+                [
+                    new() {
+                        Text = Localizer[nameof(AppStrings.SystemSettings)],
+                        IconName = BitIconName.SettingsSecure,
+                        Url = "/SystemSettings",
+                    },
+                    new() {
+                        Text = Localizer[nameof(AppStrings.DangerZone)],
+                        IconName = BitIconName.Warning,
+                        Url = "/DangerZone",
+                    },
+                ]
             },
             new()
             {
@@ -48,10 +61,12 @@ public partial class NavMenu
                 [
                     new() {
                         Text = Localizer[nameof(AppStrings.Products)],
+                        IconName = BitIconName.Devices2,
                         Url = "/products",
                     },
                     new() {
                         Text = Localizer[nameof(AppStrings.Categories)],
+                        IconName = BitIconName.Devices3,
                         Url = "/categories",
                     },
                     new()

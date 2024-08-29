@@ -1,0 +1,57 @@
+﻿@page "/DangerZone"
+@using SynapseVue.Shared.Dtos.System
+@inherits AppComponentBase
+
+<h1 class="form-title">System Settings (Danger Zone)</h1>
+<div class="page-container-danger">
+    @if (isLoading)
+    {
+        <div class="loading-contianer">
+            <BitSpinner Size="BitSpinnerSize.Large"></BitSpinner>
+        </div>
+    }
+</div>
+<br/>
+<br/>
+<div class="page-container-danger">
+    <form method="post" class="form">
+        @if (isLoading)
+        {
+            <div class="loading-contianer">
+                <BitSpinner Size="BitSpinnerSize.Large"></BitSpinner>
+            </div>
+        }
+        else
+        {
+            <h1 class="form-title">System State</h1>
+            <div class="content-container danger-panel">
+                <BitTypography Variant="BitTypographyVariant.H5" 
+                    Style=@safeModeStylesTitle>
+                    Current SynapseVue state: @systemStateDanger.Value
+                </BitTypography>
+                <br />
+                <br />
+                <BitButton ButtonStyle="BitButtonStyle.Standard"
+                           Style=@safeModeStylesLabel
+                           OnClick="ChangeState">
+                           @buttonLabel
+                </BitButton>
+                <br />
+                <br />
+                <h1 class="form-title">Rebooting System</h1>
+                <BitButton ButtonStyle="BitButtonStyle.Standard"
+                           Style="color: #dc0000; border-color: #dc0000"
+                           OnClick="Reboot">
+                           Reboot System
+                </BitButton>
+            </div>
+        }
+    </form>
+</div>
+<AddOrEditSystemStateModal @ref="modal" OnSave="WrapHandled(RefreshData)" />
+<ConfirmMessageBox @ref=confirmMessageBox />
+@code {
+    private string buttonLabel => isSafeMode ? "Switch to Home" : "Switch to Safe";
+    private string safeModeStylesTitle => isSafeMode ? "color: #00ac1d;border-bottom: 1px solid #00ac1d" : "color: #dc0000;border-bottom: 1px solid #dc0000";
+    private string safeModeStylesLabel => !isSafeMode ? "color: #00ac1d; border-color: #00ac1d" : "color: #dc0000; border-color: #dc0000";
+}

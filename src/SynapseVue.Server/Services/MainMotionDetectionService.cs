@@ -95,10 +95,10 @@ public class MainMotionDetectionService : BackgroundService
                 }
             }
 
-            var state = context.SystemStates.First();
-            _mode = state.Mode;
+            var state = context.SystemStates.First(x=>x.Property == "Mode");
+            _mode = state.Value;
 
-            if (state.Mode == "Home")
+            if (state.Value == "Home")
             {
                 StopMonitoring();
             }
@@ -182,22 +182,22 @@ public class MainMotionDetectionService : BackgroundService
         //chand mode in database and in service
         using (var context = _dbContextFactory.CreateDbContext())
         {
-            var state = context.SystemStates.First();
-            if (state.Mode == "Home")
+            var state = context.SystemStates.First(x=> x.Property == "Mode");
+            if (state.Value == "Home")
             {
                 StartMonitoring();
-                state.Mode = "Safe";
+                state.Value = "Safe";
             }
             else
             {
                 StopMonitoring();
-                state.Mode = "Home";
+                state.Value = "Home";
             }
-            RFID.LastReadValue = $"Mode changed to: {state.Mode}";
+            RFID.LastReadValue = $"Mode changed to: {state.Value}";
             RFID.LastSuccessActivity = DateTime.Now;
             context.Entry(RFID).State = EntityState.Modified;
             context.SaveChanges();
-            _mode = state.Mode;
+            _mode = state.Value;
         }
     }
 

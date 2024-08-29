@@ -6,7 +6,7 @@ using SynapseVue.Shared.Dtos.System;
 namespace SynapseVue.Client.Core.Components.Pages.SystemPage;
 
 [Authorize]
-public partial class SystemPage
+public partial class SystemPageDangerZone
 {
     private bool isLoading = true;
     private bool isSafeMode;

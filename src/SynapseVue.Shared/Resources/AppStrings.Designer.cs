@@ -332,6 +332,15 @@ namespace SynapseVue.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Danger Zone.
+        /// </summary>
+        public static string DangerZone {
+            get {
+                return ResourceManager.GetString("DangerZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dashboard.
         /// </summary>
         public static string Dashboard {
@@ -400,6 +409,15 @@ namespace SynapseVue.Shared.Resources {
         public static string DeleteProduct {
             get {
                 return ResourceManager.GetString("DeleteProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DeleteTodoItem {
+            get {
+                return ResourceManager.GetString("DeleteTodoItem", resourceCulture);
             }
         }
         
@@ -863,11 +881,29 @@ namespace SynapseVue.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NoTodos {
+            get {
+                return ResourceManager.GetString("NoTodos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Haven’t you received the confirmation email?.
         /// </summary>
         public static string NotReceivedConfirmationEmailMessage {
             get {
                 return ResourceManager.GetString("NotReceivedConfirmationEmailMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string OfflineEditProfileTitle {
+            get {
+                return ResourceManager.GetString("OfflineEditProfileTitle", resourceCulture);
             }
         }
         
@@ -1295,6 +1331,15 @@ namespace SynapseVue.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to System Settings.
+        /// </summary>
+        public static string SystemSettings {
+            get {
+                return ResourceManager.GetString("SystemSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is accept terms?.
         /// </summary>
         public static string TermsAccepted {
@@ -1327,6 +1372,42 @@ namespace SynapseVue.Shared.Resources {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string TodoAddPlaceholder {
+            get {
+                return ResourceManager.GetString("TodoAddPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ToDoItemCouldNotBeFound {
+            get {
+                return ResourceManager.GetString("ToDoItemCouldNotBeFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string TodoSearchPlaceholder {
+            get {
+                return ResourceManager.GetString("TodoSearchPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string TodoTitle {
+            get {
+                return ResourceManager.GetString("TodoTitle", resourceCulture);
             }
         }
         
@@ -1435,6 +1516,15 @@ namespace SynapseVue.Shared.Resources {
         public static string UserNameNotFound {
             get {
                 return ResourceManager.GetString("UserNameNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value.
+        /// </summary>
+        public static string Value {
+            get {
+                return ResourceManager.GetString("Value", resourceCulture);
             }
         }
         

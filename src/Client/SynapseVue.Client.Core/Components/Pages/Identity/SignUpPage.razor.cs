@@ -3,6 +3,7 @@ using SynapseVue.Shared.Dtos.Identity;
 
 namespace SynapseVue.Client.Core.Components.Pages.Identity;
 
+[Authorize]
 public partial class SignUpPage
 {
     [AutoInject] IIdentityController identityController = default!;

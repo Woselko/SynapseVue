@@ -1,0 +1,67 @@
+﻿@inherits AppComponentBase
+
+<BitModal @bind-IsOpen="isOpen" IsBlocking="true">
+    <div class="main-container">
+        <div class="header">
+            <span class="title">
+                @if (systemState.Id != 0)
+                {
+                    @Localizer[nameof(AppStrings.Edit)]
+                }
+            </span>
+            <BitIconButton IconName="@BitIconName.ChromeClose" OnClick="OnCloseClick" />
+        </div>
+        <EditForm Model="systemState" OnValidSubmit="WrapHandled(Save)" style="width: 100%; display: flex; flex-direction: column;align-items: center">
+            <AppDataAnnotationsValidator />
+
+            <div class="form-input-container">
+                <BitLabel>@Localizer[(nameof(AppStrings.Name))]</BitLabel>
+                <BitLabel>@systemState.Property</BitLabel>
+            </div>
+
+            <div class="form-input-container">
+                <BitTextField @bind-Value="systemState.Value"
+                              AutoComplete="@BitAutoCompleteValue.Off"
+                              Label="@Localizer[(nameof(AppStrings.Value))]" />
+                <ValidationMessage For="() => systemState.Value" />
+            </div>
+
+            <div class="form-input-container">
+                <BitTextField @bind-Value="systemState.Description"
+                              Rows="3"
+                              IsMultiline="true"
+                              Label="@Localizer[(nameof(AppStrings.Description))]" />
+                <ValidationMessage For="() => systemState.Description" />
+            </div>
+
+            <BitButton IsLoading="isSaving" ButtonType="BitButtonType.Submit">
+                @Localizer[nameof(AppStrings.Save)]
+            </BitButton>
+        </EditForm>
+    </div>
+</BitModal>
+
+<BitModal @bind-IsOpen="isErrorModalOpen" IsBlocking="true">
+    <div class="error-modal-container">
+        <div class="header">
+            <span class="title">@Localizer["Error"]</span>
+            <BitIconButton IconName="@BitIconName.ChromeClose" OnClick="CloseErrorModal" />
+        </div>
+        <div class="content">
+            <p>@errorMessage</p>
+        </div>
+        <div class="footer">
+            <BitButton OnClick="CloseErrorModal">@Localizer["Close"]</BitButton>
+        </div>
+    </div>
+</BitModal>
+
+@code {
+    private bool isErrorModalOpen = false;
+    private string errorMessage = string.Empty;
+
+    private void CloseErrorModal()
+    {
+        isErrorModalOpen = false;
+    }
+}
