@@ -15,8 +15,6 @@ using SynapseVue.Server.Services;
 using SynapseVue.Client.Web;
 using Hangfire;
 using Hangfire.MemoryStorage;
-using RaspSensorLibrary;
-using Microsoft.AspNetCore.Components.Authorization;
 
 namespace SynapseVue.Server;
 
@@ -139,6 +137,12 @@ public static partial class Program
         builder.Services.AddSingleton<VideoRecorderService>();
         builder.Services.AddSingleton<MainMotionDetectionService>();
         builder.Services.AddHostedService(provider => provider.GetRequiredService<MainMotionDetectionService>());
+
+        var configuration = builder.Configuration;
+        var appSettings = configuration.GetSection(nameof(AppSettings)).Get<AppSettings>()!;
+        builder.Services.Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)));
+
+        builder.Services.AddScoped<DashboardAuthorizationFilter>();
     }
 
     private static void AddBlazor(WebApplicationBuilder builder)

@@ -29,19 +29,19 @@ public partial class AuthenticationManager : AuthenticationStateProvider
     {
         await storageService.RemoveItem("access_token");
         await storageService.RemoveItem("refresh_token");
-        //if (AppRenderMode.PrerenderEnabled && AppRenderMode.IsBlazorHybrid is false)
-        //{
+        if (AppRenderMode.PrerenderEnabled && AppRenderMode.IsBlazorHybrid is false)
+        {
             await cookie.Remove("access_token");
-        //}
+        }
         NotifyAuthenticationStateChanged(Task.FromResult(await GetAuthenticationStateAsync()));
     }
 
     public async Task RefreshToken()
     {
-        //if (AppRenderMode.PrerenderEnabled && AppRenderMode.IsBlazorHybrid is false)
-        //{
+        if (AppRenderMode.PrerenderEnabled && AppRenderMode.IsBlazorHybrid is false)
+        {
             await cookie.Remove("access_token");
-        //}
+        }
         await storageService.RemoveItem("access_token");
         NotifyAuthenticationStateChanged(Task.FromResult(await GetAuthenticationStateAsync()));
     }
@@ -92,8 +92,8 @@ public partial class AuthenticationManager : AuthenticationStateProvider
         }
         await storageService.SetItem("access_token", tokenResponseDto!.AccessToken, rememberMe is true);
         await storageService.SetItem("refresh_token", tokenResponseDto!.RefreshToken, rememberMe is true);
-        //if (AppRenderMode.PrerenderEnabled && AppRenderMode.IsBlazorHybrid is false)
-        //{
+        if (AppRenderMode.PrerenderEnabled && AppRenderMode.IsBlazorHybrid is false)
+        {
             await cookie.Set(new()
             {
                 Name = "access_token",
@@ -102,7 +102,7 @@ public partial class AuthenticationManager : AuthenticationStateProvider
                 SameSite = SameSite.Strict,
                 Secure = BuildConfiguration.IsRelease()
             });
-        //}
+        }
     }
 
     private static AuthenticationState NotSignedIn()

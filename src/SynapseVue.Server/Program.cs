@@ -20,12 +20,16 @@ public static partial class Program
 
         builder.ConfigureServices();
         builder.Services.AddControllers();
-
+        var appSettings = builder.Configuration.GetSection(nameof(AppSettings)).Get<AppSettings>()!;
         AddDataCollectorFromSensors(builder);
 
         var app = builder.Build();
 
-        app.MapHangfireDashboardWithAuthorizationPolicy("");
+        app.UseHangfireDashboard("/hangfire", new DashboardOptions
+        {
+            Authorization = new[] { new DashboardAuthorizationFilter(appSettings) }
+        });
+        //app.MapHangfireDashboardWithAuthorizationPolicy("");
 
         RecurringJob.AddOrUpdate<MainDataCollector>("DataCollecting", collector => collector.CollectData(), Cron.Minutely);
         RecurringJob.AddOrUpdate<MainVideoAnalyzer>("VideoProcessing", analyzer => analyzer.ProcessVideo(), Cron.Minutely);

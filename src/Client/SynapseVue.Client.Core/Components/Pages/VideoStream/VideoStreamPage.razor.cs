@@ -51,20 +51,26 @@ public partial class VideoStreamPage
     }
     private async Task StartStream()
     {
-        isStreaming = true; 
+        var access_token = await PrerenderStateService.GetValue(() => AuthTokenProvider.GetAccessTokenAsync());
+        var videoUrl = $"{Configuration.GetApiServerAddress()}api/videostream/get?access_token={access_token}";
+        isStreaming = true;
         //streamTask = FetchVideoStream();
         //await Http.GetAsync("http://localhost:6030/api/videostream/get"); // Ustaw URL endpointa zatrzymania strumieniowania
-        videoSrc = "http://localhost:6030/api/videostream/get"; // Ustaw URL endpointa strumieniowania  
+        //videoSrc = "http://localhost:6030/api/videostream/get"; // Ustaw URL endpointa strumieniowania  
         //await Http.GetAsync("http://10.0.2.2:6030/api/videostream/get"); // Ustaw URL endpointa zatrzymania strumieniowania
         //videoSrc = "http://10.0.2.2:6030/api/videostream/get";
+        videoSrc = videoUrl;
         StateHasChanged();
     }
 
     private async Task StopStream()
     {
         isStreaming = false;
+        var access_token = await PrerenderStateService.GetValue(() => AuthTokenProvider.GetAccessTokenAsync());
+        var videoUrlStop = $"{Configuration.GetApiServerAddress()}api/videostream/stop?access_token={access_token}";
+        await Http.GetAsync(videoUrlStop);
         //cancellationTokenSource.Cancel();
-        await Http.GetAsync("http://localhost:6030/api/videostream/stop"); // Ustaw URL endpointa zatrzymania strumieniowania
+        //await Http.GetAsync("http://localhost:6030/api/videostream/stop"); // Ustaw URL endpointa zatrzymania strumieniowania
         //await Http.GetAsync("http://10.0.2.2:6030/api/videostream/stop"); // Ustaw URL endpointa zatrzymania strumieniowania
         videoSrc = string.Empty;
         StateHasChanged();

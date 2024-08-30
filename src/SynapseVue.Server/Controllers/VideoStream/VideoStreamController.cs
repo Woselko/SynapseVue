@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace SynapseVue.Server.Controllers.VideoStream;
 
 [Route("api/[controller]/[action]")]
-[ApiController, AllowAnonymous]
+[ApiController]
 public partial class VideoStreamController : AppControllerBase, IVideoStreamController
 {
     private static CancellationTokenSource? cancellationTokenSource { get; set; }
