@@ -73,7 +73,7 @@ public partial class NavMenu
                     {
                         Text = Localizer[nameof(AppStrings.Dashboard)],
                         IconName = BitIconName.History,
-                        Url = ""
+                        Url = "/monitoringdashboard"
                     }
                 ]
             },
@@ -138,19 +138,27 @@ public partial class NavMenu
 
         var access_token = await PrerenderStateService.GetValue(() => AuthTokenProvider.GetAccessTokenAsync());
 
-        SetDashboardUrl(access_token);
+        //await PreAutorizeDashboardAsync(access_token);
+        //SetDashboardUrl(access_token);
         profileImageUrlBase = $"{Configuration.GetApiServerAddress()}api/Attachment/GetProfileImage?access_token={access_token}&file=";
 
         SetProfileImageUrl();
     }
 
-    private void SetDashboardUrl(string access_token)
-    {
-        var dashboardUrl = $"{Configuration.GetApiServerAddress()}hangfire?access_token={access_token}";
-        var item = navItems[3].ChildItems.First(x => x.Url == "");
-        item.Url = dashboardUrl;
-        StateHasChanged();
-    }
+    //private async Task PreAutorizeDashboardAsync(string? access_token)
+    //{
+    //    var dashboardUrl = $"{Configuration.GetApiServerAddress()}hangfire?access_token={access_token}";
+    //    //var item = navItems[3].ChildItems.First(x => x.Url == "");
+    //    await HttpClient.GetAsync(dashboardUrl);
+    //}
+
+    //private void SetDashboardUrl(string access_token)
+    //{
+    //    var dashboardUrl = $"{Configuration.GetApiServerAddress()}hangfire?access_token={access_token}";
+    //    var item = navItems[3].ChildItems.First(x => x.Url == "");
+    //    item.Url = dashboardUrl;
+    //    StateHasChanged();
+    //}
 
     private void SetProfileImageUrl()
     {
@@ -172,18 +180,6 @@ public partial class NavMenu
 
     private async Task HandleNavItemClick(BitNavItem item)
     {
-        //if(string.IsNullOrEmpty(item.Url) && item.IconName == BitIconName.History)
-        //{
-        //    await CloseMenu();
-        //    string access_token = await PrerenderStateService.GetValue(() => AuthTokenProvider.GetAccessTokenAsync());
-        //    var dashboardUrl = $"{Configuration.GetApiServerAddress()}hangfire?access_token={access_token}";
-        //    item.Url = dashboardUrl;
-        //    StateHasChanged();
-        //    //navManager.NavigateTo(dashboardUrl);
-        //    return; 
-        //}
-
-
         if (string.IsNullOrEmpty(item.Url)) return;
 
         await CloseMenu();

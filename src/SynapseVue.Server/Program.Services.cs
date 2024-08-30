@@ -128,6 +128,8 @@ public static partial class Program
 
     private static void AddDataCollectorFromSensors(WebApplicationBuilder builder)
     {
+        builder.Services.AddAntiforgery(o => o.SuppressXFrameOptionsHeader = true);
+
         GlobalConfiguration.Configuration.UseMemoryStorage();
         builder.Services.AddHangfire(config => config.UseMemoryStorage());
         builder.Services.AddHangfireServer();

@@ -1,0 +1,14 @@
+﻿@page "/monitoringdashboard"
+@inherits AppComponentBase
+
+
+<div class="page-container">
+    @if (isLoading)
+    {
+        <div class="loading-contianer">
+            <BitSpinner Size="BitSpinnerSize.Large"></BitSpinner>
+        </div>
+    }
+    <iframe src="@url" width="100%" height="500px" sandbox="allow-scripts allow-same-origin"></iframe>
+
+</div>

@@ -25,7 +25,7 @@ public static partial class Program
 
         var app = builder.Build();
 
-        app.UseHangfireDashboard("/hangfire", new DashboardOptions
+        app.MapHangfireDashboard("/hangfire", new DashboardOptions
         {
             Authorization = new[] { new DashboardAuthorizationFilter(appSettings) }
         });
