@@ -25,16 +25,51 @@ public static partial class Program
 
         var app = builder.Build();
 
-        app.MapHangfireDashboard("/hangfire", new DashboardOptions
-        {
-            Authorization = new[] { new DashboardAuthorizationFilter(appSettings) }
-        });
+
+
+        //app.UseHangfireDashboard("/hangfire", new DashboardOptions
+        //{
+        //    Authorization = new[] { new DashboardAuthorizationFilter() },
+        //    AppPath = appSettings.
+        //})
+        //.UseHangfireServer(backgroundJobServerOptions);
+
         //app.MapHangfireDashboardWithAuthorizationPolicy("");
 
-        RecurringJob.AddOrUpdate<MainDataCollector>("DataCollecting", collector => collector.CollectData(), Cron.Minutely);
-        RecurringJob.AddOrUpdate<MainVideoAnalyzer>("VideoProcessing", analyzer => analyzer.ProcessVideo(), Cron.Minutely);
+        //RecurringJob.AddOrUpdate<MainDataCollector>("DataCollecting", collector => collector.CollectData(), Cron.Minutely);
+        //RecurringJob.AddOrUpdate<MainVideoAnalyzer>("VideoProcessing", analyzer => analyzer.ProcessVideo(), Cron.Minutely);
 
         app.ConfiureMiddlewares();
+
+        app.Use((context, next) =>
+        {
+            var pathBase = new PathString(context.Request.Headers["X-Forwarded-Prefix"]);
+            if (pathBase != null)
+                context.Request.PathBase = new PathString(pathBase.Value);
+            return next();
+        });
+        app.UseHangfireDashboard("/hangfire", new DashboardOptions
+        {
+            Authorization = new[] { new DashboardAuthorizationFilter(appSettings) },
+            IgnoreAntiforgeryToken = true,
+            AppPath = "http://localhost:6030"
+        });
+
+        //app.Use((context, next) =>
+        //{
+        //    var pathBase = context.Request.Headers["X-Forwarded-PathBase"];
+        //    if (!string.IsNullOrEmpty(pathBase))
+        //        context.Request.PathBase = new PathString(pathBase);
+        //    return next();
+        //});
+        app.Use((context, next) =>
+        {
+            if (context.Request.Path.StartsWithSegments("/hangfire"))
+            {
+                context.Request.PathBase = new PathString(context.Request.Headers["X-Forwarded-Prefix"]);
+            }
+            return next();
+        });
 
         await app.RunAsync();
     }

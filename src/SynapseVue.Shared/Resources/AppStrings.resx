@@ -628,4 +628,13 @@ Please confirm your email by clicking on the link.</value>
   <data name="DangerZone" xml:space="preserve">
     <value>Danger Zone</value>
   </data>
+  <data name="ProductsManagement" xml:space="preserve">
+    <value>Products Management</value>
+  </data>
+  <data name="UsersManagement" xml:space="preserve">
+    <value>Users Management</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
 </root>

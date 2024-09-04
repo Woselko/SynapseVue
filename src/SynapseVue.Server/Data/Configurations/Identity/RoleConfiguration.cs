@@ -6,7 +6,23 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
 {
     public void Configure(EntityTypeBuilder<Role> builder)
     {
-        builder.Property(role => role.Name).HasMaxLength(50);
+        builder.HasData
+        (
+            new Role
+            {
+                Id = 1,
+                Name = "Admin",
+                NormalizedName = "ADMIN",
+                ConcurrencyStamp = "1"
+            },
+            new Role
+            {
+                Id = 2,
+                Name = "User",
+                NormalizedName = "USER",
+                ConcurrencyStamp = "1"
+            }
+        );
     }
 }
 

@@ -7,7 +7,6 @@ namespace SynapseVue.Client.Core.Components.Pages.MonitoringDashboard;
 [Authorize]
 public partial class MonitoringDashboard
 {
-    [AutoInject] IPhotoController photoController = default!;
     private bool isLoading = true;
     private string url; 
     protected override async Task OnInitAsync()

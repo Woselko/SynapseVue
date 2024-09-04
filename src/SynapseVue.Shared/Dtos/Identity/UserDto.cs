@@ -32,4 +32,11 @@ public class UserDto
     public DateTimeOffset? BirthDate { get; set; }
 
     public string? ProfileImageName { get; set; }
+
+    [Required(ErrorMessage = nameof(IdentityStrings.InvalidRoleName))]
+    [Display(Name = nameof(IdentityStrings.UserAlreadyInRole))]
+    public int? RoleId { get; set; }
+
+    [Display(Name = nameof(IdentityStrings.UserAlreadyInRole))]
+    public string? RoleName { get; set; }
 }

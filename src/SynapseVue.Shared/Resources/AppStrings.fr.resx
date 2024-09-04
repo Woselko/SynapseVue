@@ -624,4 +624,13 @@
   <data name="DangerZone" xml:space="preserve">
     <value>Zone de danger</value>
   </data>
+  <data name="ProductsManagement" xml:space="preserve">
+    <value>Gestion des produits</value>
+  </data>
+  <data name="UsersManagement" xml:space="preserve">
+    <value>Gestion des utilisateurs</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Aide</value>
+  </data>
 </root>

@@ -54,7 +54,7 @@ public partial class NavMenu
             },
             new()
             {
-                Text = Localizer[nameof(AppStrings.ProductCategory)],
+                Text = Localizer[nameof(AppStrings.ProductsManagement)],
                 IconName = BitIconName.Product,
                 IsExpanded = true,
                 ChildItems =
@@ -74,6 +74,12 @@ public partial class NavMenu
                         Text = Localizer[nameof(AppStrings.Dashboard)],
                         IconName = BitIconName.History,
                         Url = "/monitoringdashboard"
+                    },
+                    new()
+                    {
+                        Text = Localizer[nameof(IdentityStrings.ResourceManager)],
+                        IconName = BitIconName.AzureAPIManagement,
+                        Url = "/swagger"
                     }
                 ]
             },
@@ -101,6 +107,18 @@ public partial class NavMenu
                 Text = Localizer[nameof(AppStrings.EditProfileTitle)],
                 IconName = BitIconName.EditContact,
                 Url = "/edit-profile",
+            },
+            new()
+            {
+                Text = Localizer[nameof(AppStrings.UsersManagement)],
+                IconName = BitIconName.EntityExtraction,
+                Url = "/users",
+            },
+            new()
+            {
+                Text = Localizer[nameof(AppStrings.Help)],
+                IconName = BitIconName.EntityExtraction,
+                Url = "/help",
             },
             new()
             {

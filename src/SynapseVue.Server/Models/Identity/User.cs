@@ -1,4 +1,6 @@
-﻿namespace SynapseVue.Server.Models.Identity;
+﻿using SynapseVue.Server.Models.Categories;
+
+namespace SynapseVue.Server.Models.Identity;
 
 public class User : IdentityUser<int>
 {
@@ -19,4 +21,9 @@ public class User : IdentityUser<int>
     public DateTimeOffset? ResetPasswordEmailRequestedOn { get; set; }
 
     public string? DisplayName => FullName ?? NormalizedUserName;
+
+    [ForeignKey(nameof(RoleId))]
+    public Role? Role { get; set; }
+
+    public int RoleId { get; set; }
 }

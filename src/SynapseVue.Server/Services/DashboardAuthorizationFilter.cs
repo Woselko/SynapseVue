@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using Hangfire.Dashboard;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;
@@ -51,6 +52,7 @@ public class DashboardAuthorizationFilter : IDashboardAuthorizationFilter
                 {
                     Expires = DateTime.Now.AddMinutes(30)
                 });
+
     }
 
 
@@ -65,6 +67,8 @@ public class DashboardAuthorizationFilter : IDashboardAuthorizationFilter
         //AppSecureJwtDataFormat appSecureJwtDataFormat = new AppSecureJwtDataFormat(_appSettings, _validationParameters);
         //appSecureJwtDataFormat.Unprotect("access_token");
         _httpContext = context.GetHttpContext();
+        var path = _httpContext.Request.Path.ToString();
+
         string jwtToken = null ;
         if (_httpContext.Request.Query.ContainsKey("access_token"))
         {
@@ -75,10 +79,14 @@ public class DashboardAuthorizationFilter : IDashboardAuthorizationFilter
         {
             jwtToken = _httpContext.Request.Cookies["_hangfireCookie"];
         }
-
+        if (path.Contains("css") || path.Contains("js") || path.Contains("stats"))
+        {
+            return true;
+        }
         if (String.IsNullOrEmpty(jwtToken))
         {
-            return false;
+            if (_httpContext.User.Identity.IsAuthenticated && _httpContext.User.IsInRole("HangfireAdmin"))
+                return true;
         }
 
         var handler = new JwtSecurityTokenHandler();
@@ -88,6 +96,11 @@ public class DashboardAuthorizationFilter : IDashboardAuthorizationFilter
         {
             // Only authenticated users who have the required claim (AzureAD group in this demo) can access the dashboard.
             bool authenticate = jwtSecurityToken.Claims.Any(t => t.Type == "iss" && t.Value == "SynapseVue") && jwtSecurityToken.Claims.Any(t => t.Type == "aud" && t.Value == "SynapseVue");
+            if (authenticate) 
+            {
+                _httpContext.SignInAsync(IdentityConstants.ApplicationScheme, new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, "HangfireAdmin") }, IdentityConstants.ApplicationScheme)));
+            }
+
             return authenticate;
         }
         catch (Exception exception)

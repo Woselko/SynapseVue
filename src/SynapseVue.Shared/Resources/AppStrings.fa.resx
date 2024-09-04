@@ -625,4 +625,13 @@
   <data name="DangerZone" xml:space="preserve">
     <value>منطقة الخطر</value>
   </data>
+  <data name="ProductsManagement" xml:space="preserve">
+    <value>إدارة المنتجات</value>
+  </data>
+  <data name="UsersManagement" xml:space="preserve">
+    <value>إدارة المستخدمين</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>يساعد</value>
+  </data>
 </root>

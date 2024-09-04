@@ -692,6 +692,15 @@ namespace SynapseVue.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        public static string Help {
+            get {
+                return ResourceManager.GetString("Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
@@ -1030,6 +1039,15 @@ namespace SynapseVue.Shared.Resources {
         public static string ProductsCountPerCategoryChartText {
             get {
                 return ResourceManager.GetString("ProductsCountPerCategoryChartText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Products Management.
+        /// </summary>
+        public static string ProductsManagement {
+            get {
+                return ResourceManager.GetString("ProductsManagement", resourceCulture);
             }
         }
         
@@ -1516,6 +1534,15 @@ namespace SynapseVue.Shared.Resources {
         public static string UserNameNotFound {
             get {
                 return ResourceManager.GetString("UserNameNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Users Management.
+        /// </summary>
+        public static string UsersManagement {
+            get {
+                return ResourceManager.GetString("UsersManagement", resourceCulture);
             }
         }
         
