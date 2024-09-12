@@ -16,12 +16,12 @@ public partial class MonitoringDashboard
         await base.OnInitAsync();
         isLoading = false;
         //url = $"{Configuration.GetApiServerAddress()}hangfire";
-        url = $"{Configuration.GetApiServerAddress()}hangfire?access_token={access_token}";
+        url = $"{Configuration.GetApiServerAddress()}hangfire/recurring?access_token={access_token}";
         StateHasChanged();
     }
     private async Task PreAutorizeDashboardAsync(string? access_token)
     {
-        var dashboardUrl = $"{Configuration.GetApiServerAddress()}hangfire?access_token={access_token}";
+        var dashboardUrl = $"{Configuration.GetApiServerAddress()}hangfire/recurring?access_token={access_token}";
         //var item = navItems[3].ChildItems.First(x => x.Url == "");
         var result = await HttpClient.GetAsync(dashboardUrl);
         var json = await result.Content.ReadAsStringAsync();
